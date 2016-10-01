@@ -1,0 +1,15 @@
+export default [
+    'beforeChange',
+    'afterChange',
+    'imageLoadComplete',
+    'resize',
+    'initialZoomIn',
+    'initialZoomInEnd',
+    'initialZoomOut',
+    'initialZoomOutEnd',
+    'close',
+    'unbindEvents',
+    'destroy',
+    'updateScrollOffset',
+    'preventDragEvent',
+];

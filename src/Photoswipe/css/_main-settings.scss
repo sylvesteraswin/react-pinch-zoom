@@ -1,0 +1,10 @@
+$base: zvui-pinch;
+$zvui__show-hide-transition-duration: 333ms !default;
+$zvui__controls-transition-duration: 333ms !default;
+$zvui__background-color: #000 !default;
+$zvui__placeholder-color: #222 !default;
+$zvui__box-sizing-border-box: true !default; // disable .zvui * { box-sizing:border-box } (in case you already have it in your site css)
+$zvui__root-z-index: 1500 !default;
+$zvui__assets-path: '' !default; // path to skin assets folder (preloader, PNG and SVG sprite)
+$zvui__error-text-color: #CCC !default; // "Image not loaded" text color
+$zvui__include-minimal-style: true !default;
