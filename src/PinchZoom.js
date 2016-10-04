@@ -1,4 +1,4 @@
-import {PropTypes, Component} from 'react';
+import React, {PropTypes, Component} from 'react';
 import ZVUIPinch from '../lib/photoswipe.js';
 import ZVUIPinch_Default from '../lib/photoswipe-ui-default.js';
 import classnames from 'classnames';
