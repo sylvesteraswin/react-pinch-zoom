@@ -1,17 +1,18 @@
 //function(template, UiClass, items, options)
 
-var self = this;
+const self = this;
 
 /**
  * Static vars, don't change unless you know what you're doing.
  */
-var DOUBLE_TAP_RADIUS = 25,
-  NUM_HOLDERS = 3;
+const DOUBLE_TAP_RADIUS = 25;
+
+const NUM_HOLDERS = 3;
 
 /**
  * Options
  */
-var _options = {
+const _options = {
   allowPanToNext: true,
   spacing: 0.12,
   bgOpacity: 1,
@@ -29,10 +30,10 @@ var _options = {
   arrowKeys: true,
   mainScrollEndFriction: 0.35,
   panEndFriction: 0.35,
-  isClickableElement: function(el) {
+  isClickableElement(el) {
     return el.tagName === 'A';
   },
-  getDoubleTapZoom: function(isMouseClick, item) {
+  getDoubleTapZoom(isMouseClick, item) {
     if (isMouseClick) {
       return 1;
     } else {
@@ -52,426 +53,440 @@ helper.extend(_options, options);
  * Private helper variables & functions
  */
 
-var _getEmptyPoint = function() {
-  return {
-    x: 0,
-    y: 0
+const _getEmptyPoint = () => ({
+  x: 0,
+  y: 0
+});
+
+let _isOpen;
+let _isDestroying;
+let _closedByScroll;
+let _currentItemIndex;
+let _containerStyle;
+let _containerShiftIndex;
+const _currPanDist = _getEmptyPoint();
+const _startPanOffset = _getEmptyPoint();
+const _panOffset = _getEmptyPoint();
+
+let // drag move, drag end & drag cancel events array
+_upMoveEvents;
+
+let // drag start events array
+_downEvents;
+
+let _globalEventHandlers;
+const _viewportSize = {};
+let _currZoomLevel;
+let _startZoomLevel;
+let _translatePrefix;
+let _translateSufix;
+let _updateSizeInterval;
+let _itemsNeedUpdate;
+let _currPositionIndex = 0;
+const _offset = {};
+
+const // size of slide area, including spacing
+_slideSize = _getEmptyPoint();
+
+let _itemHolders;
+let _prevItemIndex;
+
+let // difference of indexes since last content update
+_indexDiff = 0;
+
+let _dragStartEvent;
+let _dragMoveEvent;
+let _dragEndEvent;
+let _dragCancelEvent;
+let _transformKey;
+let _pointerEventEnabled;
+let _isFixedPosition = true;
+let _likelyTouchDevice;
+const _modules = [];
+let _requestAF;
+let _cancelAF;
+let _initalClassName;
+let _initalWindowScrollY;
+let _oldIE;
+let _currentWindowScrollY;
+let _features;
+const _windowVisibleSize = {};
+let _renderMaxResolution = false;
+
+const // Registers PhotoSWipe module (History, Controller ...)
+_registerModule = (name, module) => {
+  helper.extend(self, module.publicMethods);
+  _modules.push(name);
+};
+
+const _getLoopedId = index => {
+  const numSlides = _getNumItems();
+  if (index > numSlides - 1) {
+    return index - numSlides;
+  } else if (index < 0) {
+    return numSlides + index;
+  }
+  return index;
+};
+
+let // Micro bind/trigger
+_listeners = {};
+
+const _listen = (name, fn) => {
+  if (!_listeners[name]) {
+    _listeners[name] = [];
+  }
+  return _listeners[name].push(fn);
+};
+
+const _shout = function(name) {
+  const listeners = _listeners[name];
+
+  if (listeners) {
+    const args = Array.prototype.slice.call(arguments);
+    args.shift();
+
+    for (let i = 0; i < listeners.length; i++) {
+      listeners[i].apply(self, args);
+    }
+  }
+};
+
+const _getCurrentTime = () => new Date().getTime();
+
+const _applyBgOpacity = opacity => {
+  _bgOpacity = opacity;
+  self.bg.style.opacity = opacity * _options.bgOpacity;
+};
+
+const _applyZoomTransform = (styleObj, x, y, zoom, item) => {
+  if (!_renderMaxResolution || (item && item !== self.currItem)) {
+    zoom = zoom / (item ? item.fitRatio : self.currItem.fitRatio);
+  }
+
+  styleObj[_transformKey] = `${_translatePrefix + x}px, ${y}px${_translateSufix} scale(${zoom})`;
+};
+
+let _applyCurrentZoomPan = allowRenderResolution => {
+  if (_currZoomElementStyle) {
+
+    if (allowRenderResolution) {
+      if (_currZoomLevel > self.currItem.fitRatio) {
+        if (!_renderMaxResolution) {
+          _setImageSize(self.currItem, false, true);
+          _renderMaxResolution = true;
+        }
+      } else {
+        if (_renderMaxResolution) {
+          _setImageSize(self.currItem);
+          _renderMaxResolution = false;
+        }
+      }
+    }
+
+
+    _applyZoomTransform(_currZoomElementStyle, _panOffset.x, _panOffset.y, _currZoomLevel);
+  }
+};
+
+let _applyZoomPanToItem = item => {
+  if (item.container) {
+
+    _applyZoomTransform(item.container.style,
+      item.initialPosition.x,
+      item.initialPosition.y,
+      item.initialZoomLevel,
+      item);
+  }
+};
+
+let _setTranslateX = (x, elStyle) => {
+  elStyle[_transformKey] = `${_translatePrefix + x}px, 0px${_translateSufix}`;
+};
+
+const _moveMainScroll = (x, dragging) => {
+
+  if (!_options.loop && dragging) {
+    const newSlideIndexOffset = _currentItemIndex + (_slideSize.x * _currPositionIndex - x) / _slideSize.x;
+    const delta = Math.round(x - _mainScrollPos.x);
+
+    if ((newSlideIndexOffset < 0 && delta > 0) ||
+      (newSlideIndexOffset >= _getNumItems() - 1 && delta < 0)) {
+      x = _mainScrollPos.x + delta * _options.mainScrollEndFriction;
+    }
+  }
+
+  _mainScrollPos.x = x;
+  _setTranslateX(x, _containerStyle);
+};
+
+const _calculatePanOffset = (axis, zoomLevel) => {
+  const m = _midZoomPoint[axis] - _offset[axis];
+  return _startPanOffset[axis] + _currPanDist[axis] + m - m * (zoomLevel / _startZoomLevel);
+};
+
+const _equalizePoints = (p1, p2) => {
+  p1.x = p2.x;
+  p1.y = p2.y;
+  if (p2.id) {
+    p1.id = p2.id;
+  }
+};
+
+const _roundPoint = p => {
+  p.x = Math.round(p.x);
+  p.y = Math.round(p.y);
+};
+
+let _mouseMoveTimeout = null;
+
+const _onFirstMouseMove = () => {
+  // Wait until mouse move event is fired at least twice during 100ms
+  // We do this, because some mobile browsers trigger it on touchstart
+  if (_mouseMoveTimeout) {
+    helper.unbind(document, 'mousemove', _onFirstMouseMove);
+    helper.addClass(template, 'zvui-pinch--has_mouse');
+    _options.mouseUsed = true;
+    _shout('mouseUsed');
+  }
+  _mouseMoveTimeout = setTimeout(() => {
+    _mouseMoveTimeout = null;
+  }, 100);
+};
+
+const _bindEvents = () => {
+  helper.bind(document, 'keydown', self);
+
+  if (_features.transform) {
+    // don't bind click event in browsers that don't support transform (mostly IE8)
+    helper.bind(self.scrollWrap, 'click', self);
+  }
+
+
+  if (!_options.mouseUsed) {
+    helper.bind(document, 'mousemove', _onFirstMouseMove);
+  }
+
+  helper.bind(window, 'resize scroll', self);
+
+  _shout('bindEvents');
+};
+
+const _unbindEvents = () => {
+  helper.unbind(window, 'resize', self);
+  helper.unbind(window, 'scroll', _globalEventHandlers.scroll);
+  helper.unbind(document, 'keydown', self);
+  helper.unbind(document, 'mousemove', _onFirstMouseMove);
+
+  if (_features.transform) {
+    helper.unbind(self.scrollWrap, 'click', self);
+  }
+
+  if (_isDragging) {
+    helper.unbind(window, _upMoveEvents, self);
+  }
+
+  _shout('unbindEvents');
+};
+
+const _calculatePanBounds = (zoomLevel, update) => {
+  const bounds = _calculateItemSize(self.currItem, _viewportSize, zoomLevel);
+  if (update) {
+    _currPanBounds = bounds;
+  }
+  return bounds;
+};
+
+const _getMinZoomLevel = item => {
+  if (!item) {
+    item = self.currItem;
+  }
+  return item.initialZoomLevel;
+};
+
+const _getMaxZoomLevel = item => {
+  if (!item) {
+    item = self.currItem;
+  }
+  return item.w > 0 ? _options.maxSpreadZoom : 1;
+};
+
+const // Return true if offset is out of the bounds
+_modifyDestPanOffset = (axis, destPanBounds, destPanOffset, destZoomLevel) => {
+  if (destZoomLevel === self.currItem.initialZoomLevel) {
+    destPanOffset[axis] = self.currItem.initialPosition[axis];
+    return true;
+  } else {
+    destPanOffset[axis] = _calculatePanOffset(axis, destZoomLevel);
+
+    if (destPanOffset[axis] > destPanBounds.min[axis]) {
+      destPanOffset[axis] = destPanBounds.min[axis];
+      return true;
+    } else if (destPanOffset[axis] < destPanBounds.max[axis]) {
+      destPanOffset[axis] = destPanBounds.max[axis];
+      return true;
+    }
+  }
+  return false;
+};
+
+const _setupTransforms = () => {
+
+  if (_transformKey) {
+    // setup 3d transforms
+    const allow3dTransform = _features.perspective && !_likelyTouchDevice;
+    _translatePrefix = `translate${allow3dTransform ? '3d(' : '('}`;
+    _translateSufix = _features.perspective ? ', 0px)' : ')';
+    return;
+  }
+
+  // Override zoom/pan/move functions in case old browser is used (most likely IE)
+  // (so they use left/top/width/height, instead of CSS transform)
+
+  _transformKey = 'left';
+  helper.addClass(template, 'zvui-pinch--ie');
+
+  _setTranslateX = (x, elStyle) => {
+    elStyle.left = `${x}px`;
+  };
+  _applyZoomPanToItem = item => {
+    const zoomRatio = item.fitRatio > 1 ? 1 : item.fitRatio;
+    const s = item.container.style;
+    const w = zoomRatio * item.w;
+    const h = zoomRatio * item.h;
+
+    s.width = `${w}px`;
+    s.height = `${h}px`;
+    s.left = `${item.initialPosition.x}px`;
+    s.top = `${item.initialPosition.y}px`;
+  };
+  _applyCurrentZoomPan = () => {
+    if (_currZoomElementStyle) {
+      const s = _currZoomElementStyle;
+      const item = self.currItem;
+      const zoomRatio = item.fitRatio > 1 ? 1 : item.fitRatio;
+      const w = zoomRatio * item.w;
+      const h = zoomRatio * item.h;
+
+      s.width = `${w}px`;
+      s.height = `${h}px`;
+
+
+      s.left = `${_panOffset.x}px`;
+      s.top = `${_panOffset.y}px`;
+    }
+
   };
 };
 
-var _isOpen,
-  _isDestroying,
-  _closedByScroll,
-  _currentItemIndex,
-  _containerStyle,
-  _containerShiftIndex,
-  _currPanDist = _getEmptyPoint(),
-  _startPanOffset = _getEmptyPoint(),
-  _panOffset = _getEmptyPoint(),
-  _upMoveEvents, // drag move, drag end & drag cancel events array
-  _downEvents, // drag start events array
-  _globalEventHandlers,
-  _viewportSize = {},
-  _currZoomLevel,
-  _startZoomLevel,
-  _translatePrefix,
-  _translateSufix,
-  _updateSizeInterval,
-  _itemsNeedUpdate,
-  _currPositionIndex = 0,
-  _offset = {},
-  _slideSize = _getEmptyPoint(), // size of slide area, including spacing
-  _itemHolders,
-  _prevItemIndex,
-  _indexDiff = 0, // difference of indexes since last content update
-  _dragStartEvent,
-  _dragMoveEvent,
-  _dragEndEvent,
-  _dragCancelEvent,
-  _transformKey,
-  _pointerEventEnabled,
-  _isFixedPosition = true,
-  _likelyTouchDevice,
-  _modules = [],
-  _requestAF,
-  _cancelAF,
-  _initalClassName,
-  _initalWindowScrollY,
-  _oldIE,
-  _currentWindowScrollY,
-  _features,
-  _windowVisibleSize = {},
-  _renderMaxResolution = false,
-
-  // Registers PhotoSWipe module (History, Controller ...)
-  _registerModule = function(name, module) {
-    helper.extend(self, module.publicMethods);
-    _modules.push(name);
-  },
-
-  _getLoopedId = function(index) {
-    var numSlides = _getNumItems();
-    if (index > numSlides - 1) {
-      return index - numSlides;
-    } else if (index < 0) {
-      return numSlides + index;
+const _onKeyDown = e => {
+  let keydownAction = '';
+  if (_options.escKey && e.keyCode === 27) {
+    keydownAction = 'close';
+  } else if (_options.arrowKeys) {
+    if (e.keyCode === 37) {
+      keydownAction = 'prev';
+    } else if (e.keyCode === 39) {
+      keydownAction = 'next';
     }
-    return index;
-  },
+  }
 
-  // Micro bind/trigger
-  _listeners = {},
-  _listen = function(name, fn) {
-    if (!_listeners[name]) {
-      _listeners[name] = [];
-    }
-    return _listeners[name].push(fn);
-  },
-  _shout = function(name) {
-    var listeners = _listeners[name];
-
-    if (listeners) {
-      var args = Array.prototype.slice.call(arguments);
-      args.shift();
-
-      for (var i = 0; i < listeners.length; i++) {
-        listeners[i].apply(self, args);
+  if (keydownAction) {
+    // don't do anything if special key pressed to prevent from overriding default browser actions
+    // e.g. in Chrome on Mac cmd+arrow-left returns to previous page
+    if (!e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey) {
+      if (e.preventDefault) {
+        e.preventDefault();
+      } else {
+        e.returnValue = false;
       }
+      self[keydownAction]();
     }
-  },
+  }
+};
 
-  _getCurrentTime = function() {
-    return new Date().getTime();
-  },
-  _applyBgOpacity = function(opacity) {
-    _bgOpacity = opacity;
-    self.bg.style.opacity = opacity * _options.bgOpacity;
-  },
+const _onGlobalClick = e => {
+  if (!e) {
+    return;
+  }
 
-  _applyZoomTransform = function(styleObj, x, y, zoom, item) {
-    if (!_renderMaxResolution || (item && item !== self.currItem)) {
-      zoom = zoom / (item ? item.fitRatio : self.currItem.fitRatio);
-    }
+  // don't allow click event to pass through when triggering after drag or some other gesture
+  if (_moved || _zoomStarted || _mainScrollAnimating || _verticalDragInitiated) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+};
 
-    styleObj[_transformKey] = _translatePrefix + x + 'px, ' + y + 'px' + _translateSufix + ' scale(' + zoom + ')';
-  },
-  _applyCurrentZoomPan = function(allowRenderResolution) {
-    if (_currZoomElementStyle) {
-
-      if (allowRenderResolution) {
-        if (_currZoomLevel > self.currItem.fitRatio) {
-          if (!_renderMaxResolution) {
-            _setImageSize(self.currItem, false, true);
-            _renderMaxResolution = true;
-          }
-        } else {
-          if (_renderMaxResolution) {
-            _setImageSize(self.currItem);
-            _renderMaxResolution = false;
-          }
-        }
-      }
-
-
-      _applyZoomTransform(_currZoomElementStyle, _panOffset.x, _panOffset.y, _currZoomLevel);
-    }
-  },
-  _applyZoomPanToItem = function(item) {
-    if (item.container) {
-
-      _applyZoomTransform(item.container.style,
-        item.initialPosition.x,
-        item.initialPosition.y,
-        item.initialZoomLevel,
-        item);
-    }
-  },
-  _setTranslateX = function(x, elStyle) {
-    elStyle[_transformKey] = _translatePrefix + x + 'px, 0px' + _translateSufix;
-  },
-  _moveMainScroll = function(x, dragging) {
-
-    if (!_options.loop && dragging) {
-      var newSlideIndexOffset = _currentItemIndex + (_slideSize.x * _currPositionIndex - x) / _slideSize.x,
-        delta = Math.round(x - _mainScrollPos.x);
-
-      if ((newSlideIndexOffset < 0 && delta > 0) ||
-        (newSlideIndexOffset >= _getNumItems() - 1 && delta < 0)) {
-        x = _mainScrollPos.x + delta * _options.mainScrollEndFriction;
-      }
-    }
-
-    _mainScrollPos.x = x;
-    _setTranslateX(x, _containerStyle);
-  },
-  _calculatePanOffset = function(axis, zoomLevel) {
-    var m = _midZoomPoint[axis] - _offset[axis];
-    return _startPanOffset[axis] + _currPanDist[axis] + m - m * (zoomLevel / _startZoomLevel);
-  },
-
-  _equalizePoints = function(p1, p2) {
-    p1.x = p2.x;
-    p1.y = p2.y;
-    if (p2.id) {
-      p1.id = p2.id;
-    }
-  },
-  _roundPoint = function(p) {
-    p.x = Math.round(p.x);
-    p.y = Math.round(p.y);
-  },
-
-  _mouseMoveTimeout = null,
-  _onFirstMouseMove = function() {
-    // Wait until mouse move event is fired at least twice during 100ms
-    // We do this, because some mobile browsers trigger it on touchstart
-    if (_mouseMoveTimeout) {
-      helper.unbind(document, 'mousemove', _onFirstMouseMove);
-      helper.addClass(template, 'zvui-pinch--has_mouse');
-      _options.mouseUsed = true;
-      _shout('mouseUsed');
-    }
-    _mouseMoveTimeout = setTimeout(function() {
-      _mouseMoveTimeout = null;
-    }, 100);
-  },
-
-  _bindEvents = function() {
-    helper.bind(document, 'keydown', self);
-
-    if (_features.transform) {
-      // don't bind click event in browsers that don't support transform (mostly IE8)
-      helper.bind(self.scrollWrap, 'click', self);
-    }
-
-
-    if (!_options.mouseUsed) {
-      helper.bind(document, 'mousemove', _onFirstMouseMove);
-    }
-
-    helper.bind(window, 'resize scroll', self);
-
-    _shout('bindEvents');
-  },
-
-  _unbindEvents = function() {
-    helper.unbind(window, 'resize', self);
-    helper.unbind(window, 'scroll', _globalEventHandlers.scroll);
-    helper.unbind(document, 'keydown', self);
-    helper.unbind(document, 'mousemove', _onFirstMouseMove);
-
-    if (_features.transform) {
-      helper.unbind(self.scrollWrap, 'click', self);
-    }
-
-    if (_isDragging) {
-      helper.unbind(window, _upMoveEvents, self);
-    }
-
-    _shout('unbindEvents');
-  },
-
-  _calculatePanBounds = function(zoomLevel, update) {
-    var bounds = _calculateItemSize(self.currItem, _viewportSize, zoomLevel);
-    if (update) {
-      _currPanBounds = bounds;
-    }
-    return bounds;
-  },
-
-  _getMinZoomLevel = function(item) {
-    if (!item) {
-      item = self.currItem;
-    }
-    return item.initialZoomLevel;
-  },
-  _getMaxZoomLevel = function(item) {
-    if (!item) {
-      item = self.currItem;
-    }
-    return item.w > 0 ? _options.maxSpreadZoom : 1;
-  },
-
-  // Return true if offset is out of the bounds
-  _modifyDestPanOffset = function(axis, destPanBounds, destPanOffset, destZoomLevel) {
-    if (destZoomLevel === self.currItem.initialZoomLevel) {
-      destPanOffset[axis] = self.currItem.initialPosition[axis];
-      return true;
-    } else {
-      destPanOffset[axis] = _calculatePanOffset(axis, destZoomLevel);
-
-      if (destPanOffset[axis] > destPanBounds.min[axis]) {
-        destPanOffset[axis] = destPanBounds.min[axis];
-        return true;
-      } else if (destPanOffset[axis] < destPanBounds.max[axis]) {
-        destPanOffset[axis] = destPanBounds.max[axis];
-        return true;
-      }
-    }
-    return false;
-  },
-
-  _setupTransforms = function() {
-
-    if (_transformKey) {
-      // setup 3d transforms
-      var allow3dTransform = _features.perspective && !_likelyTouchDevice;
-      _translatePrefix = 'translate' + (allow3dTransform ? '3d(' : '(');
-      _translateSufix = _features.perspective ? ', 0px)' : ')';
-      return;
-    }
-
-    // Override zoom/pan/move functions in case old browser is used (most likely IE)
-    // (so they use left/top/width/height, instead of CSS transform)
-
-    _transformKey = 'left';
-    helper.addClass(template, 'zvui-pinch--ie');
-
-    _setTranslateX = function(x, elStyle) {
-      elStyle.left = x + 'px';
-    };
-    _applyZoomPanToItem = function(item) {
-
-      var zoomRatio = item.fitRatio > 1 ? 1 : item.fitRatio,
-        s = item.container.style,
-        w = zoomRatio * item.w,
-        h = zoomRatio * item.h;
-
-      s.width = w + 'px';
-      s.height = h + 'px';
-      s.left = item.initialPosition.x + 'px';
-      s.top = item.initialPosition.y + 'px';
-
-    };
-    _applyCurrentZoomPan = function() {
-      if (_currZoomElementStyle) {
-
-        var s = _currZoomElementStyle,
-          item = self.currItem,
-          zoomRatio = item.fitRatio > 1 ? 1 : item.fitRatio,
-          w = zoomRatio * item.w,
-          h = zoomRatio * item.h;
-
-        s.width = w + 'px';
-        s.height = h + 'px';
-
-
-        s.left = _panOffset.x + 'px';
-        s.top = _panOffset.y + 'px';
-      }
-
-    };
-  },
-
-  _onKeyDown = function(e) {
-    var keydownAction = '';
-    if (_options.escKey && e.keyCode === 27) {
-      keydownAction = 'close';
-    } else if (_options.arrowKeys) {
-      if (e.keyCode === 37) {
-        keydownAction = 'prev';
-      } else if (e.keyCode === 39) {
-        keydownAction = 'next';
-      }
-    }
-
-    if (keydownAction) {
-      // don't do anything if special key pressed to prevent from overriding default browser actions
-      // e.g. in Chrome on Mac cmd+arrow-left returns to previous page
-      if (!e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey) {
-        if (e.preventDefault) {
-          e.preventDefault();
-        } else {
-          e.returnValue = false;
-        }
-        self[keydownAction]();
-      }
-    }
-  },
-
-  _onGlobalClick = function(e) {
-    if (!e) {
-      return;
-    }
-
-    // don't allow click event to pass through when triggering after drag or some other gesture
-    if (_moved || _zoomStarted || _mainScrollAnimating || _verticalDragInitiated) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  },
-
-  _updatePageScrollOffset = function() {
-    self.setScrollOffset(0, helper.getScrollY());
-  };
-
-
-
-
-
-
+const _updatePageScrollOffset = () => {
+  self.setScrollOffset(0, helper.getScrollY());
+};
 
 // Micro animation engine
-var _animations = {},
-  _numAnimations = 0,
-  _stopAnimation = function(name) {
+const _animations = {};
+
+let _numAnimations = 0;
+
+const _stopAnimation = name => {
+  if (_animations[name]) {
+    if (_animations[name].raf) {
+      _cancelAF(_animations[name].raf);
+    }
+    _numAnimations--;
+    delete _animations[name];
+  }
+};
+
+const _registerStartAnimation = name => {
+  if (_animations[name]) {
+    _stopAnimation(name);
+  }
+  if (!_animations[name]) {
+    _numAnimations++;
+    _animations[name] = {};
+  }
+};
+
+const _stopAllAnimations = () => {
+  for (const prop in _animations) {
+
+    if (_animations.hasOwnProperty(prop)) {
+      _stopAnimation(prop);
+    }
+
+  }
+};
+
+const _animateProp = (name, b, endProp, d, easingFn, onUpdate, onComplete) => {
+  const startAnimTime = _getCurrentTime();
+  let t;
+  _registerStartAnimation(name);
+
+  const animloop = () => {
     if (_animations[name]) {
-      if (_animations[name].raf) {
-        _cancelAF(_animations[name].raf);
-      }
-      _numAnimations--;
-      delete _animations[name];
-    }
-  },
-  _registerStartAnimation = function(name) {
-    if (_animations[name]) {
-      _stopAnimation(name);
-    }
-    if (!_animations[name]) {
-      _numAnimations++;
-      _animations[name] = {};
-    }
-  },
-  _stopAllAnimations = function() {
-    for (var prop in _animations) {
 
-      if (_animations.hasOwnProperty(prop)) {
-        _stopAnimation(prop);
-      }
+      t = _getCurrentTime() - startAnimTime; // time diff
+      //b - beginning (start prop)
+      //d - anim duration
 
-    }
-  },
-  _animateProp = function(name, b, endProp, d, easingFn, onUpdate, onComplete) {
-    var startAnimTime = _getCurrentTime(),
-      t;
-    _registerStartAnimation(name);
-
-    var animloop = function() {
-      if (_animations[name]) {
-
-        t = _getCurrentTime() - startAnimTime; // time diff
-        //b - beginning (start prop)
-        //d - anim duration
-
-        if (t >= d) {
-          _stopAnimation(name);
-          onUpdate(endProp);
-          if (onComplete) {
-            onComplete();
-          }
-          return;
+      if (t >= d) {
+        _stopAnimation(name);
+        onUpdate(endProp);
+        if (onComplete) {
+          onComplete();
         }
-        onUpdate((endProp - b) * easingFn(t / d) + b);
-
-        _animations[name].raf = _requestAF(animloop);
+        return;
       }
-    };
-    animloop();
+      onUpdate((endProp - b) * easingFn(t / d) + b);
+
+      _animations[name].raf = _requestAF(animloop);
+    }
   };
+  animloop();
+};
 
 
 
-var publicMethods = {
+const publicMethods = {
 
   // make a few local variables and functions public
   shout: _shout,
@@ -479,40 +494,40 @@ var publicMethods = {
   viewportSize: _viewportSize,
   options: _options,
 
-  isMainScrollAnimating: function() {
+  isMainScrollAnimating() {
     return _mainScrollAnimating;
   },
-  getZoomLevel: function() {
+  getZoomLevel() {
     return _currZoomLevel;
   },
-  getCurrentIndex: function() {
+  getCurrentIndex() {
     return _currentItemIndex;
   },
-  isDragging: function() {
+  isDragging() {
     return _isDragging;
   },
-  isZooming: function() {
+  isZooming() {
     return _isZooming;
   },
-  setScrollOffset: function(x, y) {
+  setScrollOffset(x, y) {
     _offset.x = x;
     _currentWindowScrollY = _offset.y = y;
     _shout('updateScrollOffset', _offset);
   },
-  applyZoomPan: function(zoomLevel, panX, panY, allowRenderResolution) {
+  applyZoomPan(zoomLevel, panX, panY, allowRenderResolution) {
     _panOffset.x = panX;
     _panOffset.y = panY;
     _currZoomLevel = zoomLevel;
     _applyCurrentZoomPan(allowRenderResolution);
   },
 
-  init: function() {
+  init() {
 
     if (_isOpen || _isDestroying) {
       return;
     }
 
-    var i;
+    let i;
 
     self.helper = helper; // basic functionality
     self.template = template; // root DOM element of PhotoSwipe
@@ -562,19 +577,19 @@ var publicMethods = {
 
     // disable show/hide effects on old browsers that don't support CSS animations or transforms,
     // old IOS, Android and Opera mobile. Blackberry seems to work fine, even older models.
-    var oldPhone = _features.isOldIOSPhone || _features.isOldAndroid || _features.isMobileOpera;
+    const oldPhone = _features.isOldIOSPhone || _features.isOldAndroid || _features.isMobileOpera;
     if (!_features.animationName || !_features.transform || oldPhone) {
       _options.showAnimationDuration = _options.hideAnimationDuration = 0;
     }
 
     // init modules
     for (i = 0; i < _modules.length; i++) {
-      self['init' + _modules[i]]();
+      self[`init${_modules[i]}`]();
     }
 
     // init
     if (UiClass) {
-      var ui = self.ui = new UiClass(self, helper);
+      const ui = self.ui = new UiClass(self, helper);
       ui.init();
     }
 
@@ -595,7 +610,7 @@ var publicMethods = {
     if (_options.modal) {
       if (!_isFixedPosition) {
         template.style.position = 'absolute';
-        template.style.top = helper.getScrollY() + 'px';
+        template.style.top = `${helper.getScrollY()}px`;
       } else {
         template.style.position = 'fixed';
       }
@@ -607,9 +622,9 @@ var publicMethods = {
     }
 
     // add classes to root element of PhotoSwipe
-    var rootClasses = 'zvui-pinch--open ';
+    let rootClasses = 'zvui-pinch--open ';
     if (_options.mainClass) {
-      rootClasses += _options.mainClass + ' ';
+      rootClasses += `${_options.mainClass} `;
     }
     if (_options.showHideOpacity) {
       rootClasses += 'zvui-pinch--animate_opacity ';
@@ -632,7 +647,7 @@ var publicMethods = {
       helper.bind(self.scrollWrap, _downEvents, self); // no dragging for old IE
     }
 
-    _listen('initialZoomInEnd', function() {
+    _listen('initialZoomInEnd', () => {
       self.setContent(_itemHolders[0], _currentItemIndex - 1);
       self.setContent(_itemHolders[2], _currentItemIndex + 1);
 
@@ -667,7 +682,7 @@ var publicMethods = {
       //
       // 10 Nov 2014: iOS 7 usage ~40%. iOS 8 usage 56%.
 
-      _updateSizeInterval = setInterval(function() {
+      _updateSizeInterval = setInterval(() => {
         if (!_numAnimations && !_isDragging && !_isZooming && (_currZoomLevel === self.currItem.initialZoomLevel)) {
           self.updateSize();
         }
@@ -678,7 +693,7 @@ var publicMethods = {
   },
 
   // Close the gallery, then destroy it
-  close: function() {
+  close() {
     if (!_isOpen) {
       return;
     }
@@ -692,7 +707,7 @@ var publicMethods = {
   },
 
   // destroys the gallery (unbinds events, cleans up intervals and timeouts to avoid memory leaks)
-  destroy: function() {
+  destroy() {
     _shout('destroy');
 
     if (_showOrHideTimeout) {
@@ -724,7 +739,7 @@ var publicMethods = {
    * @param {Number} y
    * @param {Boolean} force Will ignore bounds if set to true.
    */
-  panTo: function(x, y, force) {
+  panTo(x, y, force) {
     if (!force) {
       if (x > _currPanBounds.min.x) {
         x = _currPanBounds.min.x;
@@ -744,19 +759,18 @@ var publicMethods = {
     _applyCurrentZoomPan();
   },
 
-  handleEvent: function(e) {
-    e = e || window.event;
+  handleEvent(e=window.event) {
     if (_globalEventHandlers[e.type]) {
       _globalEventHandlers[e.type](e);
     }
   },
 
 
-  goTo: function(index) {
+  goTo(index) {
 
     index = _getLoopedId(index);
 
-    var diff = index - _currentItemIndex;
+    const diff = index - _currentItemIndex;
     _indexDiff = diff;
 
     _currentItemIndex = index;
@@ -771,22 +785,22 @@ var publicMethods = {
 
     self.updateCurrItem();
   },
-  next: function() {
+  next() {
     self.goTo(_currentItemIndex + 1);
   },
-  prev: function() {
+  prev() {
     self.goTo(_currentItemIndex - 1);
   },
 
   // update current zoom/pan objects
-  updateCurrZoomItem: function(emulateSetContent) {
+  updateCurrZoomItem(emulateSetContent) {
     if (emulateSetContent) {
       _shout('beforeChange', 0);
     }
 
     // itemHolder[1] is middle (current) item
     if (_itemHolders[1].el.children.length) {
-      var zoomElement = _itemHolders[1].el.children[0];
+      const zoomElement = _itemHolders[1].el.children[0];
       if (helper.hasClass(zoomElement, 'zvui-pinch__zoom-wrap')) {
         _currZoomElementStyle = zoomElement.style;
       } else {
@@ -808,23 +822,22 @@ var publicMethods = {
   },
 
 
-  invalidateCurrItems: function() {
+  invalidateCurrItems() {
     _itemsNeedUpdate = true;
-    for (var i = 0; i < NUM_HOLDERS; i++) {
+    for (let i = 0; i < NUM_HOLDERS; i++) {
       if (_itemHolders[i].item) {
         _itemHolders[i].item.needsUpdate = true;
       }
     }
   },
 
-  updateCurrItem: function(beforeAnimation) {
-
+  updateCurrItem(beforeAnimation) {
     if (_indexDiff === 0) {
       return;
     }
 
-    var diffAbs = Math.abs(_indexDiff),
-      tempHolder;
+    let diffAbs = Math.abs(_indexDiff);
+    let tempHolder;
 
     if (beforeAnimation && diffAbs < 2) {
       return;
@@ -840,7 +853,7 @@ var publicMethods = {
       _containerShiftIndex += _indexDiff + (_indexDiff > 0 ? -NUM_HOLDERS : NUM_HOLDERS);
       diffAbs = NUM_HOLDERS;
     }
-    for (var i = 0; i < diffAbs; i++) {
+    for (let i = 0; i < diffAbs; i++) {
       if (_indexDiff > 0) {
         tempHolder = _itemHolders.shift();
         _itemHolders[NUM_HOLDERS - 1] = tempHolder; // move first to last
@@ -862,7 +875,7 @@ var publicMethods = {
     // reset zoom/pan on previous item
     if (_currZoomElementStyle && Math.abs(_indexDiff) === 1) {
 
-      var prevItem = _getItemAt(_prevItemIndex);
+      const prevItem = _getItemAt(_prevItemIndex);
       if (prevItem.initialZoomLevel !== _currZoomLevel) {
         _calculateItemSize(prevItem, _viewportSize);
         _setImageSize(prevItem);
@@ -879,17 +892,16 @@ var publicMethods = {
     _prevItemIndex = _currentItemIndex;
 
     _shout('afterChange');
-
   },
 
 
 
-  updateSize: function(force) {
+  updateSize(force) {
 
     if (!_isFixedPosition && _options.modal) {
-      var windowScrollY = helper.getScrollY();
+      const windowScrollY = helper.getScrollY();
       if (_currentWindowScrollY !== windowScrollY) {
-        template.style.top = windowScrollY + 'px';
+        template.style.top = `${windowScrollY}px`;
         _currentWindowScrollY = windowScrollY;
       }
       if (!force && _windowVisibleSize.x === window.innerWidth && _windowVisibleSize.y === window.innerHeight) {
@@ -899,7 +911,7 @@ var publicMethods = {
       _windowVisibleSize.y = window.innerHeight;
 
       //template.style.width = _windowVisibleSize.x + 'px';
-      template.style.height = _windowVisibleSize.y + 'px';
+      template.style.height = `${_windowVisibleSize.y}px`;
     }
 
 
@@ -919,12 +931,11 @@ var publicMethods = {
 
     // don't re-calculate size on inital size update
     if (_containerShiftIndex !== undefined) {
+      let holder;
+      let item;
+      let hIndex;
 
-      var holder,
-        item,
-        hIndex;
-
-      for (var i = 0; i < NUM_HOLDERS; i++) {
+      for (let i = 0; i < NUM_HOLDERS; i++) {
         holder = _itemHolders[i];
         _setTranslateX((i + _containerShiftIndex) * _slideSize.x, holder.el.style);
 
@@ -980,7 +991,7 @@ var publicMethods = {
   },
 
   // Zoom current item to
-  zoomTo: function(destZoomLevel, centerPoint, speed, easingFn, updateFn) {
+  zoomTo(destZoomLevel, centerPoint, speed, easingFn, updateFn) {
     /*
     	if(destZoomLevel === 'fit') {
     		destZoomLevel = self.currItem.fitRatio;
@@ -996,21 +1007,21 @@ var publicMethods = {
       _equalizePoints(_startPanOffset, _panOffset);
     }
 
-    var destPanBounds = _calculatePanBounds(destZoomLevel, false),
-      destPanOffset = {};
+    const destPanBounds = _calculatePanBounds(destZoomLevel, false);
+    const destPanOffset = {};
 
     _modifyDestPanOffset('x', destPanBounds, destPanOffset, destZoomLevel);
     _modifyDestPanOffset('y', destPanBounds, destPanOffset, destZoomLevel);
 
-    var initialZoomLevel = _currZoomLevel;
-    var initialPanOffset = {
+    const initialZoomLevel = _currZoomLevel;
+    const initialPanOffset = {
       x: _panOffset.x,
       y: _panOffset.y
     };
 
     _roundPoint(destPanOffset);
 
-    var onUpdate = function(now) {
+    const onUpdate = now => {
       if (now === 1) {
         _currZoomLevel = destZoomLevel;
         _panOffset.x = destPanOffset.x;

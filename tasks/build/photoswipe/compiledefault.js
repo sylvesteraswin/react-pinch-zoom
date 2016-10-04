@@ -10,9 +10,9 @@ module.exports = () => {
             'src/Photoswipe/js/ui/photoswipe-ui-default.js'
         ])
         .pipe(concat('photoswipe-ui-default.js'))
-        .pipe(wrap('function(pswp, framework) { <%= contents %> }'))
+        .pipe(wrap('function(zvuiPinch, helper) { <%= contents %> }'))
         .pipe(wrapUMD({
-            namespace: 'ZVUIPunch_Default'
+            namespace: 'ZVUIPinch_Default'
         }))
         .pipe(gulp.dest('lib'));
 };

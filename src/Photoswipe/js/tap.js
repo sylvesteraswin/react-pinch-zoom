@@ -5,44 +5,47 @@
  *
  */
 
-var tapTimer,
-  tapReleasePoint = {},
-  _dispatchTapEvent = function(origEvent, releasePoint, pointerType) {
-    var e = document.createEvent('CustomEvent'),
-      eDetail = {
-        origEvent: origEvent,
-        target: origEvent.target,
-        releasePoint: releasePoint,
-        pointerType: pointerType || 'touch'
-      };
+let tapTimer;
 
-    e.initCustomEvent('zvuiPinchTap', true, true, eDetail);
-    origEvent.target.dispatchEvent(e);
+let tapReleasePoint = {};
+
+const _dispatchTapEvent = (origEvent, releasePoint, pointerType) => {
+  const e = document.createEvent('CustomEvent');
+
+  const eDetail = {
+    origEvent,
+    target: origEvent.target,
+    releasePoint,
+    pointerType: pointerType || 'touch'
   };
+
+  e.initCustomEvent('zvuiPinchTap', true, true, eDetail);
+  origEvent.target.dispatchEvent(e);
+};
 
 _registerModule('Tap', {
   publicMethods: {
-    initTap: function() {
+    initTap() {
       _listen('firstTouchStart', self.onTapStart);
       _listen('touchRelease', self.onTapRelease);
-      _listen('destroy', function() {
+      _listen('destroy', () => {
         tapReleasePoint = {};
         tapTimer = null;
       });
     },
-    onTapStart: function(touchList) {
+    onTapStart(touchList) {
       if (touchList.length > 1) {
         clearTimeout(tapTimer);
         tapTimer = null;
       }
     },
-    onTapRelease: function(e, releasePoint) {
+    onTapRelease(e, releasePoint) {
       if (!releasePoint) {
         return;
       }
 
       if (!_moved && !_isMultitouch && !_numAnimations) {
-        var p0 = releasePoint;
+        const p0 = releasePoint;
         if (tapTimer) {
           clearTimeout(tapTimer);
           tapTimer = null;
@@ -59,7 +62,7 @@ _registerModule('Tap', {
           return;
         }
 
-        var clickedTagName = e.target.tagName.toUpperCase();
+        const clickedTagName = e.target.tagName.toUpperCase();
         // avoid double tap delay on buttons and elements that have class zvui-pinch__single-tap
         if (clickedTagName === 'BUTTON' || helper.hasClass(e.target, 'zvui-pinch__single-tap')) {
           _dispatchTapEvent(e, releasePoint);
@@ -68,7 +71,7 @@ _registerModule('Tap', {
 
         _equalizePoints(tapReleasePoint, p0);
 
-        tapTimer = setTimeout(function() {
+        tapTimer = setTimeout(() => {
           _dispatchTapEvent(e, releasePoint);
           tapTimer = null;
         }, 300);

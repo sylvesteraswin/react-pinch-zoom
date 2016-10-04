@@ -10,172 +10,175 @@
  */
 
 
-var _showOrHideTimeout,
-  _showOrHide = function(item, img, out, completeFn) {
+let _showOrHideTimeout;
 
-    if (_showOrHideTimeout) {
-      clearTimeout(_showOrHideTimeout);
-    }
+const _showOrHide = (item, img, out, completeFn) => {
 
-    _initialZoomRunning = true;
-    _initialContentSet = true;
+  if (_showOrHideTimeout) {
+    clearTimeout(_showOrHideTimeout);
+  }
 
-    // dimensions of small thumbnail {x:,y:,w:}.
-    // Height is optional, as calculated based on large image.
-    var thumbBounds;
-    if (item.initialLayout) {
-      thumbBounds = item.initialLayout;
-      item.initialLayout = null;
-    } else {
-      thumbBounds = _options.getThumbBoundsFn && _options.getThumbBoundsFn(_currentItemIndex);
-    }
+  _initialZoomRunning = true;
+  _initialContentSet = true;
 
-    var duration = out ? _options.hideAnimationDuration : _options.showAnimationDuration;
+  // dimensions of small thumbnail {x:,y:,w:}.
+  // Height is optional, as calculated based on large image.
+  let thumbBounds;
+  if (item.initialLayout) {
+    thumbBounds = item.initialLayout;
+    item.initialLayout = null;
+  } else {
+    thumbBounds = _options.getThumbBoundsFn && _options.getThumbBoundsFn(_currentItemIndex);
+  }
 
-    var onComplete = function() {
-      _stopAnimation('initialZoom');
-      if (!out) {
-        _applyBgOpacity(1);
-        if (img) {
-          img.style.display = 'block';
-        }
-        helper.addClass(template, 'zvui-pinch__animated-in');
-        _shout('initialZoom' + (out ? 'OutEnd' : 'InEnd'));
-      } else {
-        self.template.removeAttribute('style');
-        self.bg.removeAttribute('style');
-      }
+  const duration = out ? _options.hideAnimationDuration : _options.showAnimationDuration;
 
-      if (completeFn) {
-        completeFn();
-      }
-      _initialZoomRunning = false;
-    };
-
-    // if bounds aren't provided, just open gallery without animation
-    if (!duration || !thumbBounds || thumbBounds.x === undefined) {
-
-      _shout('initialZoom' + (out ? 'Out' : 'In'));
-
-      _currZoomLevel = item.initialZoomLevel;
-      _equalizePoints(_panOffset, item.initialPosition);
-      _applyCurrentZoomPan();
-
-      template.style.opacity = out ? 0 : 1;
+  const onComplete = () => {
+    _stopAnimation('initialZoom');
+    if (!out) {
       _applyBgOpacity(1);
-
-      if (duration) {
-        setTimeout(function() {
-          onComplete();
-        }, duration);
-      } else {
-        onComplete();
+      if (img) {
+        img.style.display = 'block';
       }
-
-      return;
+      helper.addClass(template, 'zvui-pinch__animated-in');
+      _shout(`initialZoom${out ? 'OutEnd' : 'InEnd'}`);
+    } else {
+      self.template.removeAttribute('style');
+      self.bg.removeAttribute('style');
     }
 
-    var startAnimation = function() {
-      var closeWithRaf = _closedByScroll,
-        fadeEverything = !self.currItem.src || self.currItem.loadError || _options.showHideOpacity;
+    if (completeFn) {
+      completeFn();
+    }
+    _initialZoomRunning = false;
+  };
 
-      // apply hw-acceleration to image
-      if (item.miniImg) {
-        item.miniImg.style.webkitBackfaceVisibility = 'hidden';
+  // if bounds aren't provided, just open gallery without animation
+  if (!duration || !thumbBounds || thumbBounds.x === undefined) {
+
+    _shout(`initialZoom${out ? 'Out' : 'In'}`);
+
+    _currZoomLevel = item.initialZoomLevel;
+    _equalizePoints(_panOffset, item.initialPosition);
+    _applyCurrentZoomPan();
+
+    template.style.opacity = out ? 0 : 1;
+    _applyBgOpacity(1);
+
+    if (duration) {
+      setTimeout(() => {
+        onComplete();
+      }, duration);
+    } else {
+      onComplete();
+    }
+
+    return;
+  }
+
+  const startAnimation = () => {
+    const closeWithRaf = _closedByScroll;
+    const fadeEverything = !self.currItem.src || self.currItem.loadError || _options.showHideOpacity;
+
+    // apply hw-acceleration to image
+    if (item.miniImg) {
+      item.miniImg.style.webkitBackfaceVisibility = 'hidden';
+    }
+
+    if (!out) {
+      _currZoomLevel = thumbBounds.w / item.w;
+      _panOffset.x = thumbBounds.x;
+      _panOffset.y = thumbBounds.y - _initalWindowScrollY;
+
+      self[fadeEverything ? 'template' : 'bg'].style.opacity = 0.001;
+      _applyCurrentZoomPan();
+    }
+
+    _registerStartAnimation('initialZoom');
+
+    if (out && !closeWithRaf) {
+      helper.removeClass(template, 'zvui-pinch__animated-in');
+    }
+
+    if (fadeEverything) {
+      if (out) {
+        helper[`${closeWithRaf ? 'remove' : 'add'}Class`](template, 'zvui-pinch__animate_opacity');
+      } else {
+        setTimeout(() => {
+          helper.addClass(template, 'zvui-pinch__animate_opacity');
+        }, 30);
       }
+    }
+
+    _showOrHideTimeout = setTimeout(() => {
+
+      _shout(`initialZoom${out ? 'Out' : 'In'}`);
+
 
       if (!out) {
-        _currZoomLevel = thumbBounds.w / item.w;
-        _panOffset.x = thumbBounds.x;
-        _panOffset.y = thumbBounds.y - _initalWindowScrollY;
 
-        self[fadeEverything ? 'template' : 'bg'].style.opacity = 0.001;
+        // "in" animation always uses CSS transitions (instead of rAF).
+        // CSS transition work faster here,
+        // as developer may also want to animate other things,
+        // like ui on top of sliding area, which can be animated just via CSS
+
+        _currZoomLevel = item.initialZoomLevel;
+        _equalizePoints(_panOffset, item.initialPosition);
         _applyCurrentZoomPan();
-      }
+        _applyBgOpacity(1);
 
-      _registerStartAnimation('initialZoom');
-
-      if (out && !closeWithRaf) {
-        helper.removeClass(template, 'zvui-pinch__animated-in');
-      }
-
-      if (fadeEverything) {
-        if (out) {
-          helper[(closeWithRaf ? 'remove' : 'add') + 'Class'](template, 'zvui-pinch__animate_opacity');
+        if (fadeEverything) {
+          template.style.opacity = 1;
         } else {
-          setTimeout(function() {
-            helper.addClass(template, 'zvui-pinch__animate_opacity');
-          }, 30);
-        }
-      }
-
-      _showOrHideTimeout = setTimeout(function() {
-
-        _shout('initialZoom' + (out ? 'Out' : 'In'));
-
-
-        if (!out) {
-
-          // "in" animation always uses CSS transitions (instead of rAF).
-          // CSS transition work faster here,
-          // as developer may also want to animate other things,
-          // like ui on top of sliding area, which can be animated just via CSS
-
-          _currZoomLevel = item.initialZoomLevel;
-          _equalizePoints(_panOffset, item.initialPosition);
-          _applyCurrentZoomPan();
           _applyBgOpacity(1);
-
-          if (fadeEverything) {
-            template.style.opacity = 1;
-          } else {
-            _applyBgOpacity(1);
-          }
-
-          _showOrHideTimeout = setTimeout(onComplete, duration + 20);
-        } else {
-
-          // "out" animation uses rAF only when PhotoSwipe is closed by browser scroll, to recalculate position
-          var destZoomLevel = thumbBounds.w / item.w,
-            initialPanOffset = {
-              x: _panOffset.x,
-              y: _panOffset.y
-            },
-            initialZoomLevel = _currZoomLevel,
-            initalBgOpacity = _bgOpacity,
-            onUpdate = function(now) {
-
-              if (now === 1) {
-                _currZoomLevel = destZoomLevel;
-                _panOffset.x = thumbBounds.x;
-                _panOffset.y = thumbBounds.y - _currentWindowScrollY;
-              } else {
-                _currZoomLevel = (destZoomLevel - initialZoomLevel) * now + initialZoomLevel;
-                _panOffset.x = (thumbBounds.x - initialPanOffset.x) * now + initialPanOffset.x;
-                _panOffset.y = (thumbBounds.y - _currentWindowScrollY - initialPanOffset.y) * now + initialPanOffset.y;
-              }
-
-              _applyCurrentZoomPan();
-              if (fadeEverything) {
-                template.style.opacity = 1 - now;
-              } else {
-                _applyBgOpacity(initalBgOpacity - now * initalBgOpacity);
-              }
-            };
-
-          if (closeWithRaf) {
-            _animateProp('initialZoom', 0, 1, duration, helper.easing.cubic.out, onUpdate, onComplete);
-          } else {
-            onUpdate(1);
-            _showOrHideTimeout = setTimeout(onComplete, duration + 20);
-          }
         }
 
-      }, out ? 25 : 90); // Main purpose of this delay is to give browser time to paint and
-      // create composite layers of PhotoSwipe UI parts (background, controls, caption, arrows).
-      // Which avoids lag at the beginning of scale transition.
-    };
-    startAnimation();
+        _showOrHideTimeout = setTimeout(onComplete, duration + 20);
+      } else {
+        // "out" animation uses rAF only when PhotoSwipe is closed by browser scroll, to recalculate position
+        const destZoomLevel = thumbBounds.w / item.w;
 
+        const initialPanOffset = {
+          x: _panOffset.x,
+          y: _panOffset.y
+        };
 
+        const initialZoomLevel = _currZoomLevel;
+        const initalBgOpacity = _bgOpacity;
+
+        const onUpdate = now => {
+
+          if (now === 1) {
+            _currZoomLevel = destZoomLevel;
+            _panOffset.x = thumbBounds.x;
+            _panOffset.y = thumbBounds.y - _currentWindowScrollY;
+          } else {
+            _currZoomLevel = (destZoomLevel - initialZoomLevel) * now + initialZoomLevel;
+            _panOffset.x = (thumbBounds.x - initialPanOffset.x) * now + initialPanOffset.x;
+            _panOffset.y = (thumbBounds.y - _currentWindowScrollY - initialPanOffset.y) * now + initialPanOffset.y;
+          }
+
+          _applyCurrentZoomPan();
+          if (fadeEverything) {
+            template.style.opacity = 1 - now;
+          } else {
+            _applyBgOpacity(initalBgOpacity - now * initalBgOpacity);
+          }
+        };
+
+        if (closeWithRaf) {
+          _animateProp('initialZoom', 0, 1, duration, helper.easing.cubic.out, onUpdate, onComplete);
+        } else {
+          onUpdate(1);
+          _showOrHideTimeout = setTimeout(onComplete, duration + 20);
+        }
+      }
+
+    }, out ? 25 : 90); // Main purpose of this delay is to give browser time to paint and
+    // create composite layers of PhotoSwipe UI parts (background, controls, caption, arrows).
+    // Which avoids lag at the beginning of scale transition.
   };
+  startAnimation();
+
+
+};

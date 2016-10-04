@@ -9,13 +9,13 @@
  *
  */
 
-var _wheelDelta;
+let _wheelDelta;
 
 _registerModule('DesktopZoom', {
 
   publicMethods: {
 
-    initDesktopZoom: function() {
+    initDesktopZoom() {
 
       if (_oldIE) {
         // no zoom for old IE (<=8)
@@ -25,7 +25,7 @@ _registerModule('DesktopZoom', {
       if (_likelyTouchDevice) {
         // if detected hardware touch support, we wait until mouse is used,
         // and only then apply desktop-zoom features
-        _listen('mouseUsed', function() {
+        _listen('mouseUsed', () => {
           self.setupDesktopZoom();
         });
       } else {
@@ -34,17 +34,16 @@ _registerModule('DesktopZoom', {
 
     },
 
-    setupDesktopZoom: function(onInit) {
-
+    setupDesktopZoom(onInit) {
       _wheelDelta = {};
 
-      var events = 'wheel mousewheel DOMMouseScroll';
+      const events = 'wheel mousewheel DOMMouseScroll';
 
-      _listen('bindEvents', function() {
+      _listen('bindEvents', () => {
         helper.bind(template, events, self.handleMouseWheel);
       });
 
-      _listen('unbindEvents', function() {
+      _listen('unbindEvents', () => {
         if (_wheelDelta) {
           helper.unbind(template, events, self.handleMouseWheel);
         }
@@ -52,29 +51,31 @@ _registerModule('DesktopZoom', {
 
       self.mouseZoomedIn = false;
 
-      var hasDraggingClass,
-        updateZoomable = function() {
-          if (self.mouseZoomedIn) {
-            helper.removeClass(template, 'zvui-pinch--zoomed-in');
-            self.mouseZoomedIn = false;
-          }
-          if (_currZoomLevel < 1) {
-            helper.addClass(template, 'zvui-pinch--zoom-allowed');
-          } else {
-            helper.removeClass(template, 'zvui-pinch--zoom-allowed');
-          }
-          removeDraggingClass();
-        },
-        removeDraggingClass = function() {
-          if (hasDraggingClass) {
-            helper.removeClass(template, 'zvui-pinch--dragging');
-            hasDraggingClass = false;
-          }
-        };
+      let hasDraggingClass;
+
+      const removeDraggingClass = () => {
+        if (hasDraggingClass) {
+          helper.removeClass(template, 'zvui-pinch--dragging');
+          hasDraggingClass = false;
+        }
+      };
+
+      const updateZoomable = () => {
+        if (self.mouseZoomedIn) {
+          helper.removeClass(template, 'zvui-pinch--zoomed-in');
+          self.mouseZoomedIn = false;
+        }
+        if (_currZoomLevel < 1) {
+          helper.addClass(template, 'zvui-pinch--zoom-allowed');
+        } else {
+          helper.removeClass(template, 'zvui-pinch--zoom-allowed');
+        }
+        removeDraggingClass();
+      };
 
       _listen('resize', updateZoomable);
       _listen('afterChange', updateZoomable);
-      _listen('pointerDown', function() {
+      _listen('pointerDown', () => {
         if (self.mouseZoomedIn) {
           hasDraggingClass = true;
           helper.addClass(template, 'zvui-pinch--dragging');
@@ -85,11 +86,9 @@ _registerModule('DesktopZoom', {
       if (!onInit) {
         updateZoomable();
       }
-
     },
 
-    handleMouseWheel: function(e) {
-
+    handleMouseWheel(e) {
       if (_currZoomLevel <= self.currItem.fitRatio) {
         if (_options.modal) {
 
@@ -138,8 +137,8 @@ _registerModule('DesktopZoom', {
 
       _calculatePanBounds(_currZoomLevel, true);
 
-      var newPanX = _panOffset.x - _wheelDelta.x,
-        newPanY = _panOffset.y - _wheelDelta.y;
+      const newPanX = _panOffset.x - _wheelDelta.x;
+      const newPanY = _panOffset.y - _wheelDelta.y;
 
       // only prevent scrolling in nonmodal mode when not at edges
       if (_options.modal ||
@@ -154,19 +153,18 @@ _registerModule('DesktopZoom', {
       self.panTo(newPanX, newPanY);
     },
 
-    toggleDesktopZoom: function(centerPoint) {
-      centerPoint = centerPoint || {
+    toggleDesktopZoom(
+      centerPoint={
         x: _viewportSize.x / 2 + _offset.x,
         y: _viewportSize.y / 2 + _offset.y
-      };
-
-      var doubleTapZoomLevel = _options.getDoubleTapZoom(true, self.currItem);
-      var zoomOut = _currZoomLevel === doubleTapZoomLevel;
+      }) {
+      const doubleTapZoomLevel = _options.getDoubleTapZoom(true, self.currItem);
+      const zoomOut = _currZoomLevel === doubleTapZoomLevel;
 
       self.mouseZoomedIn = !zoomOut;
 
       self.zoomTo(zoomOut ? self.currItem.initialZoomLevel : doubleTapZoomLevel, centerPoint, 333);
-      helper[(!zoomOut ? 'add' : 'remove') + 'Class'](template, 'zvui-pinch--zoomed-in');
+      helper[`${!zoomOut ? 'add' : 'remove'}Class`](template, 'zvui-pinch--zoomed-in');
     }
 
   }

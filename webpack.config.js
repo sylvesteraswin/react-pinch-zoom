@@ -47,7 +47,7 @@ const webpackConfig = {
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
       }
-    }),
+    })/*,
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: false,
       compress: {
@@ -57,7 +57,7 @@ const webpackConfig = {
         comments: false
       }
     }),
-    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.DedupePlugin()*/,
     new ExtractTextPlugin("style.css", {allChunks: false})
   ]
 };

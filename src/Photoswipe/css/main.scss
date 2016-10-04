@@ -126,13 +126,13 @@
 	-ms-transform-origin: left top;
 	transform-origin: left top;
 	/* for open/close transition */
-	transition: transform $zvui__show-hide-transition-duration cubic-bezier(.4,0,.22,1);
+	// transition: transform $zvui__show-hide-transition-duration cubic-bezier(.4,0,.22,1);
 }
 
 .#{$base}__bg {
 	will-change: opacity;
 	/* for open/close transition */
-	transition: opacity $zvui__show-hide-transition-duration cubic-bezier(.4,0,.22,1);
+	// transition: opacity $zvui__show-hide-transition-duration cubic-bezier(.4,0,.22,1);
 }
 
 .#{$base}--animated-in {

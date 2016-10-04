@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
-import ZVUIPunch from '../lib/photoswipe.js';
-import ZVUIPunch_Default from '../lib/photoswipe-ui-default.js';
+import ZVUIPinch from '../lib/photoswipe.js';
+import ZVUIPinch_Default from '../lib/photoswipe-ui-default.js';
 import classnames from 'classnames';
 import events from './events';
 import '../lib/main.css';
@@ -64,12 +64,13 @@ class PinchZoom extends Component {
         } = props;
 
         let zvuiPinchElement = ReactDOM.findDOMNode(this);
-        this.photoSwipe = new Photoswipe(zvuiPinchElement, PhotoswipeUIDefault, items, options);
+        this.zvuiPinch = new ZVUIPinch(zvuiPinchElement, ZVUIPinch_Default, items, options);
+        console.log(this.zvuiPinch);
         events.forEach(event => {
             let callback = props[event];
             if (callback || event === 'destroy') {
                 let self = this;
-                this.photoSwipe.listen(event, function() {
+                this.zvuiPinch.listen(event, function() {
                     if (callback) {
                         let args = (arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments));
                         args.unshift(this);
@@ -84,22 +85,22 @@ class PinchZoom extends Component {
         this.setState({
             isOpen: true,
         }, () => {
-            this.photoSwipe.inti()
+            this.zvuiPinch.init()
         });
     };
 
     updateItems = (items = []) => {
-        this.photoSwipe.items.length = 0;
+        this.zvuiPinch.items.length = 0;
         items.forEach((item) => {
-            this.photoSwipe.items.push(item);
+            this.zvuiPinch.items.push(item);
         });
     };
 
     closePhotoSwipe = () => {
-        if (!this.photoSwipe) {
+        if (!this.zvuiPinch) {
             return;
         }
-        this.photoSwipe.close();
+        this.zvuiPinch.close();
     };
 
     handleClose = () => {
@@ -131,28 +132,23 @@ class PinchZoom extends Component {
                 role="dialog"
                 >
                 <div className={`${BASE_CLASS}__bg`} />
-                <div className={`${BASE_CLASS}__scroll-wrap`} />
-                <div className={`${BASE_CLASS}__container`}>
-                    <div className={`${BASE_CLASS}__item`} />
-                    <div className={`${BASE_CLASS}__item`} />
-                    <div className={`${BASE_CLASS}__item`} />
-                </div>
-                <div className={`${BASE_CLASS}__ui ${BASE_CLASS}__ui--hidden`}>
-                  <div className={`${BASE_CLASS}__top-bar`}>
-                    <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--close`} title="Close (Esc)"></button>
+                <div className={`${BASE_CLASS}__scroll-wrap`}>
+                  <div className={`${BASE_CLASS}__container`}>
+                      <div className={`${BASE_CLASS}__item`} />
+                      <div className={`${BASE_CLASS}__item`} />
+                      <div className={`${BASE_CLASS}__item`} />
+                  </div>
+                  <div className={`${BASE_CLASS}__ui ${BASE_CLASS}__ui--hidden`}>
+                    <div className={`${BASE_CLASS}__top-bar`}>
+                      <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--close`} title="Close (Esc)"></button>
 
-                    <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--share`} title="Share"></button>
+                      {/* <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--share`} title="Share"></button> */}
 
-                    <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--fs`} title="Toggle fullscreen"></button>
+                      {/* <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--fs`} title="Toggle fullscreen"></button> */}
 
-                    <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--zoom`} title="Zoom in/out"></button>
+                      {/* <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--zoom`} title="Zoom in/out"></button> */}
 
-                    <div className={`${BASE_CLASS}__preloader`}>
-                        <div className={`${BASE_CLASS}__preloader__icn`}>
-                          <div className={`${BASE_CLASS}__preloader__cut`}>
-                            <div className={`${BASE_CLASS}__preloader__donut`}></div>
-                          </div>
-                        </div>
+                      <div className={`${BASE_CLASS}__preloader`} />
                     </div>
                   </div>
                 </div>
