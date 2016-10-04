@@ -5,8 +5,7 @@
   "main": "dist/react-pinch-zoom.js",
   "browser": "dist/react-pinch-zoom.js",
   "scripts": {
-    "build": "NODE_ENV=production gulp build && npm run copy-files",
-    "copy-files": "sudo rm -f ~/Sites/pdp-fragment/node_modules/react-pinch-zoom/dist/* && sudo cp ./dist/* ~/Sites/pdp-fragment/node_modules/react-pinch-zoom/dist/"
+    "build": "NODE_ENV=production gulp build",
   },
   "repository": {
     "type": "git",
