@@ -1999,7 +1999,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // Pointermove/touchmove/mousemove handler
 	        var _onDragMove = function _onDragMove(e) {
-	            e.preventDefault();
 
 	            if (_pointerEventEnabled) {
 	                var pointerIndex = helper.arraySearch(_currPointers, e.pointerId, 'id');
