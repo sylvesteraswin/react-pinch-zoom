@@ -29,7 +29,7 @@ const _defaultUIOptions = {
     closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui', 'top-bar'],
     timeToIdle: 4000,
     timeToIdleOutside: 1000,
-    loadingIndicatorDelay: 1000, // 2s
+    loadingIndicatorDelay: 100, // 2s
 
     addCaptionHTMLFn(item, captionEl /*, isFake */ ) {
         if (!item.title) {
@@ -210,7 +210,7 @@ const _setupLoadingIndicator = () => {
 
 const _toggleLoadingIndicator = hide => {
     if (_loadingIndicatorHidden !== hide) {
-        _toggleZvuiPinchClass(_loadingIndicator, 'spinner', !hide);
+        _toggleZvuiPinchClass(_loadingIndicator, 'preloader--active', !hide);
         _loadingIndicatorHidden = hide;
     }
 };

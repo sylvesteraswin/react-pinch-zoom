@@ -82,6 +82,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(2);
 
+	var _react2 = _interopRequireDefault(_react);
+
 	var _photoswipe = __webpack_require__(3);
 
 	var _photoswipe2 = _interopRequireDefault(_photoswipe);
@@ -144,7 +146,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function PinchZoom() {
 	        var _ref;
 
-	        var _temp, _this, _ret;
+	        var _temp, _this2, _ret;
 
 	        _classCallCheck(this, PinchZoom);
 
@@ -152,7 +154,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            args[_key] = arguments[_key];
 	        }
 
-	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PinchZoom.__proto__ || Object.getPrototypeOf(PinchZoom)).call.apply(_ref, [this].concat(args))), _this), _initialiseProps.call(_this), _temp), _possibleConstructorReturn(_this, _ret);
+	        return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_ref = PinchZoom.__proto__ || Object.getPrototypeOf(PinchZoom)).call.apply(_ref, [this].concat(args))), _this2), _initialiseProps.call(_this2), _temp), _possibleConstructorReturn(_this2, _ret);
 	    }
 
 	    _createClass(PinchZoom, [{
@@ -163,7 +165,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            className = (0, _classnames2.default)([BASE_CLASS, className]).trim();
 
-	            return React.createElement('div', { id: id, className: className, tabIndex: '-1', role: 'dialog', ref: (0, _camelcase2.default)(BASE_CLASS) }, React.createElement('div', { className: BASE_CLASS + '__bg' }), React.createElement('div', { className: BASE_CLASS + '__scroll-wrap' }, React.createElement('div', { className: BASE_CLASS + '__container' }, React.createElement('div', { className: BASE_CLASS + '__item' }), React.createElement('div', { className: BASE_CLASS + '__item' }), React.createElement('div', { className: BASE_CLASS + '__item' })), React.createElement('div', { className: BASE_CLASS + '__ui ' + BASE_CLASS + '__ui--hidden' }, React.createElement('div', { className: BASE_CLASS + '__top-bar' }, React.createElement('button', { className: BASE_CLASS + '__button ' + BASE_CLASS + '__button--close', title: 'Close (Esc)' }), React.createElement('div', { className: BASE_CLASS + '__preloader' })))));
+	            return _react2.default.createElement('div', { id: id, className: className, tabIndex: '-1', role: 'dialog', ref: (0, _camelcase2.default)(BASE_CLASS) }, _react2.default.createElement('div', { className: BASE_CLASS + '__bg' }), _react2.default.createElement('div', { className: BASE_CLASS + '__scroll-wrap' }, _react2.default.createElement('div', { className: BASE_CLASS + '__container' }, _react2.default.createElement('div', { className: BASE_CLASS + '__item' }), _react2.default.createElement('div', { className: BASE_CLASS + '__item' }), _react2.default.createElement('div', { className: BASE_CLASS + '__item' })), _react2.default.createElement('div', { className: BASE_CLASS + '__ui ' + BASE_CLASS + '__ui--hidden' }, _react2.default.createElement('div', { className: BASE_CLASS + '__top-bar' }, _react2.default.createElement('button', { className: BASE_CLASS + '__button ' + BASE_CLASS + '__button--close', title: 'Close (Esc)' }), _react2.default.createElement('div', { className: BASE_CLASS + '__preloader' })))));
 	        }
 	    }]);
 
@@ -184,87 +186,89 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var _initialiseProps = function _initialiseProps() {
-	    var _this2 = this;
+	    var _this3 = this;
 
 	    this.state = {
 	        isOpen: false
 	    };
 
 	    this.componentDidMount = function () {
-	        var isOpen = _this2.state.isOpen;
+	        var isOpen = _this3.state.isOpen;
 
 	        if (isOpen) {
-	            _this2.openPhotoSwipe(_this2.props);
+	            _this3.openPhotoSwipe(_this3.props);
 	        }
 	    };
 
 	    this.componentWillReceiveProps = function (nextProps) {
-	        var isOpen = _this2.state.isOpen;
+	        var isOpen = _this3.state.isOpen;
 
 	        if (nextProps.isOpen) {
 	            if (!isOpen) {
-	                _this2.openPhotoSwipe(nextProps);
+	                _this3.openPhotoSwipe(nextProps);
 	            } else {
-	                _this2.updateItems(nextProps.items);
+	                _this3.updateItems(nextProps.items);
 	            }
 	        } else if (isOpen) {
-	            _this2.closePhotoSwipe();
+	            _this3.closePhotoSwipe();
 	        }
 	    };
 
 	    this.componentWillUnmount = function () {
-	        _this2.closePhotoSwipe();
+	        _this3.closePhotoSwipe();
 	    };
 
 	    this.openPhotoSwipe = function (props) {
 	        var items = props.items;
 	        var options = props.options;
 
-	        var zvuiPinchElement = _this2.refs[(0, _camelcase2.default)(BASE_CLASS)];
-	        _this2.zvuiPinch = new _photoswipe2.default(zvuiPinchElement, _photoswipeUiDefault2.default, items, options);
+	        var _this = _this3;
+
+	        var zvuiPinchElement = _this.refs[(0, _camelcase2.default)(BASE_CLASS)];
+	        _this.zvuiPinch = new _photoswipe2.default(zvuiPinchElement, _photoswipeUiDefault2.default, items, options);
 
 	        _events2.default.forEach(function (event) {
 	            var callback = props[event];
 	            if (callback || event === 'destroy') {
-	                _this2.zvuiPinch.listen(event, function () {
+	                _this.zvuiPinch.listen(event, function () {
 	                    if (callback) {
 	                        var _args = arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments);
-	                        _args.unshift(this);
+	                        _args.unshift(_this);
 	                        callback.apply(undefined, _toConsumableArray(_args));
 	                    }
 	                    if (event === 'destroy') {
-	                        this.handleClose();
+	                        _this.handleClose();
 	                    }
 	                });
 	            }
 	        });
-	        _this2.setState({
+	        _this.setState({
 	            isOpen: true
 	        }, function () {
-	            _this2.zvuiPinch.init();
+	            _this.zvuiPinch.init();
 	        });
 	    };
 
 	    this.updateItems = function () {
 	        var items = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
-	        _this2.zvuiPinch.items.length = 0;
+	        _this3.zvuiPinch.items.length = 0;
 	        items.forEach(function (item) {
-	            _this2.zvuiPinch.items.push(item);
+	            _this3.zvuiPinch.items.push(item);
 	        });
 	    };
 
 	    this.closePhotoSwipe = function () {
-	        if (!_this2.zvuiPinch) {
+	        if (!_this3.zvuiPinch) {
 	            return;
 	        }
-	        _this2.zvuiPinch.close();
+	        _this3.zvuiPinch.close();
 	    };
 
 	    this.handleClose = function () {
-	        var onClose = _this2.props.onClose;
+	        var onClose = _this3.props.onClose;
 
-	        _this2.setState({
+	        _this3.setState({
 	            isOpen: false
 	        }, function () {
 	            if (onClose) {
@@ -3501,7 +3505,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui', 'top-bar'],
 	            timeToIdle: 4000,
 	            timeToIdleOutside: 1000,
-	            loadingIndicatorDelay: 1000, // 2s
+	            loadingIndicatorDelay: 100, // 2s
 
 	            addCaptionHTMLFn: function addCaptionHTMLFn(item, captionEl /*, isFake */) {
 	                if (!item.title) {
@@ -3678,7 +3682,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var _toggleLoadingIndicator = function _toggleLoadingIndicator(hide) {
 	            if (_loadingIndicatorHidden !== hide) {
-	                _toggleZvuiPinchClass(_loadingIndicator, 'spinner', !hide);
+	                _toggleZvuiPinchClass(_loadingIndicator, 'preloader--active', !hide);
 	                _loadingIndicatorHidden = hide;
 	            }
 	        };

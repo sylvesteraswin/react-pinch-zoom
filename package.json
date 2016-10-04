@@ -1,6 +1,6 @@
 {
   "name": "react-pinch-zoom",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "React draggable component",
   "main": "dist/react-pinch-zoom.js",
   "browser": "dist/react-pinch-zoom.js",

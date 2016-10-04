@@ -59,30 +59,32 @@ class PinchZoom extends Component {
             options,
         } = props;
 
-        const zvuiPinchElement = this.refs[camelCase(BASE_CLASS)];
-        this.zvuiPinch = new ZVUIPinch(zvuiPinchElement, ZVUIPinch_Default, items, options);
+        const _this = this;
+
+        const zvuiPinchElement = _this.refs[camelCase(BASE_CLASS)];
+        _this.zvuiPinch = new ZVUIPinch(zvuiPinchElement, ZVUIPinch_Default, items, options);
 
         events.forEach(event => {
             const callback = props[event];
             if (callback || event === 'destroy') {
-                this.zvuiPinch.listen(event, function() {
+                _this.zvuiPinch.listen(event, function() {
                     if (callback) {
                         const args = (arguments.length === 1
                             ? [arguments[0]]
                             : Array.apply(null, arguments));
-                        args.unshift(this);
+                        args.unshift(_this);
                         callback(...args);
                     }
                     if (event === 'destroy') {
-                        this.handleClose();
+                        _this.handleClose();
                     }
                 });
             }
         });
-        this.setState({
+        _this.setState({
             isOpen: true,
         }, () => {
-            this.zvuiPinch.init();
+            _this.zvuiPinch.init();
         });
     };
 
