@@ -1,13 +1,23 @@
-# http://editorconfig.org
+# EditorConfig is awesome: http://EditorConfig.org
+
+# top-most EditorConfig file
 root = true
 
+# For most files
 [*]
-indent_style = space
-indent_size = 2
 end_of_line = lf
+insert_final_newline = true
 charset = utf-8
 trim_trailing_whitespace = true
-insert_final_newline = true
+indent_style = space
+indent_size = 4
 
-[*.md]
-trim_trailing_whitespace = false
+# Override specific settings for npm generated json files to avoid big diffs
+[{package.json, npm-shrinkwrap.json}]
+indent_style = space
+indent_size = 2
+
+# Override for Makefile
+[{Makefile, makefile, GNUmakefile}]
+indent_style = tab
+indent_size = 4

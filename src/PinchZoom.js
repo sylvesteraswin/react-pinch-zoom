@@ -1,12 +1,12 @@
-import React, { PropTypes, Component } from 'react';
-import ReactDOM from 'react-dom';
+import {PropTypes, Component} from 'react';
 import ZVUIPinch from '../lib/photoswipe.js';
 import ZVUIPinch_Default from '../lib/photoswipe-ui-default.js';
 import classnames from 'classnames';
 import events from './events';
+import camelCase from 'camelcase';
 import '../lib/main.css';
 
-const BASE_CLASS="zvui-pinch";
+const BASE_CLASS = 'zvui-pinch';
 
 class PinchZoom extends Component {
     static propTypes = {
@@ -24,22 +24,19 @@ class PinchZoom extends Component {
     };
 
     state = {
-        isOpen: false
+        isOpen: false,
     };
 
     componentDidMount = () => {
-        let {
-            isOpen
-        } = this.state;
+        const {isOpen} = this.state;
+
         if (isOpen) {
             this.openPhotoSwipe(this.props);
         }
     };
 
     componentWillReceiveProps = (nextProps) => {
-        let {
-            isOpen
-        } = this.state;
+        const {isOpen} = this.state;
 
         if (nextProps.isOpen) {
             if (!isOpen) {
@@ -47,7 +44,7 @@ class PinchZoom extends Component {
             } else {
                 this.updateItems(nextProps.items);
             }
-        } else if(isOpen) {
+        } else if (isOpen) {
             this.closePhotoSwipe();
         }
     };
@@ -57,27 +54,27 @@ class PinchZoom extends Component {
     };
 
     openPhotoSwipe = (props) => {
-        let {
+        const {
             items,
             options,
-            ...other
         } = props;
 
-        let zvuiPinchElement = ReactDOM.findDOMNode(this);
+        const zvuiPinchElement = this.refs[camelCase(BASE_CLASS)];
         this.zvuiPinch = new ZVUIPinch(zvuiPinchElement, ZVUIPinch_Default, items, options);
-        console.log(this.zvuiPinch);
+
         events.forEach(event => {
-            let callback = props[event];
+            const callback = props[event];
             if (callback || event === 'destroy') {
-                let self = this;
                 this.zvuiPinch.listen(event, function() {
                     if (callback) {
-                        let args = (arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments));
+                        const args = (arguments.length === 1
+                            ? [arguments[0]]
+                            : Array.apply(null, arguments));
                         args.unshift(this);
                         callback(...args);
                     }
                     if (event === 'destroy') {
-                        self.handleClose();
+                        this.handleClose();
                     }
                 });
             }
@@ -85,7 +82,7 @@ class PinchZoom extends Component {
         this.setState({
             isOpen: true,
         }, () => {
-            this.zvuiPinch.init()
+            this.zvuiPinch.init();
         });
     };
 
@@ -104,12 +101,10 @@ class PinchZoom extends Component {
     };
 
     handleClose = () => {
-        let {
-            onClose
-        } = this.props;
+        const {onClose} = this.props;
 
         this.setState({
-            isOpen: false
+            isOpen: false,
         }, () => {
             if (onClose) {
                 onClose();
@@ -118,39 +113,33 @@ class PinchZoom extends Component {
     };
 
     render() {
-        let {
-            id,
-            className
-        } = this.props;
+        const {id} = this.props;
+        let {className} = this.props;
+
         className = classnames([BASE_CLASS, className]).trim();
 
         return (
-            <div
-                id={id}
-                className={className}
-                tabIndex="-1"
-                role="dialog"
-                >
-                <div className={`${BASE_CLASS}__bg`} />
+            <div id={id} className={className} tabIndex="-1" role="dialog" ref={camelCase(BASE_CLASS)}>
+                <div className={`${BASE_CLASS}__bg`}/>
                 <div className={`${BASE_CLASS}__scroll-wrap`}>
-                  <div className={`${BASE_CLASS}__container`}>
-                      <div className={`${BASE_CLASS}__item`} />
-                      <div className={`${BASE_CLASS}__item`} />
-                      <div className={`${BASE_CLASS}__item`} />
-                  </div>
-                  <div className={`${BASE_CLASS}__ui ${BASE_CLASS}__ui--hidden`}>
-                    <div className={`${BASE_CLASS}__top-bar`}>
-                      <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--close`} title="Close (Esc)"></button>
-
-                      {/* <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--share`} title="Share"></button> */}
-
-                      {/* <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--fs`} title="Toggle fullscreen"></button> */}
-
-                      {/* <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--zoom`} title="Zoom in/out"></button> */}
-
-                      <div className={`${BASE_CLASS}__preloader`} />
+                    <div className={`${BASE_CLASS}__container`}>
+                        <div className={`${BASE_CLASS}__item`}/>
+                        <div className={`${BASE_CLASS}__item`}/>
+                        <div className={`${BASE_CLASS}__item`}/>
                     </div>
-                  </div>
+                    <div className={`${BASE_CLASS}__ui ${BASE_CLASS}__ui--hidden`}>
+                        <div className={`${BASE_CLASS}__top-bar`}>
+                            <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--close`} title="Close (Esc)"></button>
+
+                            {/* <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--share`} title="Share"></button> */}
+
+                            {/* <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--fs`} title="Toggle fullscreen"></button> */}
+
+                            {/* <button className={`${BASE_CLASS}__button ${BASE_CLASS}__button--zoom`} title="Zoom in/out"></button> */}
+
+                            <div className={`${BASE_CLASS}__preloader`}/>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

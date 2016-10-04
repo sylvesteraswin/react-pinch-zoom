@@ -1,6 +1,7 @@
 {
   "parser": "babel-eslint",
   "rules": {
+    "indent": [2, 4],
     "strict": 0,
     "quotes": [1, "single"],
     "curly": [1, "multi-line"],

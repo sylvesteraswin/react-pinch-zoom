@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("react-dom"));
+		module.exports = factory(require("react"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "react-dom"], factory);
+		define(["react"], factory);
 	else if(typeof exports === 'object')
-		exports["ReactPinchZoom"] = factory(require("react"), require("react-dom"));
+		exports["ReactPinchZoom"] = factory(require("react"));
 	else
-		root["ReactPinchZoom"] = factory(root["React"], root["ReactDOM"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__) {
+		root["ReactPinchZoom"] = factory(root["React"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -82,29 +82,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react = __webpack_require__(2);
 
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(3);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _photoswipe = __webpack_require__(4);
+	var _photoswipe = __webpack_require__(3);
 
 	var _photoswipe2 = _interopRequireDefault(_photoswipe);
 
-	var _photoswipeUiDefault = __webpack_require__(5);
+	var _photoswipeUiDefault = __webpack_require__(4);
 
 	var _photoswipeUiDefault2 = _interopRequireDefault(_photoswipeUiDefault);
 
-	var _classnames = __webpack_require__(6);
+	var _classnames = __webpack_require__(5);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _events = __webpack_require__(7);
+	var _events = __webpack_require__(6);
 
 	var _events2 = _interopRequireDefault(_events);
 
-	__webpack_require__(8);
+	var _camelcase = __webpack_require__(7);
+
+	var _camelcase2 = _interopRequireDefault(_camelcase);
 
 	function _interopRequireDefault(obj) {
 	    return obj && obj.__esModule ? obj : { default: obj };
@@ -118,12 +114,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else {
 	        return Array.from(arr);
 	    }
-	}
-
-	function _objectWithoutProperties(obj, keys) {
-	    var target = {};for (var i in obj) {
-	        if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
-	    }return target;
 	}
 
 	function _classCallCheck(instance, Constructor) {
@@ -144,7 +134,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
-	var BASE_CLASS = "zvui-pinch";
+	var BASE_CLASS = 'zvui-pinch';
 
 	var PinchZoom = function (_Component) {
 	    _inherits(PinchZoom, _Component);
@@ -166,18 +156,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _createClass(PinchZoom, [{
 	        key: 'render',
 	        value: function render() {
-	            var _props = this.props;
-	            var id = _props.id;
-	            var className = _props.className;
+	            var id = this.props.id;
+	            var className = this.props.className;
 
 	            className = (0, _classnames2.default)([BASE_CLASS, className]).trim();
 
-	            return _react2.default.createElement('div', {
-	                id: id,
-	                className: className,
-	                tabIndex: '-1',
-	                role: 'dialog'
-	            }, _react2.default.createElement('div', { className: BASE_CLASS + '__bg' }), _react2.default.createElement('div', { className: BASE_CLASS + '__scroll-wrap' }, _react2.default.createElement('div', { className: BASE_CLASS + '__container' }, _react2.default.createElement('div', { className: BASE_CLASS + '__item' }), _react2.default.createElement('div', { className: BASE_CLASS + '__item' }), _react2.default.createElement('div', { className: BASE_CLASS + '__item' })), _react2.default.createElement('div', { className: BASE_CLASS + '__ui ' + BASE_CLASS + '__ui--hidden' }, _react2.default.createElement('div', { className: BASE_CLASS + '__top-bar' }, _react2.default.createElement('button', { className: BASE_CLASS + '__button ' + BASE_CLASS + '__button--close', title: 'Close (Esc)' }), _react2.default.createElement('div', { className: BASE_CLASS + '__preloader' })))));
+	            return React.createElement('div', { id: id, className: className, tabIndex: '-1', role: 'dialog', ref: (0, _camelcase2.default)(BASE_CLASS) }, React.createElement('div', { className: BASE_CLASS + '__bg' }), React.createElement('div', { className: BASE_CLASS + '__scroll-wrap' }, React.createElement('div', { className: BASE_CLASS + '__container' }, React.createElement('div', { className: BASE_CLASS + '__item' }), React.createElement('div', { className: BASE_CLASS + '__item' }), React.createElement('div', { className: BASE_CLASS + '__item' })), React.createElement('div', { className: BASE_CLASS + '__ui ' + BASE_CLASS + '__ui--hidden' }, React.createElement('div', { className: BASE_CLASS + '__top-bar' }, React.createElement('button', { className: BASE_CLASS + '__button ' + BASE_CLASS + '__button--close', title: 'Close (Esc)' }), React.createElement('div', { className: BASE_CLASS + '__preloader' })))));
 	        }
 	    }]);
 
@@ -234,27 +218,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var items = props.items;
 	        var options = props.options;
 
-	        var other = _objectWithoutProperties(props, ['items', 'options']);
-
-	        var zvuiPinchElement = _reactDom2.default.findDOMNode(_this2);
+	        var zvuiPinchElement = _this2.refs[(0, _camelcase2.default)(BASE_CLASS)];
 	        _this2.zvuiPinch = new _photoswipe2.default(zvuiPinchElement, _photoswipeUiDefault2.default, items, options);
-	        console.log(_this2.zvuiPinch);
+
 	        _events2.default.forEach(function (event) {
 	            var callback = props[event];
 	            if (callback || event === 'destroy') {
-	                (function () {
-	                    var self = _this2;
-	                    _this2.zvuiPinch.listen(event, function () {
-	                        if (callback) {
-	                            var _args = arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments);
-	                            _args.unshift(this);
-	                            callback.apply(undefined, _toConsumableArray(_args));
-	                        }
-	                        if (event === 'destroy') {
-	                            self.handleClose();
-	                        }
-	                    });
-	                })();
+	                _this2.zvuiPinch.listen(event, function () {
+	                    if (callback) {
+	                        var _args = arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments);
+	                        _args.unshift(this);
+	                        callback.apply(undefined, _toConsumableArray(_args));
+	                    }
+	                    if (event === 'destroy') {
+	                        this.handleClose();
+	                    }
+	                });
 	            }
 	        });
 	        _this2.setState({
@@ -303,9 +282,3172 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	(function (root, factory) {
+	    if (true) {
+	        !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') {
+	        module.exports = factory(require, exports, module);
+	    } else {
+	        root.ZVUIPinch = factory();
+	    }
+	})(undefined, function (require, exports, module) {
+
+	    return function (template, UiClass, items, options) {
+	        /**
+	        *
+	        * Set of generic functions used by gallery.
+	        *
+	        * You're free to modify anything here as long as functionality is kept.
+	        *
+	        */
+	        var helper = {
+	            features: null,
+	            bind: function bind(target, type, listener, unbind) {
+	                var methodName = (unbind ? 'remove' : 'add') + 'EventListener';
+	                type = type.split(' ');
+	                for (var i = 0; i < type.length; i++) {
+	                    if (type[i]) {
+	                        target[methodName](type[i], listener, false);
+	                    }
+	                }
+	            },
+	            isArray: function isArray(obj) {
+	                return obj instanceof Array;
+	            },
+	            createEl: function createEl(classes, tag) {
+	                var el = document.createElement(tag || 'div');
+	                if (classes) {
+	                    el.className = classes;
+	                }
+	                return el;
+	            },
+	            getScrollY: function getScrollY() {
+	                var yOffset = window.pageYOffset;
+	                return yOffset !== undefined ? yOffset : document.documentElement.scrollTop;
+	            },
+	            unbind: function unbind(target, type, listener) {
+	                helper.bind(target, type, listener, true);
+	            },
+	            removeClass: function removeClass(el, className) {
+	                var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+	                el.className = el.className.replace(reg, ' ').replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+	            },
+	            addClass: function addClass(el, className) {
+	                if (!helper.hasClass(el, className)) {
+	                    el.className += (el.className ? ' ' : '') + className;
+	                }
+	            },
+	            hasClass: function hasClass(el, className) {
+	                return el.className && new RegExp('(^|\\s)' + className + '(\\s|$)').test(el.className);
+	            },
+	            getChildByClass: function getChildByClass(parentEl, childClassName) {
+	                var node = parentEl.firstChild;
+	                while (node) {
+	                    if (helper.hasClass(node, childClassName)) {
+	                        return node;
+	                    }
+	                    node = node.nextSibling;
+	                }
+	            },
+	            arraySearch: function arraySearch(array, value, key) {
+	                var i = array.length;
+	                while (i--) {
+	                    if (array[i][key] === value) {
+	                        return i;
+	                    }
+	                }
+	                return -1;
+	            },
+	            extend: function extend(o1, o2, preventOverwrite) {
+	                for (var prop in o2) {
+	                    if (o2.hasOwnProperty(prop)) {
+	                        if (preventOverwrite && o1.hasOwnProperty(prop)) {
+	                            continue;
+	                        }
+	                        o1[prop] = o2[prop];
+	                    }
+	                }
+	            },
+
+	            easing: {
+	                sine: {
+	                    out: function out(k) {
+	                        return Math.sin(k * (Math.PI / 2));
+	                    },
+	                    inOut: function inOut(k) {
+	                        return -(Math.cos(Math.PI * k) - 1) / 2;
+	                    }
+	                },
+	                cubic: {
+	                    out: function out(k) {
+	                        return --k * k * k + 1;
+	                    }
+	                }
+	            },
+
+	            /**
+	             *
+	             * @return {object}
+	             *
+	             * {
+	             *  raf : request animation frame function
+	             *  caf : cancel animation frame function
+	             *  transfrom : transform property key (with vendor), or null if not supported
+	             *  oldIE : IE8 or below
+	             * }
+	             *
+	             */
+	            detectFeatures: function detectFeatures() {
+	                if (helper.features) {
+	                    return helper.features;
+	                }
+	                var helperEl = helper.createEl();
+	                var helperStyle = helperEl.style;
+	                var vendor = '';
+	                var features = {};
+
+	                // IE8 and below
+	                features.oldIE = document.all && !document.addEventListener;
+
+	                features.touch = 'ontouchstart' in window;
+
+	                if (window.requestAnimationFrame) {
+	                    features.raf = window.requestAnimationFrame;
+	                    features.caf = window.cancelAnimationFrame;
+	                }
+
+	                features.pointerEvent = navigator.pointerEnabled || navigator.msPointerEnabled;
+
+	                // fix false-positive detection of old Android in new IE
+	                // (IE11 ua string contains "Android 4.0")
+
+	                if (!features.pointerEvent) {
+
+	                    var ua = navigator.userAgent;
+
+	                    // Detect if device is iPhone or iPod and if it's older than iOS 8
+	                    // http://stackoverflow.com/a/14223920
+	                    //
+	                    // This detection is made because of buggy top/bottom toolbars
+	                    // that don't trigger window.resize event.
+	                    // For more info refer to _isFixedPosition variable in core.js
+
+	                    if (/iP(hone|od)/.test(navigator.platform)) {
+	                        var v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+	                        if (v && v.length > 0) {
+	                            v = parseInt(v[1], 10);
+	                            if (v >= 1 && v < 8) {
+	                                features.isOldIOSPhone = true;
+	                            }
+	                        }
+	                    }
+
+	                    // Detect old Android (before KitKat)
+	                    // due to bugs related to position:fixed
+	                    // http://stackoverflow.com/questions/7184573/pick-up-the-android-version-in-the-browser-by-javascript
+
+	                    var match = ua.match(/Android\s([0-9\.]*)/);
+	                    var androidversion = match ? match[1] : 0;
+	                    androidversion = parseFloat(androidversion);
+	                    if (androidversion >= 1) {
+	                        if (androidversion < 4.4) {
+	                            features.isOldAndroid = true; // for fixed position bug & performance
+	                        }
+	                        features.androidVersion = androidversion; // for touchend bug
+	                    }
+	                    features.isMobileOpera = /opera mini|opera mobi/i.test(ua);
+
+	                    // p.s. yes, yes, UA sniffing is bad, propose your solution for above bugs.
+	                }
+
+	                var styleChecks = ['transform', 'perspective', 'animationName'];
+	                var vendors = ['', 'webkit', 'Moz', 'ms', 'O'];
+	                var styleCheckItem = void 0;
+	                var styleName = void 0;
+
+	                for (var i = 0; i < 4; i++) {
+	                    vendor = vendors[i];
+
+	                    for (var a = 0; a < 3; a++) {
+	                        styleCheckItem = styleChecks[a];
+
+	                        // uppercase first letter of property name, if vendor is present
+	                        styleName = vendor + (vendor ? styleCheckItem.charAt(0).toUpperCase() + styleCheckItem.slice(1) : styleCheckItem);
+
+	                        if (!features[styleCheckItem] && styleName in helperStyle) {
+	                            features[styleCheckItem] = styleName;
+	                        }
+	                    }
+
+	                    if (vendor && !features.raf) {
+	                        vendor = vendor.toLowerCase();
+	                        features.raf = window[vendor + 'RequestAnimationFrame'];
+	                        if (features.raf) {
+	                            features.caf = window[vendor + 'CancelAnimationFrame'] || window[vendor + 'CancelRequestAnimationFrame'];
+	                        }
+	                    }
+	                }
+
+	                if (!features.raf) {
+	                    (function () {
+	                        var lastTime = 0;
+	                        features.raf = function (fn) {
+	                            var currTime = new Date().getTime();
+	                            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+	                            var id = window.setTimeout(function () {
+	                                fn(currTime + timeToCall);
+	                            }, timeToCall);
+	                            lastTime = currTime + timeToCall;
+	                            return id;
+	                        };
+	                        features.caf = function (id) {
+	                            clearTimeout(id);
+	                        };
+	                    })();
+	                }
+
+	                // Detect SVG support
+	                features.svg = !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect;
+
+	                helper.features = features;
+
+	                return features;
+	            }
+	        };
+
+	        helper.detectFeatures();
+
+	        // Override addEventListener for old versions of IE
+	        if (helper.features.oldIE) {
+
+	            helper.bind = function (target, type, listener, unbind) {
+	                type = type.split(' ');
+
+	                var methodName = (unbind ? 'detach' : 'attach') + 'Event';
+	                var evName = void 0;
+
+	                var _handleEv = function _handleEv() {
+	                    listener.handleEvent.call(listener);
+	                };
+
+	                for (var i = 0; i < type.length; i++) {
+	                    evName = type[i];
+	                    if (evName) {
+
+	                        if ((typeof listener === 'undefined' ? 'undefined' : _typeof(listener)) === 'object' && listener.handleEvent) {
+	                            if (!unbind) {
+	                                listener['oldIE' + evName] = _handleEv;
+	                            } else {
+	                                if (!listener['oldIE' + evName]) {
+	                                    return false;
+	                                }
+	                            }
+
+	                            target[methodName]('on' + evName, listener['oldIE' + evName]);
+	                        } else {
+	                            target[methodName]('on' + evName, listener);
+	                        }
+	                    }
+	                }
+	            };
+	        }
+
+	        //function(template, UiClass, items, options)
+
+	        var self = this;
+
+	        /**
+	         * Static vars, don't change unless you know what you're doing.
+	         */
+	        var DOUBLE_TAP_RADIUS = 25;
+
+	        var NUM_HOLDERS = 3;
+
+	        /**
+	         * Options
+	         */
+	        var _options = {
+	            allowPanToNext: true,
+	            spacing: 0.12,
+	            bgOpacity: 1,
+	            mouseUsed: false,
+	            loop: true,
+	            pinchToClose: true,
+	            closeOnScroll: true,
+	            closeOnVerticalDrag: true,
+	            verticalDragRange: 0.75,
+	            hideAnimationDuration: 333,
+	            showAnimationDuration: 333,
+	            showHideOpacity: false,
+	            focus: true,
+	            escKey: true,
+	            arrowKeys: true,
+	            mainScrollEndFriction: 0.35,
+	            panEndFriction: 0.35,
+	            isClickableElement: function isClickableElement(el) {
+	                return el.tagName === 'A';
+	            },
+	            getDoubleTapZoom: function getDoubleTapZoom(isMouseClick, item) {
+	                if (isMouseClick) {
+	                    return 1;
+	                } else {
+	                    return item.initialZoomLevel < 0.7 ? 1 : 1.33;
+	                }
+	            },
+
+	            maxSpreadZoom: 1.33,
+	            modal: true,
+
+	            // not fully implemented yet
+	            scaleMode: 'fit' };
+	        helper.extend(_options, options);
+
+	        /**
+	         * Private helper variables & functions
+	         */
+
+	        var _getEmptyPoint = function _getEmptyPoint() {
+	            return {
+	                x: 0,
+	                y: 0
+	            };
+	        };
+
+	        var _isOpen = void 0;
+	        var _isDestroying = void 0;
+	        var _closedByScroll = void 0;
+	        var _currentItemIndex = void 0;
+	        var _containerStyle = void 0;
+	        var _containerShiftIndex = void 0;
+	        var _currPanDist = _getEmptyPoint();
+	        var _startPanOffset = _getEmptyPoint();
+	        var _panOffset = _getEmptyPoint();
+
+	        var // drag move, drag end & drag cancel events array
+	        _upMoveEvents = void 0;
+
+	        var // drag start events array
+	        _downEvents = void 0;
+
+	        var _globalEventHandlers = void 0;
+	        var _viewportSize = {};
+	        var _currZoomLevel = void 0;
+	        var _startZoomLevel = void 0;
+	        var _translatePrefix = void 0;
+	        var _translateSufix = void 0;
+	        var _updateSizeInterval = void 0;
+	        var _itemsNeedUpdate = void 0;
+	        var _currPositionIndex = 0;
+	        var _offset = {};
+
+	        var // size of slide area, including spacing
+	        _slideSize = _getEmptyPoint();
+
+	        var _itemHolders = void 0;
+	        var _prevItemIndex = void 0;
+
+	        var // difference of indexes since last content update
+	        _indexDiff = 0;
+
+	        var _dragStartEvent = void 0;
+	        var _dragMoveEvent = void 0;
+	        var _dragEndEvent = void 0;
+	        var _dragCancelEvent = void 0;
+	        var _transformKey = void 0;
+	        var _pointerEventEnabled = void 0;
+	        var _isFixedPosition = true;
+	        var _likelyTouchDevice = void 0;
+	        var _modules = [];
+	        var _requestAF = void 0;
+	        var _cancelAF = void 0;
+	        var _initalClassName = void 0;
+	        var _initalWindowScrollY = void 0;
+	        var _oldIE = void 0;
+	        var _currentWindowScrollY = void 0;
+	        var _features = void 0;
+	        var _windowVisibleSize = {};
+	        var _renderMaxResolution = false;
+
+	        var // Registers PhotoSWipe module (History, Controller ...)
+	        _registerModule = function _registerModule(name, module) {
+	            helper.extend(self, module.publicMethods);
+	            _modules.push(name);
+	        };
+
+	        var _getLoopedId = function _getLoopedId(index) {
+	            var numSlides = _getNumItems();
+	            if (index > numSlides - 1) {
+	                return index - numSlides;
+	            } else if (index < 0) {
+	                return numSlides + index;
+	            }
+	            return index;
+	        };
+
+	        var // Micro bind/trigger
+	        _listeners = {};
+
+	        var _listen = function _listen(name, fn) {
+	            if (!_listeners[name]) {
+	                _listeners[name] = [];
+	            }
+	            return _listeners[name].push(fn);
+	        };
+
+	        var _shout = function _shout(name) {
+	            var listeners = _listeners[name];
+
+	            if (listeners) {
+	                var args = Array.prototype.slice.call(arguments);
+	                args.shift();
+
+	                for (var i = 0; i < listeners.length; i++) {
+	                    listeners[i].apply(self, args);
+	                }
+	            }
+	        };
+
+	        var _getCurrentTime = function _getCurrentTime() {
+	            return new Date().getTime();
+	        };
+
+	        var _applyBgOpacity = function _applyBgOpacity(opacity) {
+	            _bgOpacity = opacity;
+	            self.bg.style.opacity = opacity * _options.bgOpacity;
+	        };
+
+	        var _applyZoomTransform = function _applyZoomTransform(styleObj, x, y, zoom, item) {
+	            if (!_renderMaxResolution || item && item !== self.currItem) {
+	                zoom = zoom / (item ? item.fitRatio : self.currItem.fitRatio);
+	            }
+
+	            styleObj[_transformKey] = _translatePrefix + x + 'px, ' + y + 'px' + _translateSufix + ' scale(' + zoom + ')';
+	        };
+
+	        var _applyCurrentZoomPan = function _applyCurrentZoomPan(allowRenderResolution) {
+	            if (_currZoomElementStyle) {
+
+	                if (allowRenderResolution) {
+	                    if (_currZoomLevel > self.currItem.fitRatio) {
+	                        if (!_renderMaxResolution) {
+	                            _setImageSize(self.currItem, false, true);
+	                            _renderMaxResolution = true;
+	                        }
+	                    } else {
+	                        if (_renderMaxResolution) {
+	                            _setImageSize(self.currItem);
+	                            _renderMaxResolution = false;
+	                        }
+	                    }
+	                }
+
+	                _applyZoomTransform(_currZoomElementStyle, _panOffset.x, _panOffset.y, _currZoomLevel);
+	            }
+	        };
+
+	        var _applyZoomPanToItem = function _applyZoomPanToItem(item) {
+	            if (item.container) {
+
+	                _applyZoomTransform(item.container.style, item.initialPosition.x, item.initialPosition.y, item.initialZoomLevel, item);
+	            }
+	        };
+
+	        var _setTranslateX = function _setTranslateX(x, elStyle) {
+	            elStyle[_transformKey] = _translatePrefix + x + 'px, 0px' + _translateSufix;
+	        };
+
+	        var _moveMainScroll = function _moveMainScroll(x, dragging) {
+
+	            if (!_options.loop && dragging) {
+	                var newSlideIndexOffset = _currentItemIndex + (_slideSize.x * _currPositionIndex - x) / _slideSize.x;
+	                var _delta = Math.round(x - _mainScrollPos.x);
+
+	                if (newSlideIndexOffset < 0 && _delta > 0 || newSlideIndexOffset >= _getNumItems() - 1 && _delta < 0) {
+	                    x = _mainScrollPos.x + _delta * _options.mainScrollEndFriction;
+	                }
+	            }
+
+	            _mainScrollPos.x = x;
+	            _setTranslateX(x, _containerStyle);
+	        };
+
+	        var _calculatePanOffset = function _calculatePanOffset(axis, zoomLevel) {
+	            var m = _midZoomPoint[axis] - _offset[axis];
+	            return _startPanOffset[axis] + _currPanDist[axis] + m - m * (zoomLevel / _startZoomLevel);
+	        };
+
+	        var _equalizePoints = function _equalizePoints(p1, p2) {
+	            p1.x = p2.x;
+	            p1.y = p2.y;
+	            if (p2.id) {
+	                p1.id = p2.id;
+	            }
+	        };
+
+	        var _roundPoint = function _roundPoint(p) {
+	            p.x = Math.round(p.x);
+	            p.y = Math.round(p.y);
+	        };
+
+	        var _mouseMoveTimeout = null;
+
+	        var _onFirstMouseMove = function _onFirstMouseMove() {
+	            // Wait until mouse move event is fired at least twice during 100ms
+	            // We do this, because some mobile browsers trigger it on touchstart
+	            if (_mouseMoveTimeout) {
+	                helper.unbind(document, 'mousemove', _onFirstMouseMove);
+	                helper.addClass(template, 'zvui-pinch--has_mouse');
+	                _options.mouseUsed = true;
+	                _shout('mouseUsed');
+	            }
+	            _mouseMoveTimeout = setTimeout(function () {
+	                _mouseMoveTimeout = null;
+	            }, 100);
+	        };
+
+	        var _bindEvents = function _bindEvents() {
+	            helper.bind(document, 'keydown', self);
+
+	            if (_features.transform) {
+	                // don't bind click event in browsers that don't support transform (mostly IE8)
+	                helper.bind(self.scrollWrap, 'click', self);
+	            }
+
+	            if (!_options.mouseUsed) {
+	                helper.bind(document, 'mousemove', _onFirstMouseMove);
+	            }
+
+	            helper.bind(window, 'resize scroll', self);
+
+	            _shout('bindEvents');
+	        };
+
+	        var _unbindEvents = function _unbindEvents() {
+	            helper.unbind(window, 'resize', self);
+	            helper.unbind(window, 'scroll', _globalEventHandlers.scroll);
+	            helper.unbind(document, 'keydown', self);
+	            helper.unbind(document, 'mousemove', _onFirstMouseMove);
+
+	            if (_features.transform) {
+	                helper.unbind(self.scrollWrap, 'click', self);
+	            }
+
+	            if (_isDragging) {
+	                helper.unbind(window, _upMoveEvents, self);
+	            }
+
+	            _shout('unbindEvents');
+	        };
+
+	        var _calculatePanBounds = function _calculatePanBounds(zoomLevel, update) {
+	            var bounds = _calculateItemSize(self.currItem, _viewportSize, zoomLevel);
+	            if (update) {
+	                _currPanBounds = bounds;
+	            }
+	            return bounds;
+	        };
+
+	        var _getMinZoomLevel = function _getMinZoomLevel(item) {
+	            if (!item) {
+	                item = self.currItem;
+	            }
+	            return item.initialZoomLevel;
+	        };
+
+	        var _getMaxZoomLevel = function _getMaxZoomLevel(item) {
+	            if (!item) {
+	                item = self.currItem;
+	            }
+	            return item.w > 0 ? _options.maxSpreadZoom : 1;
+	        };
+
+	        // Return true if offset is out of the bounds
+	        var _modifyDestPanOffset = function _modifyDestPanOffset(axis, destPanBounds, destPanOffset, destZoomLevel) {
+	            if (destZoomLevel === self.currItem.initialZoomLevel) {
+	                destPanOffset[axis] = self.currItem.initialPosition[axis];
+	                return true;
+	            } else {
+	                destPanOffset[axis] = _calculatePanOffset(axis, destZoomLevel);
+
+	                if (destPanOffset[axis] > destPanBounds.min[axis]) {
+	                    destPanOffset[axis] = destPanBounds.min[axis];
+	                    return true;
+	                } else if (destPanOffset[axis] < destPanBounds.max[axis]) {
+	                    destPanOffset[axis] = destPanBounds.max[axis];
+	                    return true;
+	                }
+	            }
+	            return false;
+	        };
+
+	        var _setupTransforms = function _setupTransforms() {
+
+	            if (_transformKey) {
+	                // setup 3d transforms
+	                var allow3dTransform = _features.perspective && !_likelyTouchDevice;
+	                _translatePrefix = 'translate' + (allow3dTransform ? '3d(' : '(');
+	                _translateSufix = _features.perspective ? ', 0px)' : ')';
+	                return;
+	            }
+
+	            // Override zoom/pan/move functions in case old browser is used (most likely IE)
+	            // (so they use left/top/width/height, instead of CSS transform)
+
+	            _transformKey = 'left';
+	            helper.addClass(template, 'zvui-pinch--ie');
+
+	            _setTranslateX = function _setTranslateX(x, elStyle) {
+	                elStyle.left = x + 'px';
+	            };
+	            _applyZoomPanToItem = function _applyZoomPanToItem(item) {
+	                var zoomRatio = item.fitRatio > 1 ? 1 : item.fitRatio;
+	                var s = item.container.style;
+	                var w = zoomRatio * item.w;
+	                var h = zoomRatio * item.h;
+
+	                s.width = w + 'px';
+	                s.height = h + 'px';
+	                s.left = item.initialPosition.x + 'px';
+	                s.top = item.initialPosition.y + 'px';
+	            };
+	            _applyCurrentZoomPan = function _applyCurrentZoomPan() {
+	                if (_currZoomElementStyle) {
+	                    var s = _currZoomElementStyle;
+	                    var item = self.currItem;
+	                    var zoomRatio = item.fitRatio > 1 ? 1 : item.fitRatio;
+	                    var w = zoomRatio * item.w;
+	                    var h = zoomRatio * item.h;
+
+	                    s.width = w + 'px';
+	                    s.height = h + 'px';
+
+	                    s.left = _panOffset.x + 'px';
+	                    s.top = _panOffset.y + 'px';
+	                }
+	            };
+	        };
+
+	        var _onKeyDown = function _onKeyDown(e) {
+	            var keydownAction = '';
+	            if (_options.escKey && e.keyCode === 27) {
+	                keydownAction = 'close';
+	            } else if (_options.arrowKeys) {
+	                if (e.keyCode === 37) {
+	                    keydownAction = 'prev';
+	                } else if (e.keyCode === 39) {
+	                    keydownAction = 'next';
+	                }
+	            }
+
+	            if (keydownAction) {
+	                // don't do anything if special key pressed to prevent from overriding default browser actions
+	                // e.g. in Chrome on Mac cmd+arrow-left returns to previous page
+	                if (!e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey) {
+	                    if (e.preventDefault) {
+	                        e.preventDefault();
+	                    } else {
+	                        e.returnValue = false;
+	                    }
+	                    self[keydownAction]();
+	                }
+	            }
+	        };
+
+	        var _onGlobalClick = function _onGlobalClick(e) {
+	            if (!e) {
+	                return;
+	            }
+
+	            // don't allow click event to pass through when triggering after drag or some other gesture
+	            if (_moved || _zoomStarted || _mainScrollAnimating || _verticalDragInitiated) {
+	                e.preventDefault();
+	                e.stopPropagation();
+	            }
+	        };
+
+	        var _updatePageScrollOffset = function _updatePageScrollOffset() {
+	            self.setScrollOffset(0, helper.getScrollY());
+	        };
+
+	        // Micro animation engine
+	        var _animations = {};
+
+	        var _numAnimations = 0;
+
+	        var _stopAnimation = function _stopAnimation(name) {
+	            if (_animations[name]) {
+	                if (_animations[name].raf) {
+	                    _cancelAF(_animations[name].raf);
+	                }
+	                _numAnimations--;
+	                delete _animations[name];
+	            }
+	        };
+
+	        var _registerStartAnimation = function _registerStartAnimation(name) {
+	            if (_animations[name]) {
+	                _stopAnimation(name);
+	            }
+	            if (!_animations[name]) {
+	                _numAnimations++;
+	                _animations[name] = {};
+	            }
+	        };
+
+	        var _stopAllAnimations = function _stopAllAnimations() {
+	            for (var prop in _animations) {
+
+	                if (_animations.hasOwnProperty(prop)) {
+	                    _stopAnimation(prop);
+	                }
+	            }
+	        };
+
+	        var _animateProp = function _animateProp(name, b, endProp, d, easingFn, onUpdate, onComplete) {
+	            var startAnimTime = _getCurrentTime();
+	            var t = void 0;
+	            _registerStartAnimation(name);
+
+	            var animloop = function animloop() {
+	                if (_animations[name]) {
+
+	                    t = _getCurrentTime() - startAnimTime; // time diff
+	                    //b - beginning (start prop)
+	                    //d - anim duration
+
+	                    if (t >= d) {
+	                        _stopAnimation(name);
+	                        onUpdate(endProp);
+	                        if (onComplete) {
+	                            onComplete();
+	                        }
+	                        return;
+	                    }
+	                    onUpdate((endProp - b) * easingFn(t / d) + b);
+
+	                    _animations[name].raf = _requestAF(animloop);
+	                }
+	            };
+	            animloop();
+	        };
+
+	        var publicMethods = {
+
+	            // make a few local variables and functions public
+	            shout: _shout,
+	            listen: _listen,
+	            viewportSize: _viewportSize,
+	            options: _options,
+
+	            isMainScrollAnimating: function isMainScrollAnimating() {
+	                return _mainScrollAnimating;
+	            },
+	            getZoomLevel: function getZoomLevel() {
+	                return _currZoomLevel;
+	            },
+	            getCurrentIndex: function getCurrentIndex() {
+	                return _currentItemIndex;
+	            },
+	            isDragging: function isDragging() {
+	                return _isDragging;
+	            },
+	            isZooming: function isZooming() {
+	                return _isZooming;
+	            },
+	            setScrollOffset: function setScrollOffset(x, y) {
+	                _offset.x = x;
+	                _currentWindowScrollY = _offset.y = y;
+	                _shout('updateScrollOffset', _offset);
+	            },
+	            applyZoomPan: function applyZoomPan(zoomLevel, panX, panY, allowRenderResolution) {
+	                _panOffset.x = panX;
+	                _panOffset.y = panY;
+	                _currZoomLevel = zoomLevel;
+	                _applyCurrentZoomPan(allowRenderResolution);
+	            },
+	            init: function init() {
+
+	                if (_isOpen || _isDestroying) {
+	                    return;
+	                }
+
+	                var i = void 0;
+
+	                self.helper = helper; // basic functionality
+	                self.template = template; // root DOM element of PhotoSwipe
+	                self.bg = helper.getChildByClass(template, 'zvui-pinch__bg');
+
+	                _initalClassName = template.className;
+	                _isOpen = true;
+
+	                _features = helper.detectFeatures();
+	                _requestAF = _features.raf;
+	                _cancelAF = _features.caf;
+	                _transformKey = _features.transform;
+	                _oldIE = _features.oldIE;
+
+	                self.scrollWrap = helper.getChildByClass(template, 'zvui-pinch__scroll-wrap');
+	                self.container = helper.getChildByClass(self.scrollWrap, 'zvui-pinch__container');
+
+	                _containerStyle = self.container.style; // for fast access
+
+	                // Objects that hold slides (there are only 3 in DOM)
+	                self.itemHolders = _itemHolders = [{
+	                    el: self.container.children[0],
+	                    wrap: 0,
+	                    index: -1
+	                }, {
+	                    el: self.container.children[1],
+	                    wrap: 0,
+	                    index: -1
+	                }, {
+	                    el: self.container.children[2],
+	                    wrap: 0,
+	                    index: -1
+	                }];
+
+	                // hide nearby item holders until initial zoom animation finishes (to avoid extra Paints)
+	                _itemHolders[0].el.style.display = _itemHolders[2].el.style.display = 'none';
+
+	                _setupTransforms();
+
+	                // Setup global events
+	                _globalEventHandlers = {
+	                    resize: self.updateSize,
+	                    scroll: _updatePageScrollOffset,
+	                    keydown: _onKeyDown,
+	                    click: _onGlobalClick
+	                };
+
+	                // disable show/hide effects on old browsers that don't support CSS animations or transforms,
+	                // old IOS, Android and Opera mobile. Blackberry seems to work fine, even older models.
+	                var oldPhone = _features.isOldIOSPhone || _features.isOldAndroid || _features.isMobileOpera;
+	                if (!_features.animationName || !_features.transform || oldPhone) {
+	                    _options.showAnimationDuration = _options.hideAnimationDuration = 0;
+	                }
+
+	                // init modules
+	                for (i = 0; i < _modules.length; i++) {
+	                    self['init' + _modules[i]]();
+	                }
+
+	                // init
+	                if (UiClass) {
+	                    var ui = self.ui = new UiClass(self, helper);
+	                    ui.init();
+	                }
+
+	                _shout('firstUpdate');
+	                _currentItemIndex = _currentItemIndex || _options.index || 0;
+	                // validate index
+	                if (isNaN(_currentItemIndex) || _currentItemIndex < 0 || _currentItemIndex >= _getNumItems()) {
+	                    _currentItemIndex = 0;
+	                }
+	                self.currItem = _getItemAt(_currentItemIndex);
+
+	                if (_features.isOldIOSPhone || _features.isOldAndroid) {
+	                    _isFixedPosition = false;
+	                }
+
+	                template.setAttribute('aria-hidden', 'false');
+	                if (_options.modal) {
+	                    if (!_isFixedPosition) {
+	                        template.style.position = 'absolute';
+	                        template.style.top = helper.getScrollY() + 'px';
+	                    } else {
+	                        template.style.position = 'fixed';
+	                    }
+	                }
+
+	                if (_currentWindowScrollY === undefined) {
+	                    _shout('initialLayout');
+	                    _currentWindowScrollY = _initalWindowScrollY = helper.getScrollY();
+	                }
+
+	                // add classes to root element of PhotoSwipe
+	                var rootClasses = 'zvui-pinch--open ';
+	                if (_options.mainClass) {
+	                    rootClasses += _options.mainClass + ' ';
+	                }
+	                if (_options.showHideOpacity) {
+	                    rootClasses += 'zvui-pinch--animate_opacity ';
+	                }
+	                rootClasses += _likelyTouchDevice ? 'zvui-pinch--touch' : 'zvui-pinch--notouch';
+	                rootClasses += _features.animationName ? ' zvui-pinch--css_animation' : '';
+	                rootClasses += _features.svg ? ' zvui-pinch--svg' : '';
+	                helper.addClass(template, rootClasses);
+
+	                self.updateSize();
+
+	                // initial update
+	                _containerShiftIndex = -1;
+	                _indexDiff = null;
+	                for (i = 0; i < NUM_HOLDERS; i++) {
+	                    _setTranslateX((i + _containerShiftIndex) * _slideSize.x, _itemHolders[i].el.style);
+	                }
+
+	                if (!_oldIE) {
+	                    helper.bind(self.scrollWrap, _downEvents, self); // no dragging for old IE
+	                }
+
+	                _listen('initialZoomInEnd', function () {
+	                    self.setContent(_itemHolders[0], _currentItemIndex - 1);
+	                    self.setContent(_itemHolders[2], _currentItemIndex + 1);
+
+	                    _itemHolders[0].el.style.display = _itemHolders[2].el.style.display = 'block';
+
+	                    if (_options.focus) {
+	                        // focus causes layout,
+	                        // which causes lag during the animation,
+	                        // that's why we delay it untill the initial zoom transition ends
+	                        template.focus();
+	                    }
+
+	                    _bindEvents();
+	                });
+
+	                // set content for center slide (first time)
+	                self.setContent(_itemHolders[1], _currentItemIndex);
+
+	                self.updateCurrItem();
+
+	                _shout('afterInit');
+
+	                if (!_isFixedPosition) {
+
+	                    // On all versions of iOS lower than 8.0, we check size of viewport every second.
+	                    //
+	                    // This is done to detect when Safari top & bottom bars appear,
+	                    // as this action doesn't trigger any events (like resize).
+	                    //
+	                    // On iOS8 they fixed this.
+	                    //
+	                    // 10 Nov 2014: iOS 7 usage ~40%. iOS 8 usage 56%.
+
+	                    _updateSizeInterval = setInterval(function () {
+	                        if (!_numAnimations && !_isDragging && !_isZooming && _currZoomLevel === self.currItem.initialZoomLevel) {
+	                            self.updateSize();
+	                        }
+	                    }, 1000);
+	                }
+
+	                helper.addClass(template, 'zvui-pinch--visible');
+	            },
+
+
+	            // Close the gallery, then destroy it
+	            close: function close() {
+	                if (!_isOpen) {
+	                    return;
+	                }
+
+	                _isOpen = false;
+	                _isDestroying = true;
+	                _shout('close');
+	                _unbindEvents();
+
+	                _showOrHide(self.currItem, null, true, self.destroy);
+	            },
+
+
+	            // destroys the gallery (unbinds events, cleans up intervals and timeouts to avoid memory leaks)
+	            destroy: function destroy() {
+	                _shout('destroy');
+
+	                if (_showOrHideTimeout) {
+	                    clearTimeout(_showOrHideTimeout);
+	                }
+
+	                template.setAttribute('aria-hidden', 'true');
+	                template.className = _initalClassName;
+
+	                if (_updateSizeInterval) {
+	                    clearInterval(_updateSizeInterval);
+	                }
+
+	                helper.unbind(self.scrollWrap, _downEvents, self);
+
+	                // we unbind scroll event at the end, as closing animation may depend on it
+	                helper.unbind(window, 'scroll', self);
+
+	                _stopDragUpdateLoop();
+
+	                _stopAllAnimations();
+
+	                _listeners = null;
+	            },
+
+
+	            /**
+	             * Pan image to position
+	             * @param {Number} x
+	             * @param {Number} y
+	             * @param {Boolean} force Will ignore bounds if set to true.
+	             */
+	            panTo: function panTo(x, y, force) {
+	                if (!force) {
+	                    if (x > _currPanBounds.min.x) {
+	                        x = _currPanBounds.min.x;
+	                    } else if (x < _currPanBounds.max.x) {
+	                        x = _currPanBounds.max.x;
+	                    }
+
+	                    if (y > _currPanBounds.min.y) {
+	                        y = _currPanBounds.min.y;
+	                    } else if (y < _currPanBounds.max.y) {
+	                        y = _currPanBounds.max.y;
+	                    }
+	                }
+
+	                _panOffset.x = x;
+	                _panOffset.y = y;
+	                _applyCurrentZoomPan();
+	            },
+	            handleEvent: function handleEvent() {
+	                var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : window.event;
+
+	                if (_globalEventHandlers[e.type]) {
+	                    _globalEventHandlers[e.type](e);
+	                }
+	            },
+	            goTo: function goTo(index) {
+
+	                index = _getLoopedId(index);
+
+	                var diff = index - _currentItemIndex;
+	                _indexDiff = diff;
+
+	                _currentItemIndex = index;
+	                self.currItem = _getItemAt(_currentItemIndex);
+	                _currPositionIndex -= diff;
+
+	                _moveMainScroll(_slideSize.x * _currPositionIndex);
+
+	                _stopAllAnimations();
+	                _mainScrollAnimating = false;
+
+	                self.updateCurrItem();
+	            },
+	            next: function next() {
+	                self.goTo(_currentItemIndex + 1);
+	            },
+	            prev: function prev() {
+	                self.goTo(_currentItemIndex - 1);
+	            },
+
+
+	            // update current zoom/pan objects
+	            updateCurrZoomItem: function updateCurrZoomItem(emulateSetContent) {
+	                if (emulateSetContent) {
+	                    _shout('beforeChange', 0);
+	                }
+
+	                // itemHolder[1] is middle (current) item
+	                if (_itemHolders[1].el.children.length) {
+	                    var zoomElement = _itemHolders[1].el.children[0];
+	                    if (helper.hasClass(zoomElement, 'zvui-pinch__zoom-wrap')) {
+	                        _currZoomElementStyle = zoomElement.style;
+	                    } else {
+	                        _currZoomElementStyle = null;
+	                    }
+	                } else {
+	                    _currZoomElementStyle = null;
+	                }
+
+	                _currPanBounds = self.currItem.bounds;
+	                _startZoomLevel = _currZoomLevel = self.currItem.initialZoomLevel;
+
+	                _panOffset.x = _currPanBounds.center.x;
+	                _panOffset.y = _currPanBounds.center.y;
+
+	                if (emulateSetContent) {
+	                    _shout('afterChange');
+	                }
+	            },
+	            invalidateCurrItems: function invalidateCurrItems() {
+	                _itemsNeedUpdate = true;
+	                for (var i = 0; i < NUM_HOLDERS; i++) {
+	                    if (_itemHolders[i].item) {
+	                        _itemHolders[i].item.needsUpdate = true;
+	                    }
+	                }
+	            },
+	            updateCurrItem: function updateCurrItem(beforeAnimation) {
+	                if (_indexDiff === 0) {
+	                    return;
+	                }
+
+	                var diffAbs = Math.abs(_indexDiff);
+	                var tempHolder = void 0;
+
+	                if (beforeAnimation && diffAbs < 2) {
+	                    return;
+	                }
+
+	                self.currItem = _getItemAt(_currentItemIndex);
+	                _renderMaxResolution = false;
+
+	                _shout('beforeChange', _indexDiff);
+
+	                if (diffAbs >= NUM_HOLDERS) {
+	                    _containerShiftIndex += _indexDiff + (_indexDiff > 0 ? -NUM_HOLDERS : NUM_HOLDERS);
+	                    diffAbs = NUM_HOLDERS;
+	                }
+	                for (var i = 0; i < diffAbs; i++) {
+	                    if (_indexDiff > 0) {
+	                        tempHolder = _itemHolders.shift();
+	                        _itemHolders[NUM_HOLDERS - 1] = tempHolder; // move first to last
+
+	                        _containerShiftIndex++;
+	                        _setTranslateX((_containerShiftIndex + 2) * _slideSize.x, tempHolder.el.style);
+	                        self.setContent(tempHolder, _currentItemIndex - diffAbs + i + 1 + 1);
+	                    } else {
+	                        tempHolder = _itemHolders.pop();
+	                        _itemHolders.unshift(tempHolder); // move last to first
+
+	                        _containerShiftIndex--;
+	                        _setTranslateX(_containerShiftIndex * _slideSize.x, tempHolder.el.style);
+	                        self.setContent(tempHolder, _currentItemIndex + diffAbs - i - 1 - 1);
+	                    }
+	                }
+
+	                // reset zoom/pan on previous item
+	                if (_currZoomElementStyle && Math.abs(_indexDiff) === 1) {
+
+	                    var prevItem = _getItemAt(_prevItemIndex);
+	                    if (prevItem.initialZoomLevel !== _currZoomLevel) {
+	                        _calculateItemSize(prevItem, _viewportSize);
+	                        _setImageSize(prevItem);
+	                        _applyZoomPanToItem(prevItem);
+	                    }
+	                }
+
+	                // reset diff after update
+	                _indexDiff = 0;
+
+	                self.updateCurrZoomItem();
+
+	                _prevItemIndex = _currentItemIndex;
+
+	                _shout('afterChange');
+	            },
+	            updateSize: function updateSize(force) {
+
+	                if (!_isFixedPosition && _options.modal) {
+	                    var windowScrollY = helper.getScrollY();
+	                    if (_currentWindowScrollY !== windowScrollY) {
+	                        template.style.top = windowScrollY + 'px';
+	                        _currentWindowScrollY = windowScrollY;
+	                    }
+	                    if (!force && _windowVisibleSize.x === window.innerWidth && _windowVisibleSize.y === window.innerHeight) {
+	                        return;
+	                    }
+	                    _windowVisibleSize.x = window.innerWidth;
+	                    _windowVisibleSize.y = window.innerHeight;
+
+	                    //template.style.width = _windowVisibleSize.x + 'px';
+	                    template.style.height = _windowVisibleSize.y + 'px';
+	                }
+
+	                _viewportSize.x = self.scrollWrap.clientWidth;
+	                _viewportSize.y = self.scrollWrap.clientHeight;
+
+	                _updatePageScrollOffset();
+
+	                _slideSize.x = _viewportSize.x + Math.round(_viewportSize.x * _options.spacing);
+	                _slideSize.y = _viewportSize.y;
+
+	                _moveMainScroll(_slideSize.x * _currPositionIndex);
+
+	                _shout('beforeResize'); // even may be used for example to switch image sources
+
+
+	                // don't re-calculate size on inital size update
+	                if (_containerShiftIndex !== undefined) {
+	                    var holder = void 0;
+	                    var item = void 0;
+	                    var hIndex = void 0;
+
+	                    for (var i = 0; i < NUM_HOLDERS; i++) {
+	                        holder = _itemHolders[i];
+	                        _setTranslateX((i + _containerShiftIndex) * _slideSize.x, holder.el.style);
+
+	                        hIndex = _currentItemIndex + i - 1;
+
+	                        if (_options.loop && _getNumItems() > 2) {
+	                            hIndex = _getLoopedId(hIndex);
+	                        }
+
+	                        // update zoom level on items and refresh source (if needsUpdate)
+	                        item = _getItemAt(hIndex);
+
+	                        // re-render gallery item if `needsUpdate`,
+	                        // or doesn't have `bounds` (entirely new slide object)
+	                        if (item && (_itemsNeedUpdate || item.needsUpdate || !item.bounds)) {
+
+	                            self.cleanSlide(item);
+
+	                            self.setContent(holder, hIndex);
+
+	                            // if "center" slide
+	                            if (i === 1) {
+	                                self.currItem = item;
+	                                self.updateCurrZoomItem(true);
+	                            }
+
+	                            item.needsUpdate = false;
+	                        } else if (holder.index === -1 && hIndex >= 0) {
+	                            // add content first time
+	                            self.setContent(holder, hIndex);
+	                        }
+	                        if (item && item.container) {
+	                            _calculateItemSize(item, _viewportSize);
+	                            _setImageSize(item);
+	                            _applyZoomPanToItem(item);
+	                        }
+	                    }
+	                    _itemsNeedUpdate = false;
+	                }
+
+	                _startZoomLevel = _currZoomLevel = self.currItem.initialZoomLevel;
+	                _currPanBounds = self.currItem.bounds;
+
+	                if (_currPanBounds) {
+	                    _panOffset.x = _currPanBounds.center.x;
+	                    _panOffset.y = _currPanBounds.center.y;
+	                    _applyCurrentZoomPan(true);
+	                }
+
+	                _shout('resize');
+	            },
+
+
+	            // Zoom current item to
+	            zoomTo: function zoomTo(destZoomLevel, centerPoint, speed, easingFn, updateFn) {
+	                /*
+	                	if(destZoomLevel === 'fit') {
+	                		destZoomLevel = self.currItem.fitRatio;
+	                	} else if(destZoomLevel === 'fill') {
+	                		destZoomLevel = self.currItem.fillRatio;
+	                	}
+	                */
+
+	                if (centerPoint) {
+	                    _startZoomLevel = _currZoomLevel;
+	                    _midZoomPoint.x = Math.abs(centerPoint.x) - _panOffset.x;
+	                    _midZoomPoint.y = Math.abs(centerPoint.y) - _panOffset.y;
+	                    _equalizePoints(_startPanOffset, _panOffset);
+	                }
+
+	                var destPanBounds = _calculatePanBounds(destZoomLevel, false);
+	                var destPanOffset = {};
+
+	                _modifyDestPanOffset('x', destPanBounds, destPanOffset, destZoomLevel);
+	                _modifyDestPanOffset('y', destPanBounds, destPanOffset, destZoomLevel);
+
+	                var initialZoomLevel = _currZoomLevel;
+	                var initialPanOffset = {
+	                    x: _panOffset.x,
+	                    y: _panOffset.y
+	                };
+
+	                _roundPoint(destPanOffset);
+
+	                var onUpdate = function onUpdate(now) {
+	                    if (now === 1) {
+	                        _currZoomLevel = destZoomLevel;
+	                        _panOffset.x = destPanOffset.x;
+	                        _panOffset.y = destPanOffset.y;
+	                    } else {
+	                        _currZoomLevel = (destZoomLevel - initialZoomLevel) * now + initialZoomLevel;
+	                        _panOffset.x = (destPanOffset.x - initialPanOffset.x) * now + initialPanOffset.x;
+	                        _panOffset.y = (destPanOffset.y - initialPanOffset.y) * now + initialPanOffset.y;
+	                    }
+
+	                    if (updateFn) {
+	                        updateFn(now);
+	                    }
+
+	                    _applyCurrentZoomPan(now === 1);
+	                };
+
+	                if (speed) {
+	                    _animateProp('customZoomTo', 0, 1, speed, easingFn || helper.easing.sine.inOut, onUpdate);
+	                } else {
+	                    onUpdate(1);
+	                }
+	            }
+	        };
+
+	        /**
+	        * Mouse/touch/pointer event handlers.
+	        *
+	        * separated from @core.js for readability
+	        */
+
+	        var MIN_SWIPE_DISTANCE = 30; // amount of pixels to drag to determine direction of swipe
+
+	        var DIRECTION_CHECK_OFFSET = 10;
+	        var _gestureStartTime = void 0;
+	        var _gestureCheckSpeedTime = void 0;
+
+	        var // pool of objects that are used during dragging of zooming
+	        // first point
+	        p = {};
+
+	        var // second point (for zoom gesture)
+	        p2 = {};
+
+	        var delta = {};
+	        var _currPoint = {};
+	        var _startPoint = {};
+	        var _currPointers = [];
+	        var _startMainScrollPos = {};
+	        var _releaseAnimData = void 0;
+
+	        var // array of points during dragging, used to determine type of gesture
+	        _posPoints = [];
+
+	        var _tempPoint = {};
+	        var _isZoomingIn = void 0;
+	        var _verticalDragInitiated = void 0;
+	        var _oldAndroidTouchEndTimeout = void 0;
+	        var _currZoomedItemIndex = 0;
+	        var _centerPoint = _getEmptyPoint();
+	        var _lastReleaseTime = 0;
+
+	        var // at least one pointer is down
+	        _isDragging = void 0;
+
+	        var // at least two _pointers are down
+	        _isMultitouch = void 0;
+
+	        var // zoom level changed during zoom gesture
+	        _zoomStarted = void 0;
+
+	        var _moved = void 0;
+	        var _dragAnimFrame = void 0;
+	        var _mainScrollShifted = void 0;
+
+	        var // array of current touch points
+	        _currentPoints = void 0;
+
+	        var _isZooming = void 0;
+	        var _currPointsDistance = void 0;
+	        var _startPointsDistance = void 0;
+	        var _currPanBounds = void 0;
+	        var _mainScrollPos = _getEmptyPoint();
+	        var _currZoomElementStyle = void 0;
+
+	        var // true, if animation after swipe gesture is running
+	        _mainScrollAnimating = void 0;
+
+	        var _midZoomPoint = _getEmptyPoint();
+	        var _currCenterPoint = _getEmptyPoint();
+	        var _direction = void 0;
+	        var _isFirstMove = void 0;
+	        var _opacityChanged = void 0;
+	        var _bgOpacity = void 0;
+	        var _wasOverInitialZoom = void 0;
+	        var _isEqualPoints = function _isEqualPoints(p1, p2) {
+	            return p1.x === p2.x && p1.y === p2.y;
+	        };
+	        var _isNearbyPoints = function _isNearbyPoints(touch0, touch1) {
+	            return Math.abs(touch0.x - touch1.x) < DOUBLE_TAP_RADIUS && Math.abs(touch0.y - touch1.y) < DOUBLE_TAP_RADIUS;
+	        };
+
+	        var _calculatePointsDistance = function _calculatePointsDistance(p1, p2) {
+	            _tempPoint.x = Math.abs(p1.x - p2.x);
+	            _tempPoint.y = Math.abs(p1.y - p2.y);
+	            return Math.sqrt(_tempPoint.x * _tempPoint.x + _tempPoint.y * _tempPoint.y);
+	        };
+
+	        var _stopDragUpdateLoop = function _stopDragUpdateLoop() {
+	            if (_dragAnimFrame) {
+	                _cancelAF(_dragAnimFrame);
+	                _dragAnimFrame = null;
+	            }
+	        };
+
+	        var _dragUpdateLoop = function _dragUpdateLoop() {
+	            if (_isDragging) {
+	                _dragAnimFrame = _requestAF(_dragUpdateLoop);
+	                _renderMovement();
+	            }
+	        };
+
+	        var _canPan = function _canPan() {
+	            return !(_options.scaleMode === 'fit' && _currZoomLevel === self.currItem.initialZoomLevel);
+	        };
+
+	        // find the closest parent DOM element
+	        var _closestElement = function _closestElement(el, fn) {
+	            if (!el || el === document) {
+	                return false;
+	            }
+
+	            // don't search elements above zvui-pinch__scroll-wrap
+	            if (el.getAttribute('class') && el.getAttribute('class').includes('zvui-pinch__scroll-wrap')) {
+	                return false;
+	            }
+
+	            if (fn(el)) {
+	                return el;
+	            }
+
+	            return _closestElement(el.parentNode, fn);
+	        };
+
+	        var _preventObj = {};
+
+	        var _preventDefaultEventBehaviour = function _preventDefaultEventBehaviour(e, isDown) {
+	            _preventObj.prevent = !_closestElement(e.target, _options.isClickableElement);
+
+	            _shout('preventDragEvent', e, isDown, _preventObj);
+	            return _preventObj.prevent;
+	        };
+
+	        var _convertTouchToPoint = function _convertTouchToPoint(touch, p) {
+	            p.x = touch.pageX;
+	            p.y = touch.pageY;
+	            p.id = touch.identifier;
+	            return p;
+	        };
+
+	        var _findCenterOfPoints = function _findCenterOfPoints(p1, p2, pCenter) {
+	            pCenter.x = (p1.x + p2.x) * 0.5;
+	            pCenter.y = (p1.y + p2.y) * 0.5;
+	        };
+
+	        var _pushPosPoint = function _pushPosPoint(time, x, y) {
+	            if (time - _gestureCheckSpeedTime > 50) {
+	                var o = _posPoints.length > 2 ? _posPoints.shift() : {};
+	                o.x = x;
+	                o.y = y;
+	                _posPoints.push(o);
+	                _gestureCheckSpeedTime = time;
+	            }
+	        };
+
+	        var _calculateVerticalDragOpacityRatio = function _calculateVerticalDragOpacityRatio() {
+	            var yOffset = _panOffset.y - self.currItem.initialPosition.y; // difference between initial and current position
+	            return 1 - Math.abs(yOffset / (_viewportSize.y / 2));
+	        };
+
+	        var // points pool, reused during touch events
+	        _ePoint1 = {};
+
+	        var _ePoint2 = {};
+	        var _tempPointsArr = [];
+	        var _tempCounter = void 0;
+
+	        var _getTouchPoints = function _getTouchPoints(e) {
+	            // clean up previous points, without recreating array
+	            while (_tempPointsArr.length > 0) {
+	                _tempPointsArr.pop();
+	            }
+
+	            if (!_pointerEventEnabled) {
+	                if (e.type.includes('touch')) {
+
+	                    if (e.touches && e.touches.length > 0) {
+	                        _tempPointsArr[0] = _convertTouchToPoint(e.touches[0], _ePoint1);
+	                        if (e.touches.length > 1) {
+	                            _tempPointsArr[1] = _convertTouchToPoint(e.touches[1], _ePoint2);
+	                        }
+	                    }
+	                } else {
+	                    _ePoint1.x = e.pageX;
+	                    _ePoint1.y = e.pageY;
+	                    _ePoint1.id = '';
+	                    _tempPointsArr[0] = _ePoint1; //_ePoint1;
+	                }
+	            } else {
+	                _tempCounter = 0;
+	                // we can use forEach, as pointer events are supported only in modern browsers
+	                _currPointers.forEach(function (p) {
+	                    if (_tempCounter === 0) {
+	                        _tempPointsArr[0] = p;
+	                    } else if (_tempCounter === 1) {
+	                        _tempPointsArr[1] = p;
+	                    }
+	                    _tempCounter++;
+	                });
+	            }
+	            return _tempPointsArr;
+	        };
+
+	        var _panOrMoveMainScroll = function _panOrMoveMainScroll(axis, delta) {
+	            var panFriction = void 0;
+	            var overDiff = 0;
+	            var newOffset = _panOffset[axis] + delta[axis];
+	            var startOverDiff = void 0;
+	            var dir = delta[axis] > 0;
+	            var newMainScrollPosition = _mainScrollPos.x + delta.x;
+	            var mainScrollDiff = _mainScrollPos.x - _startMainScrollPos.x;
+	            var newPanPos = void 0;
+	            var newMainScrollPos = void 0;
+
+	            // calculate fdistance over the bounds and friction
+	            if (newOffset > _currPanBounds.min[axis] || newOffset < _currPanBounds.max[axis]) {
+	                panFriction = _options.panEndFriction;
+	                // Linear increasing of friction, so at 1/4 of viewport it's at max value.
+	                // Looks not as nice as was expected. Left for history.
+	                // panFriction = (1 - (_panOffset[axis] + delta[axis] + panBounds.min[axis]) / (_viewportSize[axis] / 4) );
+	            } else {
+	                panFriction = 1;
+	            }
+
+	            newOffset = _panOffset[axis] + delta[axis] * panFriction;
+
+	            // move main scroll or start panning
+	            if (_options.allowPanToNext || _currZoomLevel === self.currItem.initialZoomLevel) {
+
+	                if (!_currZoomElementStyle) {
+
+	                    newMainScrollPos = newMainScrollPosition;
+	                } else if (_direction === 'h' && axis === 'x' && !_zoomStarted) {
+
+	                    if (dir) {
+	                        if (newOffset > _currPanBounds.min[axis]) {
+	                            panFriction = _options.panEndFriction;
+	                            overDiff = _currPanBounds.min[axis] - newOffset;
+	                            startOverDiff = _currPanBounds.min[axis] - _startPanOffset[axis];
+	                        }
+
+	                        // drag right
+	                        if ((startOverDiff <= 0 || mainScrollDiff < 0) && _getNumItems() > 1) {
+	                            newMainScrollPos = newMainScrollPosition;
+	                            if (mainScrollDiff < 0 && newMainScrollPosition > _startMainScrollPos.x) {
+	                                newMainScrollPos = _startMainScrollPos.x;
+	                            }
+	                        } else {
+	                            if (_currPanBounds.min.x !== _currPanBounds.max.x) {
+	                                newPanPos = newOffset;
+	                            }
+	                        }
+	                    } else {
+
+	                        if (newOffset < _currPanBounds.max[axis]) {
+	                            panFriction = _options.panEndFriction;
+	                            overDiff = newOffset - _currPanBounds.max[axis];
+	                            startOverDiff = _startPanOffset[axis] - _currPanBounds.max[axis];
+	                        }
+
+	                        if ((startOverDiff <= 0 || mainScrollDiff > 0) && _getNumItems() > 1) {
+	                            newMainScrollPos = newMainScrollPosition;
+
+	                            if (mainScrollDiff > 0 && newMainScrollPosition < _startMainScrollPos.x) {
+	                                newMainScrollPos = _startMainScrollPos.x;
+	                            }
+	                        } else {
+	                            if (_currPanBounds.min.x !== _currPanBounds.max.x) {
+	                                newPanPos = newOffset;
+	                            }
+	                        }
+	                    }
+
+	                    //
+	                }
+
+	                if (axis === 'x') {
+
+	                    if (newMainScrollPos !== undefined) {
+	                        _moveMainScroll(newMainScrollPos, true);
+	                        if (newMainScrollPos === _startMainScrollPos.x) {
+	                            _mainScrollShifted = false;
+	                        } else {
+	                            _mainScrollShifted = true;
+	                        }
+	                    }
+
+	                    if (_currPanBounds.min.x !== _currPanBounds.max.x) {
+	                        if (newPanPos !== undefined) {
+	                            _panOffset.x = newPanPos;
+	                        } else if (!_mainScrollShifted) {
+	                            _panOffset.x += delta.x * panFriction;
+	                        }
+	                    }
+
+	                    return newMainScrollPos !== undefined;
+	                }
+	            }
+
+	            if (!_mainScrollAnimating) {
+
+	                if (!_mainScrollShifted) {
+	                    if (_currZoomLevel > self.currItem.fitRatio) {
+	                        _panOffset[axis] += delta[axis] * panFriction;
+	                    }
+	                }
+	            }
+	        };
+
+	        var _onDragStart = function _onDragStart(e) {
+	            // Pointerdown/touchstart/mousedown handler
+	            // Allow dragging only via left mouse button.
+	            // As this handler is not added in IE8 - we ignore e.which
+	            //
+	            // http://www.quirksmode.org/js/events_properties.html
+	            // https://developer.mozilla.org/en-US/docs/Web/API/event.button
+	            if (e.type === 'mousedown' && e.button > 0) {
+	                return;
+	            }
+
+	            if (_initialZoomRunning) {
+	                e.preventDefault();
+	                return;
+	            }
+
+	            if (_oldAndroidTouchEndTimeout && e.type === 'mousedown') {
+	                return;
+	            }
+
+	            if (_preventDefaultEventBehaviour(e, true)) {
+	                e.preventDefault();
+	            }
+
+	            _shout('pointerDown');
+
+	            if (_pointerEventEnabled) {
+	                var pointerIndex = helper.arraySearch(_currPointers, e.pointerId, 'id');
+	                if (pointerIndex < 0) {
+	                    pointerIndex = _currPointers.length;
+	                }
+	                _currPointers[pointerIndex] = {
+	                    x: e.pageX,
+	                    y: e.pageY,
+	                    id: e.pointerId
+	                };
+	            }
+
+	            var startPointsList = _getTouchPoints(e);
+	            var numPoints = startPointsList.length;
+
+	            _currentPoints = null;
+
+	            _stopAllAnimations();
+
+	            // init drag
+	            if (!_isDragging || numPoints === 1) {
+
+	                _isDragging = _isFirstMove = true;
+	                helper.bind(window, _upMoveEvents, self);
+
+	                _isZoomingIn = _wasOverInitialZoom = _opacityChanged = _verticalDragInitiated = _mainScrollShifted = _moved = _isMultitouch = _zoomStarted = false;
+
+	                _direction = null;
+
+	                _shout('firstTouchStart', startPointsList);
+
+	                _equalizePoints(_startPanOffset, _panOffset);
+
+	                _currPanDist.x = _currPanDist.y = 0;
+	                _equalizePoints(_currPoint, startPointsList[0]);
+	                _equalizePoints(_startPoint, _currPoint);
+
+	                //_equalizePoints(_startMainScrollPos, _mainScrollPos);
+	                _startMainScrollPos.x = _slideSize.x * _currPositionIndex;
+
+	                _posPoints = [{
+	                    x: _currPoint.x,
+	                    y: _currPoint.y
+	                }];
+
+	                _gestureCheckSpeedTime = _gestureStartTime = _getCurrentTime();
+
+	                //_mainScrollAnimationEnd(true);
+	                _calculatePanBounds(_currZoomLevel, true);
+
+	                // Start rendering
+	                _stopDragUpdateLoop();
+	                _dragUpdateLoop();
+	            }
+
+	            // init zoom
+	            if (!_isZooming && numPoints > 1 && !_mainScrollAnimating && !_mainScrollShifted) {
+	                _startZoomLevel = _currZoomLevel;
+	                _zoomStarted = false; // true if zoom changed at least once
+
+	                _isZooming = _isMultitouch = true;
+	                _currPanDist.y = _currPanDist.x = 0;
+
+	                _equalizePoints(_startPanOffset, _panOffset);
+
+	                _equalizePoints(p, startPointsList[0]);
+	                _equalizePoints(p2, startPointsList[1]);
+
+	                _findCenterOfPoints(p, p2, _currCenterPoint);
+
+	                _midZoomPoint.x = Math.abs(_currCenterPoint.x) - _panOffset.x;
+	                _midZoomPoint.y = Math.abs(_currCenterPoint.y) - _panOffset.y;
+	                _currPointsDistance = _startPointsDistance = _calculatePointsDistance(p, p2);
+	            }
+	        };
+
+	        // Pointermove/touchmove/mousemove handler
+	        var _onDragMove = function _onDragMove(e) {
+	            e.preventDefault();
+
+	            if (_pointerEventEnabled) {
+	                var pointerIndex = helper.arraySearch(_currPointers, e.pointerId, 'id');
+	                if (pointerIndex > -1) {
+	                    var _p = _currPointers[pointerIndex];
+	                    _p.x = e.pageX;
+	                    _p.y = e.pageY;
+	                }
+	            }
+
+	            if (_isDragging) {
+	                var touchesList = _getTouchPoints(e);
+	                if (!_direction && !_moved && !_isZooming) {
+
+	                    if (_mainScrollPos.x !== _slideSize.x * _currPositionIndex) {
+	                        // if main scroll position is shifted – direction is always horizontal
+	                        _direction = 'h';
+	                    } else {
+	                        var diff = Math.abs(touchesList[0].x - _currPoint.x) - Math.abs(touchesList[0].y - _currPoint.y);
+	                        // check the direction of movement
+	                        if (Math.abs(diff) >= DIRECTION_CHECK_OFFSET) {
+	                            _direction = diff > 0 ? 'h' : 'v';
+	                            _currentPoints = touchesList;
+	                        }
+	                    }
+	                } else {
+	                    _currentPoints = touchesList;
+	                }
+	            }
+	        };
+
+	        var _renderMovement = function _renderMovement() {
+
+	            if (!_currentPoints) {
+	                return;
+	            }
+
+	            var numPoints = _currentPoints.length;
+
+	            if (numPoints === 0) {
+	                return;
+	            }
+
+	            _equalizePoints(p, _currentPoints[0]);
+
+	            delta.x = p.x - _currPoint.x;
+	            delta.y = p.y - _currPoint.y;
+
+	            if (_isZooming && numPoints > 1) {
+	                // Handle behaviour for more than 1 point
+
+	                _currPoint.x = p.x;
+	                _currPoint.y = p.y;
+
+	                // check if one of two points changed
+	                if (!delta.x && !delta.y && _isEqualPoints(_currentPoints[1], p2)) {
+	                    return;
+	                }
+
+	                _equalizePoints(p2, _currentPoints[1]);
+
+	                if (!_zoomStarted) {
+	                    _zoomStarted = true;
+	                    _shout('zoomGestureStarted');
+	                }
+
+	                // Distance between two points
+	                var pointsDistance = _calculatePointsDistance(p, p2);
+
+	                var zoomLevel = _calculateZoomLevel(pointsDistance);
+
+	                // slightly over the of initial zoom level
+	                if (zoomLevel > self.currItem.initialZoomLevel + self.currItem.initialZoomLevel / 15) {
+	                    _wasOverInitialZoom = true;
+	                }
+
+	                // Apply the friction if zoom level is out of the bounds
+	                var zoomFriction = 1;
+
+	                var minZoomLevel = _getMinZoomLevel();
+	                var maxZoomLevel = _getMaxZoomLevel();
+
+	                if (zoomLevel < minZoomLevel) {
+
+	                    if (_options.pinchToClose && !_wasOverInitialZoom && _startZoomLevel <= self.currItem.initialZoomLevel) {
+	                        // fade out background if zooming out
+	                        var minusDiff = minZoomLevel - zoomLevel;
+	                        var percent = 1 - minusDiff / (minZoomLevel / 1.2);
+
+	                        _applyBgOpacity(percent);
+	                        _shout('onPinchClose', percent);
+	                        _opacityChanged = true;
+	                    } else {
+	                        zoomFriction = (minZoomLevel - zoomLevel) / minZoomLevel;
+	                        if (zoomFriction > 1) {
+	                            zoomFriction = 1;
+	                        }
+	                        zoomLevel = minZoomLevel - zoomFriction * (minZoomLevel / 3);
+	                    }
+	                } else if (zoomLevel > maxZoomLevel) {
+	                    // 1.5 - extra zoom level above the max. E.g. if max is x6, real max 6 + 1.5 = 7.5
+	                    zoomFriction = (zoomLevel - maxZoomLevel) / (minZoomLevel * 6);
+	                    if (zoomFriction > 1) {
+	                        zoomFriction = 1;
+	                    }
+	                    zoomLevel = maxZoomLevel + zoomFriction * minZoomLevel;
+	                }
+
+	                if (zoomFriction < 0) {
+	                    zoomFriction = 0;
+	                }
+
+	                // distance between touch points after friction is applied
+	                _currPointsDistance = pointsDistance;
+
+	                // _centerPoint - The point in the middle of two pointers
+	                _findCenterOfPoints(p, p2, _centerPoint);
+
+	                // paning with two pointers pressed
+	                _currPanDist.x += _centerPoint.x - _currCenterPoint.x;
+	                _currPanDist.y += _centerPoint.y - _currCenterPoint.y;
+	                _equalizePoints(_currCenterPoint, _centerPoint);
+
+	                _panOffset.x = _calculatePanOffset('x', zoomLevel);
+	                _panOffset.y = _calculatePanOffset('y', zoomLevel);
+
+	                _isZoomingIn = zoomLevel > _currZoomLevel;
+	                _currZoomLevel = zoomLevel;
+	                _applyCurrentZoomPan();
+	            } else {
+
+	                // handle behaviour for one point (dragging or panning)
+
+	                if (!_direction) {
+	                    return;
+	                }
+
+	                if (_isFirstMove) {
+	                    _isFirstMove = false;
+
+	                    // subtract drag distance that was used during the detection direction
+
+	                    if (Math.abs(delta.x) >= DIRECTION_CHECK_OFFSET) {
+	                        delta.x -= _currentPoints[0].x - _startPoint.x;
+	                    }
+
+	                    if (Math.abs(delta.y) >= DIRECTION_CHECK_OFFSET) {
+	                        delta.y -= _currentPoints[0].y - _startPoint.y;
+	                    }
+	                }
+
+	                _currPoint.x = p.x;
+	                _currPoint.y = p.y;
+
+	                // do nothing if pointers position hasn't changed
+	                if (delta.x === 0 && delta.y === 0) {
+	                    return;
+	                }
+
+	                if (_direction === 'v' && _options.closeOnVerticalDrag) {
+	                    if (!_canPan()) {
+	                        _currPanDist.y += delta.y;
+	                        _panOffset.y += delta.y;
+
+	                        var opacityRatio = _calculateVerticalDragOpacityRatio();
+
+	                        _verticalDragInitiated = true;
+	                        _shout('onVerticalDrag', opacityRatio);
+
+	                        _applyBgOpacity(opacityRatio);
+	                        _applyCurrentZoomPan();
+	                        return;
+	                    }
+	                }
+
+	                _pushPosPoint(_getCurrentTime(), p.x, p.y);
+
+	                _moved = true;
+	                _currPanBounds = self.currItem.bounds;
+
+	                var mainScrollChanged = _panOrMoveMainScroll('x', delta);
+	                if (!mainScrollChanged) {
+	                    _panOrMoveMainScroll('y', delta);
+
+	                    _roundPoint(_panOffset);
+	                    _applyCurrentZoomPan();
+	                }
+	            }
+	        };
+
+	        // Pointerup/pointercancel/touchend/touchcancel/mouseup event handler
+	        var _onDragRelease = function _onDragRelease(e) {
+	            if (_features.isOldAndroid) {
+
+	                if (_oldAndroidTouchEndTimeout && e.type === 'mouseup') {
+	                    return;
+	                }
+
+	                // on Android (v4.1, 4.2, 4.3 & possibly older)
+	                // ghost mousedown/up event isn't preventable via e.preventDefault,
+	                // which causes fake mousedown event
+	                // so we block mousedown/up for 600ms
+	                if (e.type.includes('touch')) {
+	                    clearTimeout(_oldAndroidTouchEndTimeout);
+	                    _oldAndroidTouchEndTimeout = setTimeout(function () {
+	                        _oldAndroidTouchEndTimeout = 0;
+	                    }, 600);
+	                }
+	            }
+
+	            _shout('pointerUp');
+
+	            if (_preventDefaultEventBehaviour(e, false)) {
+	                e.preventDefault();
+	            }
+
+	            var releasePoint = void 0;
+
+	            if (_pointerEventEnabled) {
+	                var pointerIndex = helper.arraySearch(_currPointers, e.pointerId, 'id');
+
+	                if (pointerIndex > -1) {
+	                    releasePoint = _currPointers.splice(pointerIndex, 1)[0];
+
+	                    if (navigator.pointerEnabled) {
+	                        releasePoint.type = e.pointerType || 'mouse';
+	                    } else {
+	                        var MSPOINTER_TYPES = {
+	                            4: 'mouse', // event.MSPOINTER_TYPE_MOUSE
+	                            2: 'touch', // event.MSPOINTER_TYPE_TOUCH
+	                            3: 'pen' };
+	                        releasePoint.type = MSPOINTER_TYPES[e.pointerType];
+
+	                        if (!releasePoint.type) {
+	                            releasePoint.type = e.pointerType || 'mouse';
+	                        }
+	                    }
+	                }
+	            }
+
+	            var touchList = _getTouchPoints(e);
+	            var gestureType = void 0;
+	            var numPoints = touchList.length;
+
+	            if (e.type === 'mouseup') {
+	                numPoints = 0;
+	            }
+
+	            // Do nothing if there were 3 touch points or more
+	            if (numPoints === 2) {
+	                _currentPoints = null;
+	                return true;
+	            }
+
+	            // if second pointer released
+	            if (numPoints === 1) {
+	                _equalizePoints(_startPoint, touchList[0]);
+	            }
+
+	            // pointer hasn't moved, send "tap release" point
+	            if (numPoints === 0 && !_direction && !_mainScrollAnimating) {
+	                if (!releasePoint) {
+	                    if (e.type === 'mouseup') {
+	                        releasePoint = {
+	                            x: e.pageX,
+	                            y: e.pageY,
+	                            type: 'mouse'
+	                        };
+	                    } else if (e.changedTouches && e.changedTouches[0]) {
+	                        releasePoint = {
+	                            x: e.changedTouches[0].pageX,
+	                            y: e.changedTouches[0].pageY,
+	                            type: 'touch'
+	                        };
+	                    }
+	                }
+
+	                _shout('touchRelease', e, releasePoint);
+	            }
+
+	            // Difference in time between releasing of two last touch points (zoom gesture)
+	            var releaseTimeDiff = -1;
+
+	            // Gesture completed, no pointers left
+	            if (numPoints === 0) {
+	                _isDragging = false;
+	                helper.unbind(window, _upMoveEvents, self);
+
+	                _stopDragUpdateLoop();
+
+	                if (_isZooming) {
+	                    // Two points released at the same time
+	                    releaseTimeDiff = 0;
+	                } else if (_lastReleaseTime !== -1) {
+	                    releaseTimeDiff = _getCurrentTime() - _lastReleaseTime;
+	                }
+	            }
+	            _lastReleaseTime = numPoints === 1 ? _getCurrentTime() : -1;
+
+	            if (releaseTimeDiff !== -1 && releaseTimeDiff < 150) {
+	                gestureType = 'zoom';
+	            } else {
+	                gestureType = 'swipe';
+	            }
+
+	            if (_isZooming && numPoints < 2) {
+	                _isZooming = false;
+
+	                // Only second point released
+	                if (numPoints === 1) {
+	                    gestureType = 'zoomPointerUp';
+	                }
+	                _shout('zoomGestureEnded');
+	            }
+
+	            _currentPoints = null;
+	            if (!_moved && !_zoomStarted && !_mainScrollAnimating && !_verticalDragInitiated) {
+	                // nothing to animate
+	                return;
+	            }
+
+	            _stopAllAnimations();
+
+	            if (!_releaseAnimData) {
+	                _releaseAnimData = _initDragReleaseAnimationData();
+	            }
+
+	            _releaseAnimData.calculateSwipeSpeed('x');
+
+	            if (_verticalDragInitiated) {
+
+	                var opacityRatio = _calculateVerticalDragOpacityRatio();
+
+	                if (opacityRatio < _options.verticalDragRange) {
+	                    self.close();
+	                } else {
+	                    (function () {
+	                        var initalPanY = _panOffset.y;
+	                        var initialBgOpacity = _bgOpacity;
+
+	                        _animateProp('verticalDrag', 0, 1, 300, helper.easing.cubic.out, function (now) {
+
+	                            _panOffset.y = (self.currItem.initialPosition.y - initalPanY) * now + initalPanY;
+
+	                            _applyBgOpacity((1 - initialBgOpacity) * now + initialBgOpacity);
+	                            _applyCurrentZoomPan();
+	                        });
+
+	                        _shout('onVerticalDrag', 1);
+	                    })();
+	                }
+
+	                return;
+	            }
+
+	            // main scroll
+	            if ((_mainScrollShifted || _mainScrollAnimating) && numPoints === 0) {
+	                var itemChanged = _finishSwipeMainScrollGesture(gestureType, _releaseAnimData);
+	                if (itemChanged) {
+	                    return;
+	                }
+	                gestureType = 'zoomPointerUp';
+	            }
+
+	            // prevent zoom/pan animation when main scroll animation runs
+	            if (_mainScrollAnimating) {
+	                return;
+	            }
+
+	            // Complete simple zoom gesture (reset zoom level if it's out of the bounds)
+	            if (gestureType !== 'swipe') {
+	                _completeZoomGesture();
+	                return;
+	            }
+
+	            // Complete pan gesture if main scroll is not shifted, and it's possible to pan current image
+	            if (!_mainScrollShifted && _currZoomLevel > self.currItem.fitRatio) {
+	                _completePanGesture(_releaseAnimData);
+	            }
+	        };
+
+	        // Returns object with data about gesture
+	        // It's created only once and then reused
+	        var _initDragReleaseAnimationData = function _initDragReleaseAnimationData() {
+	            // temp local vars
+	            var lastFlickDuration = void 0;
+
+	            var tempReleasePos = void 0;
+
+	            // s = this
+	            var s = {
+	                lastFlickOffset: {},
+	                lastFlickDist: {},
+	                lastFlickSpeed: {},
+	                slowDownRatio: {},
+	                slowDownRatioReverse: {},
+	                speedDecelerationRatio: {},
+	                speedDecelerationRatioAbs: {},
+	                distanceOffset: {},
+	                backAnimDestination: {},
+	                backAnimStarted: {},
+	                calculateSwipeSpeed: function calculateSwipeSpeed(axis) {
+
+	                    if (_posPoints.length > 1) {
+	                        lastFlickDuration = _getCurrentTime() - _gestureCheckSpeedTime + 50;
+	                        tempReleasePos = _posPoints[_posPoints.length - 2][axis];
+	                    } else {
+	                        lastFlickDuration = _getCurrentTime() - _gestureStartTime; // total gesture duration
+	                        tempReleasePos = _startPoint[axis];
+	                    }
+	                    s.lastFlickOffset[axis] = _currPoint[axis] - tempReleasePos;
+	                    s.lastFlickDist[axis] = Math.abs(s.lastFlickOffset[axis]);
+	                    if (s.lastFlickDist[axis] > 20) {
+	                        s.lastFlickSpeed[axis] = s.lastFlickOffset[axis] / lastFlickDuration;
+	                    } else {
+	                        s.lastFlickSpeed[axis] = 0;
+	                    }
+	                    if (Math.abs(s.lastFlickSpeed[axis]) < 0.1) {
+	                        s.lastFlickSpeed[axis] = 0;
+	                    }
+
+	                    s.slowDownRatio[axis] = 0.95;
+	                    s.slowDownRatioReverse[axis] = 1 - s.slowDownRatio[axis];
+	                    s.speedDecelerationRatio[axis] = 1;
+	                },
+	                calculateOverBoundsAnimOffset: function calculateOverBoundsAnimOffset(axis, speed) {
+	                    if (!s.backAnimStarted[axis]) {
+
+	                        if (_panOffset[axis] > _currPanBounds.min[axis]) {
+	                            s.backAnimDestination[axis] = _currPanBounds.min[axis];
+	                        } else if (_panOffset[axis] < _currPanBounds.max[axis]) {
+	                            s.backAnimDestination[axis] = _currPanBounds.max[axis];
+	                        }
+
+	                        if (s.backAnimDestination[axis] !== undefined) {
+	                            s.slowDownRatio[axis] = 0.7;
+	                            s.slowDownRatioReverse[axis] = 1 - s.slowDownRatio[axis];
+	                            if (s.speedDecelerationRatioAbs[axis] < 0.05) {
+
+	                                s.lastFlickSpeed[axis] = 0;
+	                                s.backAnimStarted[axis] = true;
+
+	                                _animateProp('bounceZoomPan' + axis, _panOffset[axis], s.backAnimDestination[axis], speed || 300, helper.easing.sine.out, function (pos) {
+	                                    _panOffset[axis] = pos;
+	                                    _applyCurrentZoomPan();
+	                                });
+	                            }
+	                        }
+	                    }
+	                },
+
+
+	                // Reduces the speed by slowDownRatio (per 10ms)
+	                calculateAnimOffset: function calculateAnimOffset(axis) {
+	                    if (!s.backAnimStarted[axis]) {
+	                        s.speedDecelerationRatio[axis] = s.speedDecelerationRatio[axis] * (s.slowDownRatio[axis] + s.slowDownRatioReverse[axis] - s.slowDownRatioReverse[axis] * s.timeDiff / 10);
+
+	                        s.speedDecelerationRatioAbs[axis] = Math.abs(s.lastFlickSpeed[axis] * s.speedDecelerationRatio[axis]);
+	                        s.distanceOffset[axis] = s.lastFlickSpeed[axis] * s.speedDecelerationRatio[axis] * s.timeDiff;
+	                        _panOffset[axis] += s.distanceOffset[axis];
+	                    }
+	                },
+	                panAnimLoop: function panAnimLoop() {
+	                    if (_animations.zoomPan) {
+	                        _animations.zoomPan.raf = _requestAF(s.panAnimLoop);
+
+	                        s.now = _getCurrentTime();
+	                        s.timeDiff = s.now - s.lastNow;
+	                        s.lastNow = s.now;
+
+	                        s.calculateAnimOffset('x');
+	                        s.calculateAnimOffset('y');
+
+	                        _applyCurrentZoomPan();
+
+	                        s.calculateOverBoundsAnimOffset('x');
+	                        s.calculateOverBoundsAnimOffset('y');
+
+	                        if (s.speedDecelerationRatioAbs.x < 0.05 && s.speedDecelerationRatioAbs.y < 0.05) {
+
+	                            // round pan position
+	                            _panOffset.x = Math.round(_panOffset.x);
+	                            _panOffset.y = Math.round(_panOffset.y);
+	                            _applyCurrentZoomPan();
+
+	                            _stopAnimation('zoomPan');
+	                            return;
+	                        }
+	                    }
+	                }
+	            };
+	            return s;
+	        };
+
+	        var _completePanGesture = function _completePanGesture(animData) {
+	            // calculate swipe speed for Y axis (paanning)
+	            animData.calculateSwipeSpeed('y');
+
+	            _currPanBounds = self.currItem.bounds;
+
+	            animData.backAnimDestination = {};
+	            animData.backAnimStarted = {};
+
+	            // Avoid acceleration animation if speed is too low
+	            if (Math.abs(animData.lastFlickSpeed.x) <= 0.05 && Math.abs(animData.lastFlickSpeed.y) <= 0.05) {
+	                animData.speedDecelerationRatioAbs.x = animData.speedDecelerationRatioAbs.y = 0;
+
+	                // Run pan drag release animation. E.g. if you drag image and release finger without momentum.
+	                animData.calculateOverBoundsAnimOffset('x');
+	                animData.calculateOverBoundsAnimOffset('y');
+	                return true;
+	            }
+
+	            // Animation loop that controls the acceleration after pan gesture ends
+	            _registerStartAnimation('zoomPan');
+	            animData.lastNow = _getCurrentTime();
+	            animData.panAnimLoop();
+	        };
+
+	        var _finishSwipeMainScrollGesture = function _finishSwipeMainScrollGesture(gestureType, _releaseAnimData) {
+	            var itemChanged = void 0;
+	            if (!_mainScrollAnimating) {
+	                _currZoomedItemIndex = _currentItemIndex;
+	            }
+
+	            var itemsDiff = void 0;
+
+	            if (gestureType === 'swipe') {
+	                var totalShiftDist = _currPoint.x - _startPoint.x;
+	                var isFastLastFlick = _releaseAnimData.lastFlickDist.x < 10;
+
+	                // if container is shifted for more than MIN_SWIPE_DISTANCE,
+	                // and last flick gesture was in right direction
+	                if (totalShiftDist > MIN_SWIPE_DISTANCE && (isFastLastFlick || _releaseAnimData.lastFlickOffset.x > 20)) {
+	                    // go to prev item
+	                    itemsDiff = -1;
+	                } else if (totalShiftDist < -MIN_SWIPE_DISTANCE && (isFastLastFlick || _releaseAnimData.lastFlickOffset.x < -20)) {
+	                    // go to next item
+	                    itemsDiff = 1;
+	                }
+	            }
+
+	            var nextCircle = void 0;
+
+	            if (itemsDiff) {
+
+	                _currentItemIndex += itemsDiff;
+
+	                if (_currentItemIndex < 0) {
+	                    _currentItemIndex = _options.loop ? _getNumItems() - 1 : 0;
+	                    nextCircle = true;
+	                } else if (_currentItemIndex >= _getNumItems()) {
+	                    _currentItemIndex = _options.loop ? 0 : _getNumItems() - 1;
+	                    nextCircle = true;
+	                }
+
+	                if (!nextCircle || _options.loop) {
+	                    _indexDiff += itemsDiff;
+	                    _currPositionIndex -= itemsDiff;
+	                    itemChanged = true;
+	                }
+	            }
+
+	            var animateToX = _slideSize.x * _currPositionIndex;
+	            var animateToDist = Math.abs(animateToX - _mainScrollPos.x);
+	            var finishAnimDuration = void 0;
+
+	            if (!itemChanged && animateToX > _mainScrollPos.x !== _releaseAnimData.lastFlickSpeed.x > 0) {
+	                // "return to current" duration, e.g. when dragging from slide 0 to -1
+	                finishAnimDuration = 333;
+	            } else {
+	                finishAnimDuration = Math.abs(_releaseAnimData.lastFlickSpeed.x) > 0 ? animateToDist / Math.abs(_releaseAnimData.lastFlickSpeed.x) : 333;
+
+	                finishAnimDuration = Math.min(finishAnimDuration, 400);
+	                finishAnimDuration = Math.max(finishAnimDuration, 250);
+	            }
+
+	            if (_currZoomedItemIndex === _currentItemIndex) {
+	                itemChanged = false;
+	            }
+
+	            _mainScrollAnimating = true;
+
+	            _shout('mainScrollAnimStart');
+
+	            _animateProp('mainScroll', _mainScrollPos.x, animateToX, finishAnimDuration, helper.easing.cubic.out, _moveMainScroll, function () {
+	                _stopAllAnimations();
+	                _mainScrollAnimating = false;
+	                _currZoomedItemIndex = -1;
+
+	                if (itemChanged || _currZoomedItemIndex !== _currentItemIndex) {
+	                    self.updateCurrItem();
+	                }
+
+	                _shout('mainScrollAnimComplete');
+	            });
+
+	            if (itemChanged) {
+	                self.updateCurrItem(true);
+	            }
+
+	            return itemChanged;
+	        };
+
+	        var _calculateZoomLevel = function _calculateZoomLevel(touchesDistance) {
+	            return 1 / _startPointsDistance * touchesDistance * _startZoomLevel;
+	        };
+
+	        // Resets zoom if it's out of bounds
+	        var _completeZoomGesture = function _completeZoomGesture() {
+	            var destZoomLevel = _currZoomLevel;
+	            var minZoomLevel = _getMinZoomLevel();
+	            var maxZoomLevel = _getMaxZoomLevel();
+
+	            if (_currZoomLevel < minZoomLevel) {
+	                destZoomLevel = minZoomLevel;
+	            } else if (_currZoomLevel > maxZoomLevel) {
+	                destZoomLevel = maxZoomLevel;
+	            }
+
+	            var destOpacity = 1;
+	            var onUpdate = void 0;
+	            var initialOpacity = _bgOpacity;
+
+	            if (_opacityChanged && !_isZoomingIn && !_wasOverInitialZoom && _currZoomLevel < minZoomLevel) {
+	                //_closedByScroll = true;
+	                self.close();
+	                return true;
+	            }
+
+	            if (_opacityChanged) {
+	                onUpdate = function onUpdate(now) {
+	                    _applyBgOpacity((destOpacity - initialOpacity) * now + initialOpacity);
+	                };
+	            }
+
+	            self.zoomTo(destZoomLevel, 0, 200, helper.easing.cubic.out, onUpdate);
+	            return true;
+	        };
+
+	        _registerModule('Gestures', {
+	            publicMethods: {
+	                initGestures: function initGestures() {
+
+	                    // helper function that builds touch/pointer/mouse events
+	                    var addEventNames = function addEventNames(pref, down, move, up, cancel) {
+	                        _dragStartEvent = pref + down;
+	                        _dragMoveEvent = pref + move;
+	                        _dragEndEvent = pref + up;
+	                        if (cancel) {
+	                            _dragCancelEvent = pref + cancel;
+	                        } else {
+	                            _dragCancelEvent = '';
+	                        }
+	                    };
+
+	                    _pointerEventEnabled = _features.pointerEvent;
+	                    if (_pointerEventEnabled && _features.touch) {
+	                        // we don't need touch events, if browser supports pointer events
+	                        _features.touch = false;
+	                    }
+
+	                    if (_pointerEventEnabled) {
+	                        if (navigator.pointerEnabled) {
+	                            addEventNames('pointer', 'down', 'move', 'up', 'cancel');
+	                        } else {
+	                            // IE10 pointer events are case-sensitive
+	                            addEventNames('MSPointer', 'Down', 'Move', 'Up', 'Cancel');
+	                        }
+	                    } else if (_features.touch) {
+	                        addEventNames('touch', 'start', 'move', 'end', 'cancel');
+	                        _likelyTouchDevice = true;
+	                    } else {
+	                        addEventNames('mouse', 'down', 'move', 'up');
+	                    }
+
+	                    _upMoveEvents = _dragMoveEvent + ' ' + _dragEndEvent + ' ' + _dragCancelEvent;
+	                    _downEvents = _dragStartEvent;
+
+	                    if (_pointerEventEnabled && !_likelyTouchDevice) {
+	                        _likelyTouchDevice = navigator.maxTouchPoints > 1 || navigator.msMaxTouchPoints > 1;
+	                    }
+	                    // make variable public
+	                    self.likelyTouchDevice = _likelyTouchDevice;
+
+	                    _globalEventHandlers[_dragStartEvent] = _onDragStart;
+	                    _globalEventHandlers[_dragMoveEvent] = _onDragMove;
+	                    _globalEventHandlers[_dragEndEvent] = _onDragRelease; // the Kraken
+
+	                    if (_dragCancelEvent) {
+	                        _globalEventHandlers[_dragCancelEvent] = _globalEventHandlers[_dragEndEvent];
+	                    }
+
+	                    // Bind mouse events on device with detected hardware touch support, in case it supports multiple types of input.
+	                    if (_features.touch) {
+	                        _downEvents += ' mousedown';
+	                        _upMoveEvents += ' mousemove mouseup';
+	                        _globalEventHandlers.mousedown = _globalEventHandlers[_dragStartEvent];
+	                        _globalEventHandlers.mousemove = _globalEventHandlers[_dragMoveEvent];
+	                        _globalEventHandlers.mouseup = _globalEventHandlers[_dragEndEvent];
+	                    }
+
+	                    if (!_likelyTouchDevice) {
+	                        // don't allow pan to next slide from zoomed state on Desktop
+	                        _options.allowPanToNext = false;
+	                    }
+	                }
+	            }
+	        });
+
+	        /**
+	         * show-hide-transition.js:
+	         *
+	         * Manages initial opening or closing transition.
+	         *
+	         * If you're not planning to use transition for gallery at all,
+	         * you may set options hideAnimationDuration and showAnimationDuration to 0,
+	         * and just delete startAnimation function.
+	         *
+	         */
+
+	        var _showOrHideTimeout = void 0;
+
+	        var _showOrHide = function _showOrHide(item, img, out, completeFn) {
+
+	            if (_showOrHideTimeout) {
+	                clearTimeout(_showOrHideTimeout);
+	            }
+
+	            _initialZoomRunning = true;
+	            _initialContentSet = true;
+
+	            // dimensions of small thumbnail {x:,y:,w:}.
+	            // Height is optional, as calculated based on large image.
+	            var thumbBounds = void 0;
+	            if (item.initialLayout) {
+	                thumbBounds = item.initialLayout;
+	                item.initialLayout = null;
+	            } else {
+	                thumbBounds = _options.getThumbBoundsFn && _options.getThumbBoundsFn(_currentItemIndex);
+	            }
+
+	            var duration = out ? _options.hideAnimationDuration : _options.showAnimationDuration;
+
+	            var onComplete = function onComplete() {
+	                _stopAnimation('initialZoom');
+	                if (!out) {
+	                    _applyBgOpacity(1);
+	                    if (img) {
+	                        img.style.display = 'block';
+	                    }
+	                    helper.addClass(template, 'zvui-pinch__animated-in');
+	                    _shout('initialZoom' + (out ? 'OutEnd' : 'InEnd'));
+	                } else {
+	                    self.template.removeAttribute('style');
+	                    self.bg.removeAttribute('style');
+	                }
+
+	                if (completeFn) {
+	                    completeFn();
+	                }
+	                _initialZoomRunning = false;
+	            };
+
+	            // if bounds aren't provided, just open gallery without animation
+	            if (!duration || !thumbBounds || thumbBounds.x === undefined) {
+
+	                _shout('initialZoom' + (out ? 'Out' : 'In'));
+
+	                _currZoomLevel = item.initialZoomLevel;
+	                _equalizePoints(_panOffset, item.initialPosition);
+	                _applyCurrentZoomPan();
+
+	                template.style.opacity = out ? 0 : 1;
+	                _applyBgOpacity(1);
+
+	                if (duration) {
+	                    setTimeout(function () {
+	                        onComplete();
+	                    }, duration);
+	                } else {
+	                    onComplete();
+	                }
+
+	                return;
+	            }
+
+	            var startAnimation = function startAnimation() {
+	                var closeWithRaf = _closedByScroll;
+	                var fadeEverything = !self.currItem.src || self.currItem.loadError || _options.showHideOpacity;
+
+	                // apply hw-acceleration to image
+	                if (item.miniImg) {
+	                    item.miniImg.style.webkitBackfaceVisibility = 'hidden';
+	                }
+
+	                if (!out) {
+	                    _currZoomLevel = thumbBounds.w / item.w;
+	                    _panOffset.x = thumbBounds.x;
+	                    _panOffset.y = thumbBounds.y - _initalWindowScrollY;
+
+	                    self[fadeEverything ? 'template' : 'bg'].style.opacity = 0.001;
+	                    _applyCurrentZoomPan();
+	                }
+
+	                _registerStartAnimation('initialZoom');
+
+	                if (out && !closeWithRaf) {
+	                    helper.removeClass(template, 'zvui-pinch__animated-in');
+	                }
+
+	                if (fadeEverything) {
+	                    if (out) {
+	                        helper[(closeWithRaf ? 'remove' : 'add') + 'Class'](template, 'zvui-pinch__animate_opacity');
+	                    } else {
+	                        setTimeout(function () {
+	                            helper.addClass(template, 'zvui-pinch__animate_opacity');
+	                        }, 30);
+	                    }
+	                }
+
+	                _showOrHideTimeout = setTimeout(function () {
+
+	                    _shout('initialZoom' + (out ? 'Out' : 'In'));
+
+	                    if (!out) {
+
+	                        // "in" animation always uses CSS transitions (instead of rAF).
+	                        // CSS transition work faster here,
+	                        // as developer may also want to animate other things,
+	                        // like ui on top of sliding area, which can be animated just via CSS
+
+	                        _currZoomLevel = item.initialZoomLevel;
+	                        _equalizePoints(_panOffset, item.initialPosition);
+	                        _applyCurrentZoomPan();
+	                        _applyBgOpacity(1);
+
+	                        if (fadeEverything) {
+	                            template.style.opacity = 1;
+	                        } else {
+	                            _applyBgOpacity(1);
+	                        }
+
+	                        _showOrHideTimeout = setTimeout(onComplete, duration + 20);
+	                    } else {
+	                        (function () {
+	                            // "out" animation uses rAF only when PhotoSwipe is closed by browser scroll, to recalculate position
+	                            var destZoomLevel = thumbBounds.w / item.w;
+
+	                            var initialPanOffset = {
+	                                x: _panOffset.x,
+	                                y: _panOffset.y
+	                            };
+
+	                            var initialZoomLevel = _currZoomLevel;
+	                            var initalBgOpacity = _bgOpacity;
+
+	                            var onUpdate = function onUpdate(now) {
+
+	                                if (now === 1) {
+	                                    _currZoomLevel = destZoomLevel;
+	                                    _panOffset.x = thumbBounds.x;
+	                                    _panOffset.y = thumbBounds.y - _currentWindowScrollY;
+	                                } else {
+	                                    _currZoomLevel = (destZoomLevel - initialZoomLevel) * now + initialZoomLevel;
+	                                    _panOffset.x = (thumbBounds.x - initialPanOffset.x) * now + initialPanOffset.x;
+	                                    _panOffset.y = (thumbBounds.y - _currentWindowScrollY - initialPanOffset.y) * now + initialPanOffset.y;
+	                                }
+
+	                                _applyCurrentZoomPan();
+	                                if (fadeEverything) {
+	                                    template.style.opacity = 1 - now;
+	                                } else {
+	                                    _applyBgOpacity(initalBgOpacity - now * initalBgOpacity);
+	                                }
+	                            };
+
+	                            if (closeWithRaf) {
+	                                _animateProp('initialZoom', 0, 1, duration, helper.easing.cubic.out, onUpdate, onComplete);
+	                            } else {
+	                                onUpdate(1);
+	                                _showOrHideTimeout = setTimeout(onComplete, duration + 20);
+	                            }
+	                        })();
+	                    }
+	                }, out ? 25 : 90); // Main purpose of this delay is to give browser time to paint and
+	                // create composite layers of PhotoSwipe UI parts (background, controls, caption, arrows).
+	                // Which avoids lag at the beginning of scale transition.
+	            };
+	            startAnimation();
+	        };
+
+	        /**
+	         *
+	         * Controller manages gallery items, their dimensions, and their content.
+	         *
+	         */
+
+	        var _items = void 0;
+
+	        var _tempPanAreaSize = {};
+	        var _imagesToAppendPool = [];
+	        var _initialContentSet = void 0;
+	        var _initialZoomRunning = void 0;
+
+	        var _controllerDefaultOptions = {
+	            index: 0,
+	            errorMsg: '<div class="zvui-pinch__error-msg"><a href="%url%" target="_blank">The image</a> could not be loaded.</div>',
+	            forceProgressiveLoading: false, // TODO
+	            preload: [1, 1],
+	            getNumItemsFn: function getNumItemsFn() {
+	                return _items.length;
+	            }
+	        };
+
+	        var _getItemAt = void 0;
+	        var _getNumItems = void 0;
+	        var _initialIsLoop = void 0;
+
+	        var _getZeroBounds = function _getZeroBounds() {
+	            return {
+	                center: {
+	                    x: 0,
+	                    y: 0
+	                },
+
+	                max: {
+	                    x: 0,
+	                    y: 0
+	                },
+
+	                min: {
+	                    x: 0,
+	                    y: 0
+	                }
+	            };
+	        };
+
+	        var _calculateSingleItemPanBounds = function _calculateSingleItemPanBounds(item, realPanElementW, realPanElementH) {
+	            var bounds = item.bounds;
+
+	            // position of element when it's centered
+	            bounds.center.x = Math.round((_tempPanAreaSize.x - realPanElementW) / 2);
+	            bounds.center.y = Math.round((_tempPanAreaSize.y - realPanElementH) / 2) + item.vGap.top;
+
+	            // maximum pan position
+	            bounds.max.x = realPanElementW > _tempPanAreaSize.x ? Math.round(_tempPanAreaSize.x - realPanElementW) : bounds.center.x;
+
+	            bounds.max.y = realPanElementH > _tempPanAreaSize.y ? Math.round(_tempPanAreaSize.y - realPanElementH) + item.vGap.top : bounds.center.y;
+
+	            // minimum pan position
+	            bounds.min.x = realPanElementW > _tempPanAreaSize.x ? 0 : bounds.center.x;
+	            bounds.min.y = realPanElementH > _tempPanAreaSize.y ? item.vGap.top : bounds.center.y;
+	        };
+
+	        var _calculateItemSize = function _calculateItemSize(item, viewportSize, zoomLevel) {
+
+	            if (item.src && !item.loadError) {
+	                var isInitial = !zoomLevel;
+
+	                if (isInitial) {
+	                    if (!item.vGap) {
+	                        item.vGap = {
+	                            top: 0,
+	                            bottom: 0
+	                        };
+	                    }
+	                    // allows overriding vertical margin for individual items
+	                    _shout('parseVerticalMargin', item);
+	                }
+
+	                _tempPanAreaSize.x = viewportSize.x;
+	                _tempPanAreaSize.y = viewportSize.y - item.vGap.top - item.vGap.bottom;
+
+	                if (isInitial) {
+	                    var hRatio = _tempPanAreaSize.x / item.w;
+	                    var vRatio = _tempPanAreaSize.y / item.h;
+
+	                    item.fitRatio = hRatio < vRatio ? hRatio : vRatio;
+	                    //item.fillRatio = hRatio > vRatio ? hRatio : vRatio;
+
+	                    var scaleMode = _options.scaleMode;
+
+	                    if (scaleMode === 'orig') {
+	                        zoomLevel = 1;
+	                    } else if (scaleMode === 'fit') {
+	                        zoomLevel = item.fitRatio;
+	                    }
+
+	                    if (zoomLevel > 1) {
+	                        zoomLevel = 1;
+	                    }
+
+	                    item.initialZoomLevel = zoomLevel;
+
+	                    if (!item.bounds) {
+	                        // reuse bounds object
+	                        item.bounds = _getZeroBounds();
+	                    }
+	                }
+
+	                if (!zoomLevel) {
+	                    return;
+	                }
+
+	                _calculateSingleItemPanBounds(item, item.w * zoomLevel, item.h * zoomLevel);
+
+	                if (isInitial && zoomLevel === item.initialZoomLevel) {
+	                    item.initialPosition = item.bounds.center;
+	                }
+
+	                return item.bounds;
+	            } else {
+	                item.w = item.h = 0;
+	                item.initialZoomLevel = item.fitRatio = 1;
+	                item.bounds = _getZeroBounds();
+	                item.initialPosition = item.bounds.center;
+
+	                // if it's not image, we return zero bounds (content is not zoomable)
+	                return item.bounds;
+	            }
+	        };
+
+	        var _appendImage = function _appendImage(index, item, baseDiv, img, preventAnimation, keepPlaceholder) {
+
+	            if (item.loadError) {
+	                return;
+	            }
+
+	            if (img) {
+
+	                item.imageAppended = true;
+	                _setImageSize(item, img, item === self.currItem && _renderMaxResolution);
+
+	                baseDiv.appendChild(img);
+
+	                if (keepPlaceholder) {
+	                    setTimeout(function () {
+	                        if (item && item.loaded && item.placeholder) {
+	                            item.placeholder.style.display = 'none';
+	                            item.placeholder = null;
+	                        }
+	                    }, 500);
+	                }
+	            }
+	        };
+
+	        var _preloadImage = function _preloadImage(item) {
+	            item.loading = true;
+	            item.loaded = false;
+	            var img = item.img = helper.createEl('zvui-pinch__img', 'img');
+	            var onComplete = function onComplete() {
+	                item.loading = false;
+	                item.loaded = true;
+
+	                if (item.loadComplete) {
+	                    item.loadComplete(item);
+	                } else {
+	                    item.img = null; // no need to store image object
+	                }
+	                img.onload = img.onerror = null;
+	                img = null;
+	            };
+	            img.onload = onComplete;
+	            img.onerror = function () {
+	                item.loadError = true;
+	                onComplete();
+	            };
+
+	            img.src = item.src; // + '?a=' + Math.random();
+
+	            return img;
+	        };
+
+	        var _checkForError = function _checkForError(item, cleanUp) {
+	            if (item.src && item.loadError && item.container) {
+
+	                if (cleanUp) {
+	                    item.container.innerHTML = '';
+	                }
+
+	                item.container.innerHTML = _options.errorMsg.replace('%url%', item.src);
+	                return true;
+	            }
+	        };
+
+	        var _setImageSize = function _setImageSize(item, img, maxRes) {
+	            if (!item.src) {
+	                return;
+	            }
+
+	            if (!img) {
+	                img = item.container.lastChild;
+	            }
+
+	            var w = maxRes ? item.w : Math.round(item.w * item.fitRatio);
+	            var h = maxRes ? item.h : Math.round(item.h * item.fitRatio);
+
+	            if (item.placeholder && !item.loaded) {
+	                item.placeholder.style.width = w + 'px';
+	                item.placeholder.style.height = h + 'px';
+	            }
+
+	            img.style.width = w + 'px';
+	            img.style.height = h + 'px';
+	        };
+
+	        var _appendImagesPool = function _appendImagesPool() {
+
+	            if (_imagesToAppendPool.length) {
+	                var poolItem = void 0;
+
+	                for (var i = 0; i < _imagesToAppendPool.length; i++) {
+	                    poolItem = _imagesToAppendPool[i];
+	                    if (poolItem.holder.index === poolItem.index) {
+	                        _appendImage(poolItem.index, poolItem.item, poolItem.baseDiv, poolItem.img, false, poolItem.clearPlaceholder);
+	                    }
+	                }
+	                _imagesToAppendPool = [];
+	            }
+	        };
+
+	        _registerModule('Controller', {
+
+	            publicMethods: {
+	                lazyLoadItem: function lazyLoadItem(index) {
+	                    index = _getLoopedId(index);
+	                    var item = _getItemAt(index);
+
+	                    if (!item || (item.loaded || item.loading) && !_itemsNeedUpdate) {
+	                        return;
+	                    }
+
+	                    _shout('gettingData', index, item);
+
+	                    if (!item.src) {
+	                        return;
+	                    }
+
+	                    _preloadImage(item);
+	                },
+	                initController: function initController() {
+	                    helper.extend(_options, _controllerDefaultOptions, true);
+	                    self.items = _items = items;
+	                    _getItemAt = self.getItemAt;
+	                    _getNumItems = _options.getNumItemsFn; //self.getNumItems;
+
+
+	                    _initialIsLoop = _options.loop;
+	                    if (_getNumItems() < 3) {
+	                        _options.loop = false; // disable loop if less then 3 items
+	                    }
+
+	                    _listen('beforeChange', function (diff) {
+	                        var p = _options.preload;
+	                        var isNext = diff === null ? true : diff >= 0;
+	                        var preloadBefore = Math.min(p[0], _getNumItems());
+	                        var preloadAfter = Math.min(p[1], _getNumItems());
+	                        var i = void 0;
+
+	                        for (i = 1; i <= (isNext ? preloadAfter : preloadBefore); i++) {
+	                            self.lazyLoadItem(_currentItemIndex + i);
+	                        }
+	                        for (i = 1; i <= (isNext ? preloadBefore : preloadAfter); i++) {
+	                            self.lazyLoadItem(_currentItemIndex - i);
+	                        }
+	                    });
+
+	                    _listen('initialLayout', function () {
+	                        self.currItem.initialLayout = _options.getThumbBoundsFn && _options.getThumbBoundsFn(_currentItemIndex);
+	                    });
+
+	                    _listen('mainScrollAnimComplete', _appendImagesPool);
+	                    _listen('initialZoomInEnd', _appendImagesPool);
+
+	                    _listen('destroy', function () {
+	                        var item = void 0;
+	                        for (var i = 0; i < _items.length; i++) {
+	                            item = _items[i];
+	                            // remove reference to DOM elements, for GC
+	                            if (item.container) {
+	                                item.container = null;
+	                            }
+	                            if (item.placeholder) {
+	                                item.placeholder = null;
+	                            }
+	                            if (item.img) {
+	                                item.img = null;
+	                            }
+	                            if (item.preloader) {
+	                                item.preloader = null;
+	                            }
+	                            if (item.loadError) {
+	                                item.loaded = item.loadError = false;
+	                            }
+	                        }
+	                        _imagesToAppendPool = null;
+	                    });
+	                },
+	                getItemAt: function getItemAt(index) {
+	                    if (index >= 0) {
+	                        return _items[index] !== undefined ? _items[index] : false;
+	                    }
+	                    return false;
+	                },
+	                allowProgressiveImg: function allowProgressiveImg() {
+	                    // 1. Progressive image loading isn't working on webkit/blink
+	                    //    when hw-acceleration (e.g. translateZ) is applied to IMG element.
+	                    //    That's why in PhotoSwipe parent element gets zoom transform, not image itself.
+	                    //
+	                    // 2. Progressive image loading sometimes blinks in webkit/blink when applying animation to parent element.
+	                    //    That's why it's disabled on touch devices (mainly because of swipe transition)
+	                    //
+	                    // 3. Progressive image loading sometimes doesn't work in IE (up to 11).
+
+	                    // Don't allow progressive loading on non-large touch devices
+	                    return _options.forceProgressiveLoading || !_likelyTouchDevice || _options.mouseUsed || screen.width > 1200;
+	                    // 1200 - to eliminate touch devices with large screen (like Chromebook Pixel)
+	                },
+	                setContent: function setContent(holder, index) {
+	                    if (_options.loop) {
+	                        index = _getLoopedId(index);
+	                    }
+
+	                    var prevItem = self.getItemAt(holder.index);
+	                    if (prevItem) {
+	                        prevItem.container = null;
+	                    }
+
+	                    var item = self.getItemAt(index);
+	                    var img = void 0;
+
+	                    if (!item) {
+	                        holder.el.innerHTML = '';
+	                        return;
+	                    }
+
+	                    // allow to override data
+	                    _shout('gettingData', index, item);
+
+	                    holder.index = index;
+	                    holder.item = item;
+
+	                    // base container DIV is created only once for each of 3 holders
+	                    var baseDiv = item.container = helper.createEl('zvui-pinch__zoom-wrap');
+
+	                    if (!item.src && item.html) {
+	                        if (item.html.tagName) {
+	                            baseDiv.appendChild(item.html);
+	                        } else {
+	                            baseDiv.innerHTML = item.html;
+	                        }
+	                    }
+
+	                    _checkForError(item);
+
+	                    _calculateItemSize(item, _viewportSize);
+
+	                    if (item.src && !item.loadError && !item.loaded) {
+
+	                        item.loadComplete = function (item) {
+
+	                            // gallery closed before image finished loading
+	                            if (!_isOpen) {
+	                                return;
+	                            }
+
+	                            // check if holder hasn't changed while image was loading
+	                            if (holder && holder.index === index) {
+	                                if (_checkForError(item, true)) {
+	                                    item.loadComplete = item.img = null;
+	                                    _calculateItemSize(item, _viewportSize);
+	                                    _applyZoomPanToItem(item);
+
+	                                    if (holder.index === _currentItemIndex) {
+	                                        // recalculate dimensions
+	                                        self.updateCurrZoomItem();
+	                                    }
+	                                    return;
+	                                }
+	                                if (!item.imageAppended) {
+	                                    if (_features.transform && (_mainScrollAnimating || _initialZoomRunning)) {
+	                                        _imagesToAppendPool.push({
+	                                            item: item,
+	                                            baseDiv: baseDiv,
+	                                            img: item.img,
+	                                            index: index,
+	                                            holder: holder,
+	                                            clearPlaceholder: true
+	                                        });
+	                                    } else {
+	                                        _appendImage(index, item, baseDiv, item.img, _mainScrollAnimating || _initialZoomRunning, true);
+	                                    }
+	                                } else {
+	                                    // remove preloader & mini-img
+	                                    if (!_initialZoomRunning && item.placeholder) {
+	                                        item.placeholder.style.display = 'none';
+	                                        item.placeholder = null;
+	                                    }
+	                                }
+	                            }
+
+	                            item.loadComplete = null;
+	                            item.img = null; // no need to store image element after it's added
+
+	                            _shout('imageLoadComplete', index, item);
+	                        };
+
+	                        if (helper.features.transform) {
+
+	                            var placeholderClassName = 'zvui-pinch__img zvui-pinch__img--placeholder';
+	                            placeholderClassName += item.msrc ? '' : ' zvui-pinch__img--placeholder--blank';
+
+	                            var placeholder = helper.createEl(placeholderClassName, item.msrc ? 'img' : '');
+	                            if (item.msrc) {
+	                                placeholder.src = item.msrc;
+	                            }
+
+	                            _setImageSize(item, placeholder);
+
+	                            baseDiv.appendChild(placeholder);
+	                            item.placeholder = placeholder;
+	                        }
+
+	                        if (!item.loading) {
+	                            _preloadImage(item);
+	                        }
+
+	                        if (self.allowProgressiveImg()) {
+	                            // just append image
+	                            if (!_initialContentSet && _features.transform) {
+	                                _imagesToAppendPool.push({
+	                                    item: item,
+	                                    baseDiv: baseDiv,
+	                                    img: item.img,
+	                                    index: index,
+	                                    holder: holder
+	                                });
+	                            } else {
+	                                _appendImage(index, item, baseDiv, item.img, true, true);
+	                            }
+	                        }
+	                    } else if (item.src && !item.loadError) {
+	                        // image object is created every time, due to bugs of image loading & delay when switching images
+	                        img = helper.createEl('zvui-pinch__img', 'img');
+	                        img.style.opacity = 1;
+	                        img.src = item.src;
+	                        _setImageSize(item, img);
+	                        _appendImage(index, item, baseDiv, img, true);
+	                    }
+
+	                    if (!_initialContentSet && index === _currentItemIndex) {
+	                        _currZoomElementStyle = baseDiv.style;
+	                        _showOrHide(item, img || item.img);
+	                    } else {
+	                        _applyZoomPanToItem(item);
+	                    }
+
+	                    holder.el.innerHTML = '';
+	                    holder.el.appendChild(baseDiv);
+	                },
+	                cleanSlide: function cleanSlide(item) {
+	                    if (item.img) {
+	                        item.img.onload = item.img.onerror = null;
+	                    }
+	                    item.loaded = item.loading = item.img = item.imageAppended = false;
+	                }
+	            }
+	        });
+
+	        /**
+	         * tap.js:
+	         *
+	         * Displatches tap and double-tap events.
+	         *
+	         */
+
+	        var tapTimer = void 0;
+
+	        var tapReleasePoint = {};
+
+	        var _dispatchTapEvent = function _dispatchTapEvent(origEvent, releasePoint, pointerType) {
+	            var e = document.createEvent('CustomEvent');
+
+	            var eDetail = {
+	                origEvent: origEvent,
+	                target: origEvent.target,
+	                releasePoint: releasePoint,
+	                pointerType: pointerType || 'touch'
+	            };
+
+	            e.initCustomEvent('zvuiPinchTap', true, true, eDetail);
+	            origEvent.target.dispatchEvent(e);
+	        };
+
+	        _registerModule('Tap', {
+	            publicMethods: {
+	                initTap: function initTap() {
+	                    _listen('firstTouchStart', self.onTapStart);
+	                    _listen('touchRelease', self.onTapRelease);
+	                    _listen('destroy', function () {
+	                        tapReleasePoint = {};
+	                        tapTimer = null;
+	                    });
+	                },
+	                onTapStart: function onTapStart(touchList) {
+	                    if (touchList.length > 1) {
+	                        clearTimeout(tapTimer);
+	                        tapTimer = null;
+	                    }
+	                },
+	                onTapRelease: function onTapRelease(e, releasePoint) {
+	                    if (!releasePoint) {
+	                        return;
+	                    }
+
+	                    if (!_moved && !_isMultitouch && !_numAnimations) {
+	                        var p0 = releasePoint;
+	                        if (tapTimer) {
+	                            clearTimeout(tapTimer);
+	                            tapTimer = null;
+
+	                            // Check if taped on the same place
+	                            if (_isNearbyPoints(p0, tapReleasePoint)) {
+	                                _shout('doubleTap', p0);
+	                                return;
+	                            }
+	                        }
+
+	                        if (releasePoint.type === 'mouse') {
+	                            _dispatchTapEvent(e, releasePoint, 'mouse');
+	                            return;
+	                        }
+
+	                        var clickedTagName = e.target.tagName.toUpperCase();
+	                        // avoid double tap delay on buttons and elements that have class zvui-pinch__single-tap
+	                        if (clickedTagName === 'BUTTON' || helper.hasClass(e.target, 'zvui-pinch__single-tap')) {
+	                            _dispatchTapEvent(e, releasePoint);
+	                            return;
+	                        }
+
+	                        _equalizePoints(tapReleasePoint, p0);
+
+	                        tapTimer = setTimeout(function () {
+	                            _dispatchTapEvent(e, releasePoint);
+	                            tapTimer = null;
+	                        }, 300);
+	                    }
+	                }
+	            }
+	        });
+	        helper.extend(self, publicMethods);
+	    };
+	});
 
 /***/ },
 /* 4 */
@@ -316,3986 +3458,664 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	(function (root, factory) {
-	  if (true) {
-	    !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	  } else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') {
-	    module.exports = factory(require, exports, module);
-	  } else {
-	    root.ZVUIPinch = factory();
-	  }
+	    if (true) {
+	        !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') {
+	        module.exports = factory(require, exports, module);
+	    } else {
+	        root.ZVUIPinch_Default = factory();
+	    }
 	})(undefined, function (require, exports, module) {
 
-	  return function (template, UiClass, items, options) {
-	    /**
-	    *
-	    * Set of generic functions used by gallery.
-	    *
-	    * You're free to modify anything here as long as functionality is kept.
-	    *
-	    */
-	    var helper = {
-	      features: null,
-	      bind: function bind(target, type, listener, unbind) {
-	        var methodName = (unbind ? 'remove' : 'add') + 'EventListener';
-	        type = type.split(' ');
-	        for (var i = 0; i < type.length; i++) {
-	          if (type[i]) {
-	            target[methodName](type[i], listener, false);
-	          }
-	        }
-	      },
-	      isArray: function isArray(obj) {
-	        return obj instanceof Array;
-	      },
-	      createEl: function createEl(classes, tag) {
-	        var el = document.createElement(tag || 'div');
-	        if (classes) {
-	          el.className = classes;
-	        }
-	        return el;
-	      },
-	      getScrollY: function getScrollY() {
-	        var yOffset = window.pageYOffset;
-	        return yOffset !== undefined ? yOffset : document.documentElement.scrollTop;
-	      },
-	      unbind: function unbind(target, type, listener) {
-	        helper.bind(target, type, listener, true);
-	      },
-	      removeClass: function removeClass(el, className) {
-	        var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
-	        el.className = el.className.replace(reg, ' ').replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-	      },
-	      addClass: function addClass(el, className) {
-	        if (!helper.hasClass(el, className)) {
-	          el.className += (el.className ? ' ' : '') + className;
-	        }
-	      },
-	      hasClass: function hasClass(el, className) {
-	        return el.className && new RegExp('(^|\\s)' + className + '(\\s|$)').test(el.className);
-	      },
-	      getChildByClass: function getChildByClass(parentEl, childClassName) {
-	        var node = parentEl.firstChild;
-	        while (node) {
-	          if (helper.hasClass(node, childClassName)) {
-	            return node;
-	          }
-	          node = node.nextSibling;
-	        }
-	      },
-	      arraySearch: function arraySearch(array, value, key) {
-	        var i = array.length;
-	        while (i--) {
-	          if (array[i][key] === value) {
-	            return i;
-	          }
-	        }
-	        return -1;
-	      },
-	      extend: function extend(o1, o2, preventOverwrite) {
-	        for (var prop in o2) {
-	          if (o2.hasOwnProperty(prop)) {
-	            if (preventOverwrite && o1.hasOwnProperty(prop)) {
-	              continue;
-	            }
-	            o1[prop] = o2[prop];
-	          }
-	        }
-	      },
-
-	      easing: {
-	        sine: {
-	          out: function out(k) {
-	            return Math.sin(k * (Math.PI / 2));
-	          },
-	          inOut: function inOut(k) {
-	            return -(Math.cos(Math.PI * k) - 1) / 2;
-	          }
-	        },
-	        cubic: {
-	          out: function out(k) {
-	            return --k * k * k + 1;
-	          }
-	        }
-	        /*
-	        	elastic: {
-	        		out: function ( k ) {
-	        				var s, a = 0.1, p = 0.4;
-	        			if ( k === 0 ) return 0;
-	        			if ( k === 1 ) return 1;
-	        			if ( !a || a < 1 ) { a = 1; s = p / 4; }
-	        			else s = p * Math.asin( 1 / a ) / ( 2 * Math.PI );
-	        			return ( a * Math.pow( 2, - 10 * k) * Math.sin( ( k - s ) * ( 2 * Math.PI ) / p ) + 1 );
-	        			},
-	        	},
-	        	back: {
-	        		out: function ( k ) {
-	        			var s = 1.70158;
-	        			return --k * k * ( ( s + 1 ) * k + s ) + 1;
-	        		}
-	        	}
+	    return function (zvuiPinch, helper) {
+	        /**
+	        *
+	        * UI on top of main sliding area (caption, arrows, close button, etc.).
+	        * Built just using public methods/properties of PhotoSwipe.
+	        *
 	        */
-	      },
+	        var ui = this;
+	        var _overlayUIUpdated = false;
+	        var _controlsVisible = true;
+	        var _fullscrenAPI = void 0;
+	        var _controls = void 0;
+	        var _captionContainer = void 0;
+	        var _fakeCaptionContainer = void 0;
+	        var _indexIndicator = void 0;
+	        var _initalCloseOnScrollValue = void 0;
+	        var _isIdle = void 0;
+	        var _listen = void 0;
+	        var _loadingIndicator = void 0;
+	        var _loadingIndicatorHidden = void 0;
+	        var _loadingIndicatorTimeout = void 0;
+	        var _galleryHasOneSlide = void 0;
+	        var _options = void 0;
 
-	      /**
-	       *
-	       * @return {object}
-	       *
-	       * {
-	       *  raf : request animation frame function
-	       *  caf : cancel animation frame function
-	       *  transfrom : transform property key (with vendor), or null if not supported
-	       *  oldIE : IE8 or below
-	       * }
-	       *
-	       */
-	      detectFeatures: function detectFeatures() {
-	        if (helper.features) {
-	          return helper.features;
-	        }
-	        var helperEl = helper.createEl();
-	        var helperStyle = helperEl.style;
-	        var vendor = '';
-	        var features = {};
+	        var _defaultUIOptions = {
+	            barsSize: {
+	                top: 44,
+	                bottom: 'auto'
+	            },
+	            closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui', 'top-bar'],
+	            timeToIdle: 4000,
+	            timeToIdleOutside: 1000,
+	            loadingIndicatorDelay: 1000, // 2s
 
-	        // IE8 and below
-	        features.oldIE = document.all && !document.addEventListener;
-
-	        features.touch = 'ontouchstart' in window;
-
-	        if (window.requestAnimationFrame) {
-	          features.raf = window.requestAnimationFrame;
-	          features.caf = window.cancelAnimationFrame;
-	        }
-
-	        features.pointerEvent = navigator.pointerEnabled || navigator.msPointerEnabled;
-
-	        // fix false-positive detection of old Android in new IE
-	        // (IE11 ua string contains "Android 4.0")
-
-	        if (!features.pointerEvent) {
-
-	          var ua = navigator.userAgent;
-
-	          // Detect if device is iPhone or iPod and if it's older than iOS 8
-	          // http://stackoverflow.com/a/14223920
-	          //
-	          // This detection is made because of buggy top/bottom toolbars
-	          // that don't trigger window.resize event.
-	          // For more info refer to _isFixedPosition variable in core.js
-
-	          if (/iP(hone|od)/.test(navigator.platform)) {
-	            var v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
-	            if (v && v.length > 0) {
-	              v = parseInt(v[1], 10);
-	              if (v >= 1 && v < 8) {
-	                features.isOldIOSPhone = true;
-	              }
-	            }
-	          }
-
-	          // Detect old Android (before KitKat)
-	          // due to bugs related to position:fixed
-	          // http://stackoverflow.com/questions/7184573/pick-up-the-android-version-in-the-browser-by-javascript
-
-	          var match = ua.match(/Android\s([0-9\.]*)/);
-	          var androidversion = match ? match[1] : 0;
-	          androidversion = parseFloat(androidversion);
-	          if (androidversion >= 1) {
-	            if (androidversion < 4.4) {
-	              features.isOldAndroid = true; // for fixed position bug & performance
-	            }
-	            features.androidVersion = androidversion; // for touchend bug
-	          }
-	          features.isMobileOpera = /opera mini|opera mobi/i.test(ua);
-
-	          // p.s. yes, yes, UA sniffing is bad, propose your solution for above bugs.
-	        }
-
-	        var styleChecks = ['transform', 'perspective', 'animationName'];
-	        var vendors = ['', 'webkit', 'Moz', 'ms', 'O'];
-	        var styleCheckItem = void 0;
-	        var styleName = void 0;
-
-	        for (var i = 0; i < 4; i++) {
-	          vendor = vendors[i];
-
-	          for (var a = 0; a < 3; a++) {
-	            styleCheckItem = styleChecks[a];
-
-	            // uppercase first letter of property name, if vendor is present
-	            styleName = vendor + (vendor ? styleCheckItem.charAt(0).toUpperCase() + styleCheckItem.slice(1) : styleCheckItem);
-
-	            if (!features[styleCheckItem] && styleName in helperStyle) {
-	              features[styleCheckItem] = styleName;
-	            }
-	          }
-
-	          if (vendor && !features.raf) {
-	            vendor = vendor.toLowerCase();
-	            features.raf = window[vendor + 'RequestAnimationFrame'];
-	            if (features.raf) {
-	              features.caf = window[vendor + 'CancelAnimationFrame'] || window[vendor + 'CancelRequestAnimationFrame'];
-	            }
-	          }
-	        }
-
-	        if (!features.raf) {
-	          (function () {
-	            var lastTime = 0;
-	            features.raf = function (fn) {
-	              var currTime = new Date().getTime();
-	              var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-	              var id = window.setTimeout(function () {
-	                fn(currTime + timeToCall);
-	              }, timeToCall);
-	              lastTime = currTime + timeToCall;
-	              return id;
-	            };
-	            features.caf = function (id) {
-	              clearTimeout(id);
-	            };
-	          })();
-	        }
-
-	        // Detect SVG support
-	        features.svg = !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect;
-
-	        helper.features = features;
-
-	        return features;
-	      }
-	    };
-
-	    helper.detectFeatures();
-
-	    // Override addEventListener for old versions of IE
-	    if (helper.features.oldIE) {
-
-	      helper.bind = function (target, type, listener, unbind) {
-	        type = type.split(' ');
-
-	        var methodName = (unbind ? 'detach' : 'attach') + 'Event';
-	        var evName = void 0;
-
-	        var _handleEv = function _handleEv() {
-	          listener.handleEvent.call(listener);
-	        };
-
-	        for (var i = 0; i < type.length; i++) {
-	          evName = type[i];
-	          if (evName) {
-
-	            if ((typeof listener === 'undefined' ? 'undefined' : _typeof(listener)) === 'object' && listener.handleEvent) {
-	              if (!unbind) {
-	                listener['oldIE' + evName] = _handleEv;
-	              } else {
-	                if (!listener['oldIE' + evName]) {
-	                  return false;
+	            addCaptionHTMLFn: function addCaptionHTMLFn(item, captionEl /*, isFake */) {
+	                if (!item.title) {
+	                    captionEl.children[0].innerHTML = '';
+	                    return false;
 	                }
-	              }
+	                captionEl.children[0].innerHTML = item.title;
+	                return true;
+	            },
 
-	              target[methodName]('on' + evName, listener['oldIE' + evName]);
-	            } else {
-	              target[methodName]('on' + evName, listener);
-	            }
-	          }
-	        }
-	      };
-	    }
 
-	    //function(template, UiClass, items, options)
+	            closeEl: true,
+	            captionEl: false,
+	            fullscreenEl: false,
+	            zoomEl: true,
+	            counterEl: false,
+	            arrowEl: false,
+	            preloaderEl: true,
 
-	    var self = this;
+	            tapToClose: true,
+	            tapToToggleControls: true,
 
-	    /**
-	     * Static vars, don't change unless you know what you're doing.
-	     */
-	    var DOUBLE_TAP_RADIUS = 25;
+	            clickToCloseNonZoomable: true,
 
-	    var NUM_HOLDERS = 3;
+	            indexIndicatorSep: ' / ',
+	            fitControlsWidth: 1200
 
-	    /**
-	     * Options
-	     */
-	    var _options = {
-	      allowPanToNext: true,
-	      spacing: 0.12,
-	      bgOpacity: 1,
-	      mouseUsed: false,
-	      loop: true,
-	      pinchToClose: true,
-	      closeOnScroll: true,
-	      closeOnVerticalDrag: true,
-	      verticalDragRange: 0.75,
-	      hideAnimationDuration: 333,
-	      showAnimationDuration: 333,
-	      showHideOpacity: false,
-	      focus: true,
-	      escKey: true,
-	      arrowKeys: true,
-	      mainScrollEndFriction: 0.35,
-	      panEndFriction: 0.35,
-	      isClickableElement: function isClickableElement(el) {
-	        return el.tagName === 'A';
-	      },
-	      getDoubleTapZoom: function getDoubleTapZoom(isMouseClick, item) {
-	        if (isMouseClick) {
-	          return 1;
-	        } else {
-	          return item.initialZoomLevel < 0.7 ? 1 : 1.33;
-	        }
-	      },
-
-	      maxSpreadZoom: 1.33,
-	      modal: true,
-
-	      // not fully implemented yet
-	      scaleMode: 'fit' // TODO
-	    };
-	    helper.extend(_options, options);
-
-	    /**
-	     * Private helper variables & functions
-	     */
-
-	    var _getEmptyPoint = function _getEmptyPoint() {
-	      return {
-	        x: 0,
-	        y: 0
-	      };
-	    };
-
-	    var _isOpen = void 0;
-	    var _isDestroying = void 0;
-	    var _closedByScroll = void 0;
-	    var _currentItemIndex = void 0;
-	    var _containerStyle = void 0;
-	    var _containerShiftIndex = void 0;
-	    var _currPanDist = _getEmptyPoint();
-	    var _startPanOffset = _getEmptyPoint();
-	    var _panOffset = _getEmptyPoint();
-
-	    var // drag move, drag end & drag cancel events array
-	    _upMoveEvents = void 0;
-
-	    var // drag start events array
-	    _downEvents = void 0;
-
-	    var _globalEventHandlers = void 0;
-	    var _viewportSize = {};
-	    var _currZoomLevel = void 0;
-	    var _startZoomLevel = void 0;
-	    var _translatePrefix = void 0;
-	    var _translateSufix = void 0;
-	    var _updateSizeInterval = void 0;
-	    var _itemsNeedUpdate = void 0;
-	    var _currPositionIndex = 0;
-	    var _offset = {};
-
-	    var // size of slide area, including spacing
-	    _slideSize = _getEmptyPoint();
-
-	    var _itemHolders = void 0;
-	    var _prevItemIndex = void 0;
-
-	    var // difference of indexes since last content update
-	    _indexDiff = 0;
-
-	    var _dragStartEvent = void 0;
-	    var _dragMoveEvent = void 0;
-	    var _dragEndEvent = void 0;
-	    var _dragCancelEvent = void 0;
-	    var _transformKey = void 0;
-	    var _pointerEventEnabled = void 0;
-	    var _isFixedPosition = true;
-	    var _likelyTouchDevice = void 0;
-	    var _modules = [];
-	    var _requestAF = void 0;
-	    var _cancelAF = void 0;
-	    var _initalClassName = void 0;
-	    var _initalWindowScrollY = void 0;
-	    var _oldIE = void 0;
-	    var _currentWindowScrollY = void 0;
-	    var _features = void 0;
-	    var _windowVisibleSize = {};
-	    var _renderMaxResolution = false;
-
-	    var // Registers PhotoSWipe module (History, Controller ...)
-	    _registerModule = function _registerModule(name, module) {
-	      helper.extend(self, module.publicMethods);
-	      _modules.push(name);
-	    };
-
-	    var _getLoopedId = function _getLoopedId(index) {
-	      var numSlides = _getNumItems();
-	      if (index > numSlides - 1) {
-	        return index - numSlides;
-	      } else if (index < 0) {
-	        return numSlides + index;
-	      }
-	      return index;
-	    };
-
-	    var // Micro bind/trigger
-	    _listeners = {};
-
-	    var _listen = function _listen(name, fn) {
-	      if (!_listeners[name]) {
-	        _listeners[name] = [];
-	      }
-	      return _listeners[name].push(fn);
-	    };
-
-	    var _shout = function _shout(name) {
-	      var listeners = _listeners[name];
-
-	      if (listeners) {
-	        var args = Array.prototype.slice.call(arguments);
-	        args.shift();
-
-	        for (var i = 0; i < listeners.length; i++) {
-	          listeners[i].apply(self, args);
-	        }
-	      }
-	    };
-
-	    var _getCurrentTime = function _getCurrentTime() {
-	      return new Date().getTime();
-	    };
-
-	    var _applyBgOpacity = function _applyBgOpacity(opacity) {
-	      _bgOpacity = opacity;
-	      self.bg.style.opacity = opacity * _options.bgOpacity;
-	    };
-
-	    var _applyZoomTransform = function _applyZoomTransform(styleObj, x, y, zoom, item) {
-	      if (!_renderMaxResolution || item && item !== self.currItem) {
-	        zoom = zoom / (item ? item.fitRatio : self.currItem.fitRatio);
-	      }
-
-	      styleObj[_transformKey] = _translatePrefix + x + 'px, ' + y + 'px' + _translateSufix + ' scale(' + zoom + ')';
-	    };
-
-	    var _applyCurrentZoomPan = function _applyCurrentZoomPan(allowRenderResolution) {
-	      if (_currZoomElementStyle) {
-
-	        if (allowRenderResolution) {
-	          if (_currZoomLevel > self.currItem.fitRatio) {
-	            if (!_renderMaxResolution) {
-	              _setImageSize(self.currItem, false, true);
-	              _renderMaxResolution = true;
-	            }
-	          } else {
-	            if (_renderMaxResolution) {
-	              _setImageSize(self.currItem);
-	              _renderMaxResolution = false;
-	            }
-	          }
-	        }
-
-	        _applyZoomTransform(_currZoomElementStyle, _panOffset.x, _panOffset.y, _currZoomLevel);
-	      }
-	    };
-
-	    var _applyZoomPanToItem = function _applyZoomPanToItem(item) {
-	      if (item.container) {
-
-	        _applyZoomTransform(item.container.style, item.initialPosition.x, item.initialPosition.y, item.initialZoomLevel, item);
-	      }
-	    };
-
-	    var _setTranslateX = function _setTranslateX(x, elStyle) {
-	      elStyle[_transformKey] = _translatePrefix + x + 'px, 0px' + _translateSufix;
-	    };
-
-	    var _moveMainScroll = function _moveMainScroll(x, dragging) {
-
-	      if (!_options.loop && dragging) {
-	        var newSlideIndexOffset = _currentItemIndex + (_slideSize.x * _currPositionIndex - x) / _slideSize.x;
-	        var _delta = Math.round(x - _mainScrollPos.x);
-
-	        if (newSlideIndexOffset < 0 && _delta > 0 || newSlideIndexOffset >= _getNumItems() - 1 && _delta < 0) {
-	          x = _mainScrollPos.x + _delta * _options.mainScrollEndFriction;
-	        }
-	      }
-
-	      _mainScrollPos.x = x;
-	      _setTranslateX(x, _containerStyle);
-	    };
-
-	    var _calculatePanOffset = function _calculatePanOffset(axis, zoomLevel) {
-	      var m = _midZoomPoint[axis] - _offset[axis];
-	      return _startPanOffset[axis] + _currPanDist[axis] + m - m * (zoomLevel / _startZoomLevel);
-	    };
-
-	    var _equalizePoints = function _equalizePoints(p1, p2) {
-	      p1.x = p2.x;
-	      p1.y = p2.y;
-	      if (p2.id) {
-	        p1.id = p2.id;
-	      }
-	    };
-
-	    var _roundPoint = function _roundPoint(p) {
-	      p.x = Math.round(p.x);
-	      p.y = Math.round(p.y);
-	    };
-
-	    var _mouseMoveTimeout = null;
-
-	    var _onFirstMouseMove = function _onFirstMouseMove() {
-	      // Wait until mouse move event is fired at least twice during 100ms
-	      // We do this, because some mobile browsers trigger it on touchstart
-	      if (_mouseMoveTimeout) {
-	        helper.unbind(document, 'mousemove', _onFirstMouseMove);
-	        helper.addClass(template, 'zvui-pinch--has_mouse');
-	        _options.mouseUsed = true;
-	        _shout('mouseUsed');
-	      }
-	      _mouseMoveTimeout = setTimeout(function () {
-	        _mouseMoveTimeout = null;
-	      }, 100);
-	    };
-
-	    var _bindEvents = function _bindEvents() {
-	      helper.bind(document, 'keydown', self);
-
-	      if (_features.transform) {
-	        // don't bind click event in browsers that don't support transform (mostly IE8)
-	        helper.bind(self.scrollWrap, 'click', self);
-	      }
-
-	      if (!_options.mouseUsed) {
-	        helper.bind(document, 'mousemove', _onFirstMouseMove);
-	      }
-
-	      helper.bind(window, 'resize scroll', self);
-
-	      _shout('bindEvents');
-	    };
-
-	    var _unbindEvents = function _unbindEvents() {
-	      helper.unbind(window, 'resize', self);
-	      helper.unbind(window, 'scroll', _globalEventHandlers.scroll);
-	      helper.unbind(document, 'keydown', self);
-	      helper.unbind(document, 'mousemove', _onFirstMouseMove);
-
-	      if (_features.transform) {
-	        helper.unbind(self.scrollWrap, 'click', self);
-	      }
-
-	      if (_isDragging) {
-	        helper.unbind(window, _upMoveEvents, self);
-	      }
-
-	      _shout('unbindEvents');
-	    };
-
-	    var _calculatePanBounds = function _calculatePanBounds(zoomLevel, update) {
-	      var bounds = _calculateItemSize(self.currItem, _viewportSize, zoomLevel);
-	      if (update) {
-	        _currPanBounds = bounds;
-	      }
-	      return bounds;
-	    };
-
-	    var _getMinZoomLevel = function _getMinZoomLevel(item) {
-	      if (!item) {
-	        item = self.currItem;
-	      }
-	      return item.initialZoomLevel;
-	    };
-
-	    var _getMaxZoomLevel = function _getMaxZoomLevel(item) {
-	      if (!item) {
-	        item = self.currItem;
-	      }
-	      return item.w > 0 ? _options.maxSpreadZoom : 1;
-	    };
-
-	    var // Return true if offset is out of the bounds
-	    _modifyDestPanOffset = function _modifyDestPanOffset(axis, destPanBounds, destPanOffset, destZoomLevel) {
-	      if (destZoomLevel === self.currItem.initialZoomLevel) {
-	        destPanOffset[axis] = self.currItem.initialPosition[axis];
-	        return true;
-	      } else {
-	        destPanOffset[axis] = _calculatePanOffset(axis, destZoomLevel);
-
-	        if (destPanOffset[axis] > destPanBounds.min[axis]) {
-	          destPanOffset[axis] = destPanBounds.min[axis];
-	          return true;
-	        } else if (destPanOffset[axis] < destPanBounds.max[axis]) {
-	          destPanOffset[axis] = destPanBounds.max[axis];
-	          return true;
-	        }
-	      }
-	      return false;
-	    };
-
-	    var _setupTransforms = function _setupTransforms() {
-
-	      if (_transformKey) {
-	        // setup 3d transforms
-	        var allow3dTransform = _features.perspective && !_likelyTouchDevice;
-	        _translatePrefix = 'translate' + (allow3dTransform ? '3d(' : '(');
-	        _translateSufix = _features.perspective ? ', 0px)' : ')';
-	        return;
-	      }
-
-	      // Override zoom/pan/move functions in case old browser is used (most likely IE)
-	      // (so they use left/top/width/height, instead of CSS transform)
-
-	      _transformKey = 'left';
-	      helper.addClass(template, 'zvui-pinch--ie');
-
-	      _setTranslateX = function _setTranslateX(x, elStyle) {
-	        elStyle.left = x + 'px';
-	      };
-	      _applyZoomPanToItem = function _applyZoomPanToItem(item) {
-	        var zoomRatio = item.fitRatio > 1 ? 1 : item.fitRatio;
-	        var s = item.container.style;
-	        var w = zoomRatio * item.w;
-	        var h = zoomRatio * item.h;
-
-	        s.width = w + 'px';
-	        s.height = h + 'px';
-	        s.left = item.initialPosition.x + 'px';
-	        s.top = item.initialPosition.y + 'px';
-	      };
-	      _applyCurrentZoomPan = function _applyCurrentZoomPan() {
-	        if (_currZoomElementStyle) {
-	          var s = _currZoomElementStyle;
-	          var item = self.currItem;
-	          var zoomRatio = item.fitRatio > 1 ? 1 : item.fitRatio;
-	          var w = zoomRatio * item.w;
-	          var h = zoomRatio * item.h;
-
-	          s.width = w + 'px';
-	          s.height = h + 'px';
-
-	          s.left = _panOffset.x + 'px';
-	          s.top = _panOffset.y + 'px';
-	        }
-	      };
-	    };
-
-	    var _onKeyDown = function _onKeyDown(e) {
-	      var keydownAction = '';
-	      if (_options.escKey && e.keyCode === 27) {
-	        keydownAction = 'close';
-	      } else if (_options.arrowKeys) {
-	        if (e.keyCode === 37) {
-	          keydownAction = 'prev';
-	        } else if (e.keyCode === 39) {
-	          keydownAction = 'next';
-	        }
-	      }
-
-	      if (keydownAction) {
-	        // don't do anything if special key pressed to prevent from overriding default browser actions
-	        // e.g. in Chrome on Mac cmd+arrow-left returns to previous page
-	        if (!e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey) {
-	          if (e.preventDefault) {
-	            e.preventDefault();
-	          } else {
-	            e.returnValue = false;
-	          }
-	          self[keydownAction]();
-	        }
-	      }
-	    };
-
-	    var _onGlobalClick = function _onGlobalClick(e) {
-	      if (!e) {
-	        return;
-	      }
-
-	      // don't allow click event to pass through when triggering after drag or some other gesture
-	      if (_moved || _zoomStarted || _mainScrollAnimating || _verticalDragInitiated) {
-	        e.preventDefault();
-	        e.stopPropagation();
-	      }
-	    };
-
-	    var _updatePageScrollOffset = function _updatePageScrollOffset() {
-	      self.setScrollOffset(0, helper.getScrollY());
-	    };
-
-	    // Micro animation engine
-	    var _animations = {};
-
-	    var _numAnimations = 0;
-
-	    var _stopAnimation = function _stopAnimation(name) {
-	      if (_animations[name]) {
-	        if (_animations[name].raf) {
-	          _cancelAF(_animations[name].raf);
-	        }
-	        _numAnimations--;
-	        delete _animations[name];
-	      }
-	    };
-
-	    var _registerStartAnimation = function _registerStartAnimation(name) {
-	      if (_animations[name]) {
-	        _stopAnimation(name);
-	      }
-	      if (!_animations[name]) {
-	        _numAnimations++;
-	        _animations[name] = {};
-	      }
-	    };
-
-	    var _stopAllAnimations = function _stopAllAnimations() {
-	      for (var prop in _animations) {
-
-	        if (_animations.hasOwnProperty(prop)) {
-	          _stopAnimation(prop);
-	        }
-	      }
-	    };
-
-	    var _animateProp = function _animateProp(name, b, endProp, d, easingFn, onUpdate, onComplete) {
-	      var startAnimTime = _getCurrentTime();
-	      var t = void 0;
-	      _registerStartAnimation(name);
-
-	      var animloop = function animloop() {
-	        if (_animations[name]) {
-
-	          t = _getCurrentTime() - startAnimTime; // time diff
-	          //b - beginning (start prop)
-	          //d - anim duration
-
-	          if (t >= d) {
-	            _stopAnimation(name);
-	            onUpdate(endProp);
-	            if (onComplete) {
-	              onComplete();
-	            }
-	            return;
-	          }
-	          onUpdate((endProp - b) * easingFn(t / d) + b);
-
-	          _animations[name].raf = _requestAF(animloop);
-	        }
-	      };
-	      animloop();
-	    };
-
-	    var publicMethods = {
-
-	      // make a few local variables and functions public
-	      shout: _shout,
-	      listen: _listen,
-	      viewportSize: _viewportSize,
-	      options: _options,
-
-	      isMainScrollAnimating: function isMainScrollAnimating() {
-	        return _mainScrollAnimating;
-	      },
-	      getZoomLevel: function getZoomLevel() {
-	        return _currZoomLevel;
-	      },
-	      getCurrentIndex: function getCurrentIndex() {
-	        return _currentItemIndex;
-	      },
-	      isDragging: function isDragging() {
-	        return _isDragging;
-	      },
-	      isZooming: function isZooming() {
-	        return _isZooming;
-	      },
-	      setScrollOffset: function setScrollOffset(x, y) {
-	        _offset.x = x;
-	        _currentWindowScrollY = _offset.y = y;
-	        _shout('updateScrollOffset', _offset);
-	      },
-	      applyZoomPan: function applyZoomPan(zoomLevel, panX, panY, allowRenderResolution) {
-	        _panOffset.x = panX;
-	        _panOffset.y = panY;
-	        _currZoomLevel = zoomLevel;
-	        _applyCurrentZoomPan(allowRenderResolution);
-	      },
-	      init: function init() {
-
-	        if (_isOpen || _isDestroying) {
-	          return;
-	        }
-
-	        var i = void 0;
-
-	        self.helper = helper; // basic functionality
-	        self.template = template; // root DOM element of PhotoSwipe
-	        self.bg = helper.getChildByClass(template, 'zvui-pinch__bg');
-
-	        _initalClassName = template.className;
-	        _isOpen = true;
-
-	        _features = helper.detectFeatures();
-	        _requestAF = _features.raf;
-	        _cancelAF = _features.caf;
-	        _transformKey = _features.transform;
-	        _oldIE = _features.oldIE;
-
-	        self.scrollWrap = helper.getChildByClass(template, 'zvui-pinch__scroll-wrap');
-	        self.container = helper.getChildByClass(self.scrollWrap, 'zvui-pinch__container');
-
-	        _containerStyle = self.container.style; // for fast access
-
-	        // Objects that hold slides (there are only 3 in DOM)
-	        self.itemHolders = _itemHolders = [{
-	          el: self.container.children[0],
-	          wrap: 0,
-	          index: -1
-	        }, {
-	          el: self.container.children[1],
-	          wrap: 0,
-	          index: -1
-	        }, {
-	          el: self.container.children[2],
-	          wrap: 0,
-	          index: -1
-	        }];
-
-	        // hide nearby item holders until initial zoom animation finishes (to avoid extra Paints)
-	        _itemHolders[0].el.style.display = _itemHolders[2].el.style.display = 'none';
-
-	        _setupTransforms();
-
-	        // Setup global events
-	        _globalEventHandlers = {
-	          resize: self.updateSize,
-	          scroll: _updatePageScrollOffset,
-	          keydown: _onKeyDown,
-	          click: _onGlobalClick
 	        };
 
-	        // disable show/hide effects on old browsers that don't support CSS animations or transforms,
-	        // old IOS, Android and Opera mobile. Blackberry seems to work fine, even older models.
-	        var oldPhone = _features.isOldIOSPhone || _features.isOldAndroid || _features.isMobileOpera;
-	        if (!_features.animationName || !_features.transform || oldPhone) {
-	          _options.showAnimationDuration = _options.hideAnimationDuration = 0;
-	        }
-
-	        // init modules
-	        for (i = 0; i < _modules.length; i++) {
-	          self['init' + _modules[i]]();
-	        }
-
-	        // init
-	        if (UiClass) {
-	          var ui = self.ui = new UiClass(self, helper);
-	          ui.init();
-	        }
-
-	        _shout('firstUpdate');
-	        _currentItemIndex = _currentItemIndex || _options.index || 0;
-	        // validate index
-	        if (isNaN(_currentItemIndex) || _currentItemIndex < 0 || _currentItemIndex >= _getNumItems()) {
-	          _currentItemIndex = 0;
-	        }
-	        self.currItem = _getItemAt(_currentItemIndex);
-
-	        if (_features.isOldIOSPhone || _features.isOldAndroid) {
-	          _isFixedPosition = false;
-	        }
-
-	        template.setAttribute('aria-hidden', 'false');
-	        if (_options.modal) {
-	          if (!_isFixedPosition) {
-	            template.style.position = 'absolute';
-	            template.style.top = helper.getScrollY() + 'px';
-	          } else {
-	            template.style.position = 'fixed';
-	          }
-	        }
-
-	        if (_currentWindowScrollY === undefined) {
-	          _shout('initialLayout');
-	          _currentWindowScrollY = _initalWindowScrollY = helper.getScrollY();
-	        }
-
-	        // add classes to root element of PhotoSwipe
-	        var rootClasses = 'zvui-pinch--open ';
-	        if (_options.mainClass) {
-	          rootClasses += _options.mainClass + ' ';
-	        }
-	        if (_options.showHideOpacity) {
-	          rootClasses += 'zvui-pinch--animate_opacity ';
-	        }
-	        rootClasses += _likelyTouchDevice ? 'zvui-pinch--touch' : 'zvui-pinch--notouch';
-	        rootClasses += _features.animationName ? ' zvui-pinch--css_animation' : '';
-	        rootClasses += _features.svg ? ' zvui-pinch--svg' : '';
-	        helper.addClass(template, rootClasses);
-
-	        self.updateSize();
-
-	        // initial update
-	        _containerShiftIndex = -1;
-	        _indexDiff = null;
-	        for (i = 0; i < NUM_HOLDERS; i++) {
-	          _setTranslateX((i + _containerShiftIndex) * _slideSize.x, _itemHolders[i].el.style);
-	        }
-
-	        if (!_oldIE) {
-	          helper.bind(self.scrollWrap, _downEvents, self); // no dragging for old IE
-	        }
-
-	        _listen('initialZoomInEnd', function () {
-	          self.setContent(_itemHolders[0], _currentItemIndex - 1);
-	          self.setContent(_itemHolders[2], _currentItemIndex + 1);
-
-	          _itemHolders[0].el.style.display = _itemHolders[2].el.style.display = 'block';
-
-	          if (_options.focus) {
-	            // focus causes layout,
-	            // which causes lag during the animation,
-	            // that's why we delay it untill the initial zoom transition ends
-	            template.focus();
-	          }
-
-	          _bindEvents();
-	        });
-
-	        // set content for center slide (first time)
-	        self.setContent(_itemHolders[1], _currentItemIndex);
-
-	        self.updateCurrItem();
-
-	        _shout('afterInit');
-
-	        if (!_isFixedPosition) {
-
-	          // On all versions of iOS lower than 8.0, we check size of viewport every second.
-	          //
-	          // This is done to detect when Safari top & bottom bars appear,
-	          // as this action doesn't trigger any events (like resize).
-	          //
-	          // On iOS8 they fixed this.
-	          //
-	          // 10 Nov 2014: iOS 7 usage ~40%. iOS 8 usage 56%.
-
-	          _updateSizeInterval = setInterval(function () {
-	            if (!_numAnimations && !_isDragging && !_isZooming && _currZoomLevel === self.currItem.initialZoomLevel) {
-	              self.updateSize();
-	            }
-	          }, 1000);
-	        }
-
-	        helper.addClass(template, 'zvui-pinch--visible');
-	      },
-
-
-	      // Close the gallery, then destroy it
-	      close: function close() {
-	        if (!_isOpen) {
-	          return;
-	        }
-
-	        _isOpen = false;
-	        _isDestroying = true;
-	        _shout('close');
-	        _unbindEvents();
-
-	        _showOrHide(self.currItem, null, true, self.destroy);
-	      },
-
-
-	      // destroys the gallery (unbinds events, cleans up intervals and timeouts to avoid memory leaks)
-	      destroy: function destroy() {
-	        _shout('destroy');
-
-	        if (_showOrHideTimeout) {
-	          clearTimeout(_showOrHideTimeout);
-	        }
-
-	        template.setAttribute('aria-hidden', 'true');
-	        template.className = _initalClassName;
-
-	        if (_updateSizeInterval) {
-	          clearInterval(_updateSizeInterval);
-	        }
-
-	        helper.unbind(self.scrollWrap, _downEvents, self);
-
-	        // we unbind scroll event at the end, as closing animation may depend on it
-	        helper.unbind(window, 'scroll', self);
-
-	        _stopDragUpdateLoop();
-
-	        _stopAllAnimations();
-
-	        _listeners = null;
-	      },
-
-
-	      /**
-	       * Pan image to position
-	       * @param {Number} x
-	       * @param {Number} y
-	       * @param {Boolean} force Will ignore bounds if set to true.
-	       */
-	      panTo: function panTo(x, y, force) {
-	        if (!force) {
-	          if (x > _currPanBounds.min.x) {
-	            x = _currPanBounds.min.x;
-	          } else if (x < _currPanBounds.max.x) {
-	            x = _currPanBounds.max.x;
-	          }
-
-	          if (y > _currPanBounds.min.y) {
-	            y = _currPanBounds.min.y;
-	          } else if (y < _currPanBounds.max.y) {
-	            y = _currPanBounds.max.y;
-	          }
-	        }
-
-	        _panOffset.x = x;
-	        _panOffset.y = y;
-	        _applyCurrentZoomPan();
-	      },
-	      handleEvent: function handleEvent() {
-	        var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : window.event;
-
-	        if (_globalEventHandlers[e.type]) {
-	          _globalEventHandlers[e.type](e);
-	        }
-	      },
-	      goTo: function goTo(index) {
-
-	        index = _getLoopedId(index);
-
-	        var diff = index - _currentItemIndex;
-	        _indexDiff = diff;
-
-	        _currentItemIndex = index;
-	        self.currItem = _getItemAt(_currentItemIndex);
-	        _currPositionIndex -= diff;
-
-	        _moveMainScroll(_slideSize.x * _currPositionIndex);
-
-	        _stopAllAnimations();
-	        _mainScrollAnimating = false;
-
-	        self.updateCurrItem();
-	      },
-	      next: function next() {
-	        self.goTo(_currentItemIndex + 1);
-	      },
-	      prev: function prev() {
-	        self.goTo(_currentItemIndex - 1);
-	      },
-
-
-	      // update current zoom/pan objects
-	      updateCurrZoomItem: function updateCurrZoomItem(emulateSetContent) {
-	        if (emulateSetContent) {
-	          _shout('beforeChange', 0);
-	        }
-
-	        // itemHolder[1] is middle (current) item
-	        if (_itemHolders[1].el.children.length) {
-	          var zoomElement = _itemHolders[1].el.children[0];
-	          if (helper.hasClass(zoomElement, 'zvui-pinch__zoom-wrap')) {
-	            _currZoomElementStyle = zoomElement.style;
-	          } else {
-	            _currZoomElementStyle = null;
-	          }
-	        } else {
-	          _currZoomElementStyle = null;
-	        }
-
-	        _currPanBounds = self.currItem.bounds;
-	        _startZoomLevel = _currZoomLevel = self.currItem.initialZoomLevel;
-
-	        _panOffset.x = _currPanBounds.center.x;
-	        _panOffset.y = _currPanBounds.center.y;
-
-	        if (emulateSetContent) {
-	          _shout('afterChange');
-	        }
-	      },
-	      invalidateCurrItems: function invalidateCurrItems() {
-	        _itemsNeedUpdate = true;
-	        for (var i = 0; i < NUM_HOLDERS; i++) {
-	          if (_itemHolders[i].item) {
-	            _itemHolders[i].item.needsUpdate = true;
-	          }
-	        }
-	      },
-	      updateCurrItem: function updateCurrItem(beforeAnimation) {
-	        if (_indexDiff === 0) {
-	          return;
-	        }
-
-	        var diffAbs = Math.abs(_indexDiff);
-	        var tempHolder = void 0;
-
-	        if (beforeAnimation && diffAbs < 2) {
-	          return;
-	        }
-
-	        self.currItem = _getItemAt(_currentItemIndex);
-	        _renderMaxResolution = false;
-
-	        _shout('beforeChange', _indexDiff);
-
-	        if (diffAbs >= NUM_HOLDERS) {
-	          _containerShiftIndex += _indexDiff + (_indexDiff > 0 ? -NUM_HOLDERS : NUM_HOLDERS);
-	          diffAbs = NUM_HOLDERS;
-	        }
-	        for (var i = 0; i < diffAbs; i++) {
-	          if (_indexDiff > 0) {
-	            tempHolder = _itemHolders.shift();
-	            _itemHolders[NUM_HOLDERS - 1] = tempHolder; // move first to last
-
-	            _containerShiftIndex++;
-	            _setTranslateX((_containerShiftIndex + 2) * _slideSize.x, tempHolder.el.style);
-	            self.setContent(tempHolder, _currentItemIndex - diffAbs + i + 1 + 1);
-	          } else {
-	            tempHolder = _itemHolders.pop();
-	            _itemHolders.unshift(tempHolder); // move last to first
-
-	            _containerShiftIndex--;
-	            _setTranslateX(_containerShiftIndex * _slideSize.x, tempHolder.el.style);
-	            self.setContent(tempHolder, _currentItemIndex + diffAbs - i - 1 - 1);
-	          }
-	        }
-
-	        // reset zoom/pan on previous item
-	        if (_currZoomElementStyle && Math.abs(_indexDiff) === 1) {
-
-	          var prevItem = _getItemAt(_prevItemIndex);
-	          if (prevItem.initialZoomLevel !== _currZoomLevel) {
-	            _calculateItemSize(prevItem, _viewportSize);
-	            _setImageSize(prevItem);
-	            _applyZoomPanToItem(prevItem);
-	          }
-	        }
-
-	        // reset diff after update
-	        _indexDiff = 0;
-
-	        self.updateCurrZoomItem();
-
-	        _prevItemIndex = _currentItemIndex;
-
-	        _shout('afterChange');
-	      },
-	      updateSize: function updateSize(force) {
-
-	        if (!_isFixedPosition && _options.modal) {
-	          var windowScrollY = helper.getScrollY();
-	          if (_currentWindowScrollY !== windowScrollY) {
-	            template.style.top = windowScrollY + 'px';
-	            _currentWindowScrollY = windowScrollY;
-	          }
-	          if (!force && _windowVisibleSize.x === window.innerWidth && _windowVisibleSize.y === window.innerHeight) {
-	            return;
-	          }
-	          _windowVisibleSize.x = window.innerWidth;
-	          _windowVisibleSize.y = window.innerHeight;
-
-	          //template.style.width = _windowVisibleSize.x + 'px';
-	          template.style.height = _windowVisibleSize.y + 'px';
-	        }
-
-	        _viewportSize.x = self.scrollWrap.clientWidth;
-	        _viewportSize.y = self.scrollWrap.clientHeight;
-
-	        _updatePageScrollOffset();
-
-	        _slideSize.x = _viewportSize.x + Math.round(_viewportSize.x * _options.spacing);
-	        _slideSize.y = _viewportSize.y;
-
-	        _moveMainScroll(_slideSize.x * _currPositionIndex);
-
-	        _shout('beforeResize'); // even may be used for example to switch image sources
-
-
-	        // don't re-calculate size on inital size update
-	        if (_containerShiftIndex !== undefined) {
-	          var holder = void 0;
-	          var item = void 0;
-	          var hIndex = void 0;
-
-	          for (var i = 0; i < NUM_HOLDERS; i++) {
-	            holder = _itemHolders[i];
-	            _setTranslateX((i + _containerShiftIndex) * _slideSize.x, holder.el.style);
-
-	            hIndex = _currentItemIndex + i - 1;
-
-	            if (_options.loop && _getNumItems() > 2) {
-	              hIndex = _getLoopedId(hIndex);
+	        var _blockControlsTap = void 0;
+	        var _blockControlsTapTimeout = void 0;
+
+	        var _onControlsTap = function _onControlsTap(e) {
+	            if (_blockControlsTap) {
+	                return true;
 	            }
 
-	            // update zoom level on items and refresh source (if needsUpdate)
-	            item = _getItemAt(hIndex);
+	            e = e || window.event;
 
-	            // re-render gallery item if `needsUpdate`,
-	            // or doesn't have `bounds` (entirely new slide object)
-	            if (item && (_itemsNeedUpdate || item.needsUpdate || !item.bounds)) {
-
-	              self.cleanSlide(item);
-
-	              self.setContent(holder, hIndex);
-
-	              // if "center" slide
-	              if (i === 1) {
-	                self.currItem = item;
-	                self.updateCurrZoomItem(true);
-	              }
-
-	              item.needsUpdate = false;
-	            } else if (holder.index === -1 && hIndex >= 0) {
-	              // add content first time
-	              self.setContent(holder, hIndex);
+	            if (_options.timeToIdle && _options.mouseUsed && !_isIdle) {
+	                // reset idle timer
+	                _onIdleMouseMove();
 	            }
-	            if (item && item.container) {
-	              _calculateItemSize(item, _viewportSize);
-	              _setImageSize(item);
-	              _applyZoomPanToItem(item);
+
+	            var target = e.target || e.srcElement;
+	            var uiElement = void 0;
+	            var clickedClass = target.getAttribute('class') || '';
+	            var found = void 0;
+
+	            for (var i = 0; i < _uiElements.length; i++) {
+	                uiElement = _uiElements[i];
+	                if (uiElement.onTap && clickedClass.includes('zvui-pinch__' + uiElement.name)) {
+	                    uiElement.onTap();
+	                    found = true;
+	                }
 	            }
-	          }
-	          _itemsNeedUpdate = false;
-	        }
 
-	        _startZoomLevel = _currZoomLevel = self.currItem.initialZoomLevel;
-	        _currPanBounds = self.currItem.bounds;
+	            if (found) {
+	                if (e.stopPropagation) {
+	                    e.stopPropagation();
+	                }
+	                _blockControlsTap = true;
 
-	        if (_currPanBounds) {
-	          _panOffset.x = _currPanBounds.center.x;
-	          _panOffset.y = _currPanBounds.center.y;
-	          _applyCurrentZoomPan(true);
-	        }
-
-	        _shout('resize');
-	      },
-
-
-	      // Zoom current item to
-	      zoomTo: function zoomTo(destZoomLevel, centerPoint, speed, easingFn, updateFn) {
-	        /*
-	        	if(destZoomLevel === 'fit') {
-	        		destZoomLevel = self.currItem.fitRatio;
-	        	} else if(destZoomLevel === 'fill') {
-	        		destZoomLevel = self.currItem.fillRatio;
-	        	}
-	        */
-
-	        if (centerPoint) {
-	          _startZoomLevel = _currZoomLevel;
-	          _midZoomPoint.x = Math.abs(centerPoint.x) - _panOffset.x;
-	          _midZoomPoint.y = Math.abs(centerPoint.y) - _panOffset.y;
-	          _equalizePoints(_startPanOffset, _panOffset);
-	        }
-
-	        var destPanBounds = _calculatePanBounds(destZoomLevel, false);
-	        var destPanOffset = {};
-
-	        _modifyDestPanOffset('x', destPanBounds, destPanOffset, destZoomLevel);
-	        _modifyDestPanOffset('y', destPanBounds, destPanOffset, destZoomLevel);
-
-	        var initialZoomLevel = _currZoomLevel;
-	        var initialPanOffset = {
-	          x: _panOffset.x,
-	          y: _panOffset.y
+	                // Some versions of Android don't prevent ghost click event
+	                // when preventDefault() was called on touchstart and/or touchend.
+	                //
+	                // This happens on v4.3, 4.2, 4.1,
+	                // older versions strangely work correctly,
+	                // but just in case we add delay on all of them)
+	                var tapDelay = helper.features.isOldAndroid ? 600 : 30;
+	                _blockControlsTapTimeout = setTimeout(function () {
+	                    _blockControlsTap = false;
+	                }, tapDelay);
+	            }
 	        };
 
-	        _roundPoint(destPanOffset);
-
-	        var onUpdate = function onUpdate(now) {
-	          if (now === 1) {
-	            _currZoomLevel = destZoomLevel;
-	            _panOffset.x = destPanOffset.x;
-	            _panOffset.y = destPanOffset.y;
-	          } else {
-	            _currZoomLevel = (destZoomLevel - initialZoomLevel) * now + initialZoomLevel;
-	            _panOffset.x = (destPanOffset.x - initialPanOffset.x) * now + initialPanOffset.x;
-	            _panOffset.y = (destPanOffset.y - initialPanOffset.y) * now + initialPanOffset.y;
-	          }
-
-	          if (updateFn) {
-	            updateFn(now);
-	          }
-
-	          _applyCurrentZoomPan(now === 1);
+	        var _fitControlsInViewport = function _fitControlsInViewport() {
+	            return !zvuiPinch.likelyTouchDevice || _options.mouseUsed || screen.width > _options.fitControlsWidth;
 	        };
 
-	        if (speed) {
-	          _animateProp('customZoomTo', 0, 1, speed, easingFn || helper.easing.sine.inOut, onUpdate);
-	        } else {
-	          onUpdate(1);
-	        }
-	      }
-	    };
-
-	    /**
-	     * Mouse/touch/pointer event handlers.
-	     *
-	     * separated from @core.js for readability
-	     */
-
-	    var MIN_SWIPE_DISTANCE = 30; // amount of pixels to drag to determine direction of swipe
-
-	    var DIRECTION_CHECK_OFFSET = 10;
-	    var _gestureStartTime = void 0;
-	    var _gestureCheckSpeedTime = void 0;
-
-	    var // pool of objects that are used during dragging of zooming
-	    // first point
-	    p = {};
-
-	    var // second point (for zoom gesture)
-	    p2 = {};
-
-	    var delta = {};
-	    var _currPoint = {};
-	    var _startPoint = {};
-	    var _currPointers = [];
-	    var _startMainScrollPos = {};
-	    var _releaseAnimData = void 0;
-
-	    var // array of points during dragging, used to determine type of gesture
-	    _posPoints = [];
-
-	    var _tempPoint = {};
-	    var _isZoomingIn = void 0;
-	    var _verticalDragInitiated = void 0;
-	    var _oldAndroidTouchEndTimeout = void 0;
-	    var _currZoomedItemIndex = 0;
-	    var _centerPoint = _getEmptyPoint();
-	    var _lastReleaseTime = 0;
-
-	    var // at least one pointer is down
-	    _isDragging = void 0;
-
-	    var // at least two _pointers are down
-	    _isMultitouch = void 0;
-
-	    var // zoom level changed during zoom gesture
-	    _zoomStarted = void 0;
-
-	    var _moved = void 0;
-	    var _dragAnimFrame = void 0;
-	    var _mainScrollShifted = void 0;
-
-	    var // array of current touch points
-	    _currentPoints = void 0;
-
-	    var _isZooming = void 0;
-	    var _currPointsDistance = void 0;
-	    var _startPointsDistance = void 0;
-	    var _currPanBounds = void 0;
-	    var _mainScrollPos = _getEmptyPoint();
-	    var _currZoomElementStyle = void 0;
-
-	    var // true, if animation after swipe gesture is running
-	    _mainScrollAnimating = void 0;
-
-	    var _midZoomPoint = _getEmptyPoint();
-	    var _currCenterPoint = _getEmptyPoint();
-	    var _direction = void 0;
-	    var _isFirstMove = void 0;
-	    var _opacityChanged = void 0;
-	    var _bgOpacity = void 0;
-	    var _wasOverInitialZoom = void 0;
-	    var _isEqualPoints = function _isEqualPoints(p1, p2) {
-	      return p1.x === p2.x && p1.y === p2.y;
-	    };
-	    var _isNearbyPoints = function _isNearbyPoints(touch0, touch1) {
-	      return Math.abs(touch0.x - touch1.x) < DOUBLE_TAP_RADIUS && Math.abs(touch0.y - touch1.y) < DOUBLE_TAP_RADIUS;
-	    };
-
-	    var _calculatePointsDistance = function _calculatePointsDistance(p1, p2) {
-	      _tempPoint.x = Math.abs(p1.x - p2.x);
-	      _tempPoint.y = Math.abs(p1.y - p2.y);
-	      return Math.sqrt(_tempPoint.x * _tempPoint.x + _tempPoint.y * _tempPoint.y);
-	    };
-
-	    var _stopDragUpdateLoop = function _stopDragUpdateLoop() {
-	      if (_dragAnimFrame) {
-	        _cancelAF(_dragAnimFrame);
-	        _dragAnimFrame = null;
-	      }
-	    };
-
-	    var _dragUpdateLoop = function _dragUpdateLoop() {
-	      if (_isDragging) {
-	        _dragAnimFrame = _requestAF(_dragUpdateLoop);
-	        _renderMovement();
-	      }
-	    };
-
-	    var _canPan = function _canPan() {
-	      return !(_options.scaleMode === 'fit' && _currZoomLevel === self.currItem.initialZoomLevel);
-	    };
-
-	    var // find the closest parent DOM element
-	    _closestElement = function _closestElement(el, fn) {
-	      if (!el || el === document) {
-	        return false;
-	      }
-
-	      // don't search elements above zvui-pinch__scroll-wrap
-	      if (el.getAttribute('class') && el.getAttribute('class').includes('zvui-pinch__scroll-wrap')) {
-	        return false;
-	      }
-
-	      if (fn(el)) {
-	        return el;
-	      }
-
-	      return _closestElement(el.parentNode, fn);
-	    };
-
-	    var _preventObj = {};
-
-	    var _preventDefaultEventBehaviour = function _preventDefaultEventBehaviour(e, isDown) {
-	      _preventObj.prevent = !_closestElement(e.target, _options.isClickableElement);
-
-	      _shout('preventDragEvent', e, isDown, _preventObj);
-	      return _preventObj.prevent;
-	    };
-
-	    var _convertTouchToPoint = function _convertTouchToPoint(touch, p) {
-	      p.x = touch.pageX;
-	      p.y = touch.pageY;
-	      p.id = touch.identifier;
-	      return p;
-	    };
-
-	    var _findCenterOfPoints = function _findCenterOfPoints(p1, p2, pCenter) {
-	      pCenter.x = (p1.x + p2.x) * 0.5;
-	      pCenter.y = (p1.y + p2.y) * 0.5;
-	    };
-
-	    var _pushPosPoint = function _pushPosPoint(time, x, y) {
-	      if (time - _gestureCheckSpeedTime > 50) {
-	        var o = _posPoints.length > 2 ? _posPoints.shift() : {};
-	        o.x = x;
-	        o.y = y;
-	        _posPoints.push(o);
-	        _gestureCheckSpeedTime = time;
-	      }
-	    };
-
-	    var _calculateVerticalDragOpacityRatio = function _calculateVerticalDragOpacityRatio() {
-	      var yOffset = _panOffset.y - self.currItem.initialPosition.y; // difference between initial and current position
-	      return 1 - Math.abs(yOffset / (_viewportSize.y / 2));
-	    };
-
-	    var // points pool, reused during touch events
-	    _ePoint1 = {};
-
-	    var _ePoint2 = {};
-	    var _tempPointsArr = [];
-	    var _tempCounter = void 0;
-
-	    var _getTouchPoints = function _getTouchPoints(e) {
-	      // clean up previous points, without recreating array
-	      while (_tempPointsArr.length > 0) {
-	        _tempPointsArr.pop();
-	      }
-
-	      if (!_pointerEventEnabled) {
-	        if (e.type.includes('touch')) {
-
-	          if (e.touches && e.touches.length > 0) {
-	            _tempPointsArr[0] = _convertTouchToPoint(e.touches[0], _ePoint1);
-	            if (e.touches.length > 1) {
-	              _tempPointsArr[1] = _convertTouchToPoint(e.touches[1], _ePoint2);
-	            }
-	          }
-	        } else {
-	          _ePoint1.x = e.pageX;
-	          _ePoint1.y = e.pageY;
-	          _ePoint1.id = '';
-	          _tempPointsArr[0] = _ePoint1; //_ePoint1;
-	        }
-	      } else {
-	        _tempCounter = 0;
-	        // we can use forEach, as pointer events are supported only in modern browsers
-	        _currPointers.forEach(function (p) {
-	          if (_tempCounter === 0) {
-	            _tempPointsArr[0] = p;
-	          } else if (_tempCounter === 1) {
-	            _tempPointsArr[1] = p;
-	          }
-	          _tempCounter++;
-	        });
-	      }
-	      return _tempPointsArr;
-	    };
-
-	    var _panOrMoveMainScroll = function _panOrMoveMainScroll(axis, delta) {
-	      var panFriction = void 0;
-	      var overDiff = 0;
-	      var newOffset = _panOffset[axis] + delta[axis];
-	      var startOverDiff = void 0;
-	      var dir = delta[axis] > 0;
-	      var newMainScrollPosition = _mainScrollPos.x + delta.x;
-	      var mainScrollDiff = _mainScrollPos.x - _startMainScrollPos.x;
-	      var newPanPos = void 0;
-	      var newMainScrollPos = void 0;
-
-	      // calculate fdistance over the bounds and friction
-	      if (newOffset > _currPanBounds.min[axis] || newOffset < _currPanBounds.max[axis]) {
-	        panFriction = _options.panEndFriction;
-	        // Linear increasing of friction, so at 1/4 of viewport it's at max value.
-	        // Looks not as nice as was expected. Left for history.
-	        // panFriction = (1 - (_panOffset[axis] + delta[axis] + panBounds.min[axis]) / (_viewportSize[axis] / 4) );
-	      } else {
-	        panFriction = 1;
-	      }
-
-	      newOffset = _panOffset[axis] + delta[axis] * panFriction;
-
-	      // move main scroll or start panning
-	      if (_options.allowPanToNext || _currZoomLevel === self.currItem.initialZoomLevel) {
-
-	        if (!_currZoomElementStyle) {
-
-	          newMainScrollPos = newMainScrollPosition;
-	        } else if (_direction === 'h' && axis === 'x' && !_zoomStarted) {
-
-	          if (dir) {
-	            if (newOffset > _currPanBounds.min[axis]) {
-	              panFriction = _options.panEndFriction;
-	              overDiff = _currPanBounds.min[axis] - newOffset;
-	              startOverDiff = _currPanBounds.min[axis] - _startPanOffset[axis];
-	            }
-
-	            // drag right
-	            if ((startOverDiff <= 0 || mainScrollDiff < 0) && _getNumItems() > 1) {
-	              newMainScrollPos = newMainScrollPosition;
-	              if (mainScrollDiff < 0 && newMainScrollPosition > _startMainScrollPos.x) {
-	                newMainScrollPos = _startMainScrollPos.x;
-	              }
-	            } else {
-	              if (_currPanBounds.min.x !== _currPanBounds.max.x) {
-	                newPanPos = newOffset;
-	              }
-	            }
-	          } else {
-
-	            if (newOffset < _currPanBounds.max[axis]) {
-	              panFriction = _options.panEndFriction;
-	              overDiff = newOffset - _currPanBounds.max[axis];
-	              startOverDiff = _startPanOffset[axis] - _currPanBounds.max[axis];
-	            }
-
-	            if ((startOverDiff <= 0 || mainScrollDiff > 0) && _getNumItems() > 1) {
-	              newMainScrollPos = newMainScrollPosition;
-
-	              if (mainScrollDiff > 0 && newMainScrollPosition < _startMainScrollPos.x) {
-	                newMainScrollPos = _startMainScrollPos.x;
-	              }
-	            } else {
-	              if (_currPanBounds.min.x !== _currPanBounds.max.x) {
-	                newPanPos = newOffset;
-	              }
-	            }
-	          }
-
-	          //
-	        }
-
-	        if (axis === 'x') {
-
-	          if (newMainScrollPos !== undefined) {
-	            _moveMainScroll(newMainScrollPos, true);
-	            if (newMainScrollPos === _startMainScrollPos.x) {
-	              _mainScrollShifted = false;
-	            } else {
-	              _mainScrollShifted = true;
-	            }
-	          }
-
-	          if (_currPanBounds.min.x !== _currPanBounds.max.x) {
-	            if (newPanPos !== undefined) {
-	              _panOffset.x = newPanPos;
-	            } else if (!_mainScrollShifted) {
-	              _panOffset.x += delta.x * panFriction;
-	            }
-	          }
-
-	          return newMainScrollPos !== undefined;
-	        }
-	      }
-
-	      if (!_mainScrollAnimating) {
-
-	        if (!_mainScrollShifted) {
-	          if (_currZoomLevel > self.currItem.fitRatio) {
-	            _panOffset[axis] += delta[axis] * panFriction;
-	          }
-	        }
-	      }
-	    };
-
-	    var // Pointerdown/touchstart/mousedown handler
-	    _onDragStart = function _onDragStart(e) {
-	      // Allow dragging only via left mouse button.
-	      // As this handler is not added in IE8 - we ignore e.which
-	      //
-	      // http://www.quirksmode.org/js/events_properties.html
-	      // https://developer.mozilla.org/en-US/docs/Web/API/event.button
-	      if (e.type === 'mousedown' && e.button > 0) {
-	        return;
-	      }
-
-	      if (_initialZoomRunning) {
-	        e.preventDefault();
-	        return;
-	      }
-
-	      if (_oldAndroidTouchEndTimeout && e.type === 'mousedown') {
-	        return;
-	      }
-
-	      if (_preventDefaultEventBehaviour(e, true)) {
-	        e.preventDefault();
-	      }
-
-	      _shout('pointerDown');
-
-	      if (_pointerEventEnabled) {
-	        var pointerIndex = helper.arraySearch(_currPointers, e.pointerId, 'id');
-	        if (pointerIndex < 0) {
-	          pointerIndex = _currPointers.length;
-	        }
-	        _currPointers[pointerIndex] = {
-	          x: e.pageX,
-	          y: e.pageY,
-	          id: e.pointerId
+	        var _toggleZvuiPinchClass = function _toggleZvuiPinchClass(el, cName, add) {
+	            helper[(add ? 'add' : 'remove') + 'Class'](el, 'zvui-pinch__' + cName);
 	        };
-	      }
 
-	      var startPointsList = _getTouchPoints(e);
-	      var numPoints = startPointsList.length;
-
-	      _currentPoints = null;
-
-	      _stopAllAnimations();
-
-	      // init drag
-	      if (!_isDragging || numPoints === 1) {
-
-	        _isDragging = _isFirstMove = true;
-	        helper.bind(window, _upMoveEvents, self);
-
-	        _isZoomingIn = _wasOverInitialZoom = _opacityChanged = _verticalDragInitiated = _mainScrollShifted = _moved = _isMultitouch = _zoomStarted = false;
-
-	        _direction = null;
-
-	        _shout('firstTouchStart', startPointsList);
-
-	        _equalizePoints(_startPanOffset, _panOffset);
-
-	        _currPanDist.x = _currPanDist.y = 0;
-	        _equalizePoints(_currPoint, startPointsList[0]);
-	        _equalizePoints(_startPoint, _currPoint);
-
-	        //_equalizePoints(_startMainScrollPos, _mainScrollPos);
-	        _startMainScrollPos.x = _slideSize.x * _currPositionIndex;
-
-	        _posPoints = [{
-	          x: _currPoint.x,
-	          y: _currPoint.y
-	        }];
-
-	        _gestureCheckSpeedTime = _gestureStartTime = _getCurrentTime();
-
-	        //_mainScrollAnimationEnd(true);
-	        _calculatePanBounds(_currZoomLevel, true);
-
-	        // Start rendering
-	        _stopDragUpdateLoop();
-	        _dragUpdateLoop();
-	      }
-
-	      // init zoom
-	      if (!_isZooming && numPoints > 1 && !_mainScrollAnimating && !_mainScrollShifted) {
-	        _startZoomLevel = _currZoomLevel;
-	        _zoomStarted = false; // true if zoom changed at least once
-
-	        _isZooming = _isMultitouch = true;
-	        _currPanDist.y = _currPanDist.x = 0;
-
-	        _equalizePoints(_startPanOffset, _panOffset);
-
-	        _equalizePoints(p, startPointsList[0]);
-	        _equalizePoints(p2, startPointsList[1]);
-
-	        _findCenterOfPoints(p, p2, _currCenterPoint);
-
-	        _midZoomPoint.x = Math.abs(_currCenterPoint.x) - _panOffset.x;
-	        _midZoomPoint.y = Math.abs(_currCenterPoint.y) - _panOffset.y;
-	        _currPointsDistance = _startPointsDistance = _calculatePointsDistance(p, p2);
-	      }
-	    };
-
-	    var // Pointermove/touchmove/mousemove handler
-	    _onDragMove = function _onDragMove(e) {
-
-	      e.preventDefault();
-
-	      if (_pointerEventEnabled) {
-	        var pointerIndex = helper.arraySearch(_currPointers, e.pointerId, 'id');
-	        if (pointerIndex > -1) {
-	          var _p = _currPointers[pointerIndex];
-	          _p.x = e.pageX;
-	          _p.y = e.pageY;
-	        }
-	      }
-
-	      if (_isDragging) {
-	        var touchesList = _getTouchPoints(e);
-	        if (!_direction && !_moved && !_isZooming) {
-
-	          if (_mainScrollPos.x !== _slideSize.x * _currPositionIndex) {
-	            // if main scroll position is shifted – direction is always horizontal
-	            _direction = 'h';
-	          } else {
-	            var diff = Math.abs(touchesList[0].x - _currPoint.x) - Math.abs(touchesList[0].y - _currPoint.y);
-	            // check the direction of movement
-	            if (Math.abs(diff) >= DIRECTION_CHECK_OFFSET) {
-	              _direction = diff > 0 ? 'h' : 'v';
-	              _currentPoints = touchesList;
+	        var _countNumItems = function _countNumItems() {
+	            // add class when there is just one item in the gallery
+	            // (by default it hides left/right arrows and 1ofX counter)
+	            var hasOneSlide = _options.getNumItemsFn() === 1;
+	            if (hasOneSlide !== _galleryHasOneSlide) {
+	                _toggleZvuiPinchClass(_controls, 'ui--one-slide', hasOneSlide);
+	                _galleryHasOneSlide = hasOneSlide;
 	            }
-	          }
-	        } else {
-	          _currentPoints = touchesList;
-	        }
-	      }
-	    };
+	        };
 
-	    var //
-	    _renderMovement = function _renderMovement() {
-
-	      if (!_currentPoints) {
-	        return;
-	      }
-
-	      var numPoints = _currentPoints.length;
-
-	      if (numPoints === 0) {
-	        return;
-	      }
-
-	      _equalizePoints(p, _currentPoints[0]);
-
-	      delta.x = p.x - _currPoint.x;
-	      delta.y = p.y - _currPoint.y;
-
-	      if (_isZooming && numPoints > 1) {
-	        // Handle behaviour for more than 1 point
-
-	        _currPoint.x = p.x;
-	        _currPoint.y = p.y;
-
-	        // check if one of two points changed
-	        if (!delta.x && !delta.y && _isEqualPoints(_currentPoints[1], p2)) {
-	          return;
-	        }
-
-	        _equalizePoints(p2, _currentPoints[1]);
-
-	        if (!_zoomStarted) {
-	          _zoomStarted = true;
-	          _shout('zoomGestureStarted');
-	        }
-
-	        // Distance between two points
-	        var pointsDistance = _calculatePointsDistance(p, p2);
-
-	        var zoomLevel = _calculateZoomLevel(pointsDistance);
-
-	        // slightly over the of initial zoom level
-	        if (zoomLevel > self.currItem.initialZoomLevel + self.currItem.initialZoomLevel / 15) {
-	          _wasOverInitialZoom = true;
-	        }
-
-	        // Apply the friction if zoom level is out of the bounds
-	        var zoomFriction = 1;
-
-	        var minZoomLevel = _getMinZoomLevel();
-	        var maxZoomLevel = _getMaxZoomLevel();
-
-	        if (zoomLevel < minZoomLevel) {
-
-	          if (_options.pinchToClose && !_wasOverInitialZoom && _startZoomLevel <= self.currItem.initialZoomLevel) {
-	            // fade out background if zooming out
-	            var minusDiff = minZoomLevel - zoomLevel;
-	            var percent = 1 - minusDiff / (minZoomLevel / 1.2);
-
-	            _applyBgOpacity(percent);
-	            _shout('onPinchClose', percent);
-	            _opacityChanged = true;
-	          } else {
-	            zoomFriction = (minZoomLevel - zoomLevel) / minZoomLevel;
-	            if (zoomFriction > 1) {
-	              zoomFriction = 1;
+	        var _hasCloseClass = function _hasCloseClass(target) {
+	            for (var i = 0; i < _options.closeElClasses.length; i++) {
+	                if (helper.hasClass(target, 'zvui-pinch__' + _options.closeElClasses[i])) {
+	                    return true;
+	                }
 	            }
-	            zoomLevel = minZoomLevel - zoomFriction * (minZoomLevel / 3);
-	          }
-	        } else if (zoomLevel > maxZoomLevel) {
-	          // 1.5 - extra zoom level above the max. E.g. if max is x6, real max 6 + 1.5 = 7.5
-	          zoomFriction = (zoomLevel - maxZoomLevel) / (minZoomLevel * 6);
-	          if (zoomFriction > 1) {
-	            zoomFriction = 1;
-	          }
-	          zoomLevel = maxZoomLevel + zoomFriction * minZoomLevel;
-	        }
+	        };
 
-	        if (zoomFriction < 0) {
-	          zoomFriction = 0;
-	        }
+	        var _idleInterval = void 0;
+	        var _idleTimer = void 0;
+	        var _idleIncrement = 0;
 
-	        // distance between touch points after friction is applied
-	        _currPointsDistance = pointsDistance;
-
-	        // _centerPoint - The point in the middle of two pointers
-	        _findCenterOfPoints(p, p2, _centerPoint);
-
-	        // paning with two pointers pressed
-	        _currPanDist.x += _centerPoint.x - _currCenterPoint.x;
-	        _currPanDist.y += _centerPoint.y - _currCenterPoint.y;
-	        _equalizePoints(_currCenterPoint, _centerPoint);
-
-	        _panOffset.x = _calculatePanOffset('x', zoomLevel);
-	        _panOffset.y = _calculatePanOffset('y', zoomLevel);
-
-	        _isZoomingIn = zoomLevel > _currZoomLevel;
-	        _currZoomLevel = zoomLevel;
-	        _applyCurrentZoomPan();
-	      } else {
-
-	        // handle behaviour for one point (dragging or panning)
-
-	        if (!_direction) {
-	          return;
-	        }
-
-	        if (_isFirstMove) {
-	          _isFirstMove = false;
-
-	          // subtract drag distance that was used during the detection direction
-
-	          if (Math.abs(delta.x) >= DIRECTION_CHECK_OFFSET) {
-	            delta.x -= _currentPoints[0].x - _startPoint.x;
-	          }
-
-	          if (Math.abs(delta.y) >= DIRECTION_CHECK_OFFSET) {
-	            delta.y -= _currentPoints[0].y - _startPoint.y;
-	          }
-	        }
-
-	        _currPoint.x = p.x;
-	        _currPoint.y = p.y;
-
-	        // do nothing if pointers position hasn't changed
-	        if (delta.x === 0 && delta.y === 0) {
-	          return;
-	        }
-
-	        if (_direction === 'v' && _options.closeOnVerticalDrag) {
-	          if (!_canPan()) {
-	            _currPanDist.y += delta.y;
-	            _panOffset.y += delta.y;
-
-	            var opacityRatio = _calculateVerticalDragOpacityRatio();
-
-	            _verticalDragInitiated = true;
-	            _shout('onVerticalDrag', opacityRatio);
-
-	            _applyBgOpacity(opacityRatio);
-	            _applyCurrentZoomPan();
-	            return;
-	          }
-	        }
-
-	        _pushPosPoint(_getCurrentTime(), p.x, p.y);
-
-	        _moved = true;
-	        _currPanBounds = self.currItem.bounds;
-
-	        var mainScrollChanged = _panOrMoveMainScroll('x', delta);
-	        if (!mainScrollChanged) {
-	          _panOrMoveMainScroll('y', delta);
-
-	          _roundPoint(_panOffset);
-	          _applyCurrentZoomPan();
-	        }
-	      }
-	    };
-
-	    var // Pointerup/pointercancel/touchend/touchcancel/mouseup event handler
-	    _onDragRelease = function _onDragRelease(e) {
-	      if (_features.isOldAndroid) {
-
-	        if (_oldAndroidTouchEndTimeout && e.type === 'mouseup') {
-	          return;
-	        }
-
-	        // on Android (v4.1, 4.2, 4.3 & possibly older)
-	        // ghost mousedown/up event isn't preventable via e.preventDefault,
-	        // which causes fake mousedown event
-	        // so we block mousedown/up for 600ms
-	        if (e.type.includes('touch')) {
-	          clearTimeout(_oldAndroidTouchEndTimeout);
-	          _oldAndroidTouchEndTimeout = setTimeout(function () {
-	            _oldAndroidTouchEndTimeout = 0;
-	          }, 600);
-	        }
-	      }
-
-	      _shout('pointerUp');
-
-	      if (_preventDefaultEventBehaviour(e, false)) {
-	        e.preventDefault();
-	      }
-
-	      var releasePoint = void 0;
-
-	      if (_pointerEventEnabled) {
-	        var pointerIndex = helper.arraySearch(_currPointers, e.pointerId, 'id');
-
-	        if (pointerIndex > -1) {
-	          releasePoint = _currPointers.splice(pointerIndex, 1)[0];
-
-	          if (navigator.pointerEnabled) {
-	            releasePoint.type = e.pointerType || 'mouse';
-	          } else {
-	            var MSPOINTER_TYPES = {
-	              4: 'mouse', // event.MSPOINTER_TYPE_MOUSE
-	              2: 'touch', // event.MSPOINTER_TYPE_TOUCH
-	              3: 'pen' // event.MSPOINTER_TYPE_PEN
-	            };
-	            releasePoint.type = MSPOINTER_TYPES[e.pointerType];
-
-	            if (!releasePoint.type) {
-	              releasePoint.type = e.pointerType || 'mouse';
+	        var _onIdleMouseMove = function _onIdleMouseMove() {
+	            clearTimeout(_idleTimer);
+	            _idleIncrement = 0;
+	            if (_isIdle) {
+	                ui.setIdle(false);
 	            }
-	          }
-	        }
-	      }
+	        };
 
-	      var touchList = _getTouchPoints(e);
-	      var gestureType = void 0;
-	      var numPoints = touchList.length;
+	        var _onMouseLeaveWindow = function _onMouseLeaveWindow(e) {
+	            e = e ? e : window.event;
+	            var from = e.relatedTarget || e.toElement;
+	            if (!from || from.nodeName === 'HTML') {
+	                clearTimeout(_idleTimer);
+	                _idleTimer = setTimeout(function () {
+	                    ui.setIdle(true);
+	                }, _options.timeToIdleOutside);
+	            }
+	        };
 
-	      if (e.type === 'mouseup') {
-	        numPoints = 0;
-	      }
+	        var _setupFullscreenAPI = function _setupFullscreenAPI() {
+	            if (_options.fullscreenEl && !helper.features.isOldAndroid) {
+	                if (!_fullscrenAPI) {
+	                    _fullscrenAPI = ui.getFullscreenAPI();
+	                }
+	                if (_fullscrenAPI) {
+	                    helper.bind(document, _fullscrenAPI.eventK, ui.updateFullscreen);
+	                    ui.updateFullscreen();
+	                    helper.addClass(zvuiPinch.template, 'zvui-pinch--supports-fs');
+	                } else {
+	                    helper.removeClass(zvuiPinch.template, 'zvui-pinch--supports-fs');
+	                }
+	            }
+	        };
 
-	      // Do nothing if there were 3 touch points or more
-	      if (numPoints === 2) {
-	        _currentPoints = null;
-	        return true;
-	      }
+	        var _setupLoadingIndicator = function _setupLoadingIndicator() {
+	            // Setup loading indicator
+	            if (_options.preloaderEl) {
 
-	      // if second pointer released
-	      if (numPoints === 1) {
-	        _equalizePoints(_startPoint, touchList[0]);
-	      }
+	                _toggleLoadingIndicator(true);
 
-	      // pointer hasn't moved, send "tap release" point
-	      if (numPoints === 0 && !_direction && !_mainScrollAnimating) {
-	        if (!releasePoint) {
-	          if (e.type === 'mouseup') {
-	            releasePoint = {
-	              x: e.pageX,
-	              y: e.pageY,
-	              type: 'mouse'
-	            };
-	          } else if (e.changedTouches && e.changedTouches[0]) {
-	            releasePoint = {
-	              x: e.changedTouches[0].pageX,
-	              y: e.changedTouches[0].pageY,
-	              type: 'touch'
-	            };
-	          }
-	        }
+	                _listen('beforeChange', function () {
 
-	        _shout('touchRelease', e, releasePoint);
-	      }
+	                    clearTimeout(_loadingIndicatorTimeout);
 
-	      // Difference in time between releasing of two last touch points (zoom gesture)
-	      var releaseTimeDiff = -1;
+	                    // display loading indicator with delay
+	                    _loadingIndicatorTimeout = setTimeout(function () {
 
-	      // Gesture completed, no pointers left
-	      if (numPoints === 0) {
-	        _isDragging = false;
-	        helper.unbind(window, _upMoveEvents, self);
+	                        if (zvuiPinch.currItem && zvuiPinch.currItem.loading) {
 
-	        _stopDragUpdateLoop();
+	                            if (!zvuiPinch.allowProgressiveImg() || zvuiPinch.currItem.img && !zvuiPinch.currItem.img.naturalWidth) {
+	                                // show preloader if progressive loading is not enabled,
+	                                // or image width is not defined yet (because of slow connection)
+	                                _toggleLoadingIndicator(false);
+	                                // items-controller.js function allowProgressiveImg
+	                            }
+	                        } else {
+	                            _toggleLoadingIndicator(true); // hide preloader
+	                        }
+	                    }, _options.loadingIndicatorDelay);
+	                });
+	                _listen('imageLoadComplete', function (index, item) {
+	                    if (zvuiPinch.currItem === item) {
+	                        _toggleLoadingIndicator(true);
+	                    }
+	                });
+	            }
+	        };
 
-	        if (_isZooming) {
-	          // Two points released at the same time
-	          releaseTimeDiff = 0;
-	        } else if (_lastReleaseTime !== -1) {
-	          releaseTimeDiff = _getCurrentTime() - _lastReleaseTime;
-	        }
-	      }
-	      _lastReleaseTime = numPoints === 1 ? _getCurrentTime() : -1;
+	        var _toggleLoadingIndicator = function _toggleLoadingIndicator(hide) {
+	            if (_loadingIndicatorHidden !== hide) {
+	                _toggleZvuiPinchClass(_loadingIndicator, 'spinner', !hide);
+	                _loadingIndicatorHidden = hide;
+	            }
+	        };
 
-	      if (releaseTimeDiff !== -1 && releaseTimeDiff < 150) {
-	        gestureType = 'zoom';
-	      } else {
-	        gestureType = 'swipe';
-	      }
+	        var _applyNavBarGaps = function _applyNavBarGaps(item) {
+	            var gap = item.vGap;
 
-	      if (_isZooming && numPoints < 2) {
-	        _isZooming = false;
+	            if (_fitControlsInViewport()) {
 
-	        // Only second point released
-	        if (numPoints === 1) {
-	          gestureType = 'zoomPointerUp';
-	        }
-	        _shout('zoomGestureEnded');
-	      }
+	                var bars = _options.barsSize;
+	                if (_options.captionEl && bars.bottom === 'auto') {
+	                    if (!_fakeCaptionContainer) {
+	                        _fakeCaptionContainer = helper.createEl('zvui-pinch__caption zvui-pinch__caption--fake');
+	                        _fakeCaptionContainer.appendChild(helper.createEl('zvui-pinch__caption__center'));
+	                        _controls.insertBefore(_fakeCaptionContainer, _captionContainer);
+	                        helper.addClass(_controls, 'zvui-pinch__ui--fit');
+	                    }
+	                    if (_options.addCaptionHTMLFn(item, _fakeCaptionContainer, true)) {
 
-	      _currentPoints = null;
-	      if (!_moved && !_zoomStarted && !_mainScrollAnimating && !_verticalDragInitiated) {
-	        // nothing to animate
-	        return;
-	      }
+	                        var captionSize = _fakeCaptionContainer.clientHeight;
+	                        gap.bottom = parseInt(captionSize, 10) || 44;
+	                    } else {
+	                        gap.bottom = bars.top; // if no caption, set size of bottom gap to size of top
+	                    }
+	                } else {
+	                    gap.bottom = bars.bottom === 'auto' ? 0 : bars.bottom;
+	                }
 
-	      _stopAllAnimations();
+	                // height of top bar is static, no need to calculate it
+	                gap.top = bars.top;
+	            } else {
+	                gap.top = gap.bottom = 0;
+	            }
+	        };
 
-	      if (!_releaseAnimData) {
-	        _releaseAnimData = _initDragReleaseAnimationData();
-	      }
+	        var _setupIdle = function _setupIdle() {
+	            // Hide controls when mouse is used
+	            if (_options.timeToIdle) {
+	                _listen('mouseUsed', function () {
 
-	      _releaseAnimData.calculateSwipeSpeed('x');
+	                    helper.bind(document, 'mousemove', _onIdleMouseMove);
+	                    helper.bind(document, 'mouseout', _onMouseLeaveWindow);
 
-	      if (_verticalDragInitiated) {
+	                    _idleInterval = setInterval(function () {
+	                        _idleIncrement++;
+	                        if (_idleIncrement === 2) {
+	                            ui.setIdle(true);
+	                        }
+	                    }, _options.timeToIdle / 2);
+	                });
+	            }
+	        };
 
-	        var opacityRatio = _calculateVerticalDragOpacityRatio();
+	        var _setupHidingControlsDuringGestures = function _setupHidingControlsDuringGestures() {
 
-	        if (opacityRatio < _options.verticalDragRange) {
-	          self.close();
-	        } else {
-	          (function () {
-	            var initalPanY = _panOffset.y;
-	            var initialBgOpacity = _bgOpacity;
-
-	            _animateProp('verticalDrag', 0, 1, 300, helper.easing.cubic.out, function (now) {
-
-	              _panOffset.y = (self.currItem.initialPosition.y - initalPanY) * now + initalPanY;
-
-	              _applyBgOpacity((1 - initialBgOpacity) * now + initialBgOpacity);
-	              _applyCurrentZoomPan();
+	            // Hide controls on vertical drag
+	            _listen('onVerticalDrag', function (now) {
+	                if (_controlsVisible && now < 0.95) {
+	                    ui.hideControls();
+	                } else if (!_controlsVisible && now >= 0.95) {
+	                    ui.showControls();
+	                }
 	            });
 
-	            _shout('onVerticalDrag', 1);
-	          })();
-	        }
+	            // Hide controls when pinching to close
+	            var pinchControlsHidden = void 0;
+	            _listen('onPinchClose', function (now) {
+	                if (_controlsVisible && now < 0.9) {
+	                    ui.hideControls();
+	                    pinchControlsHidden = true;
+	                } else if (pinchControlsHidden && !_controlsVisible && now > 0.9) {
+	                    ui.showControls();
+	                }
+	            });
 
-	        return;
-	      }
-
-	      // main scroll
-	      if ((_mainScrollShifted || _mainScrollAnimating) && numPoints === 0) {
-	        var itemChanged = _finishSwipeMainScrollGesture(gestureType, _releaseAnimData);
-	        if (itemChanged) {
-	          return;
-	        }
-	        gestureType = 'zoomPointerUp';
-	      }
-
-	      // prevent zoom/pan animation when main scroll animation runs
-	      if (_mainScrollAnimating) {
-	        return;
-	      }
-
-	      // Complete simple zoom gesture (reset zoom level if it's out of the bounds)
-	      if (gestureType !== 'swipe') {
-	        _completeZoomGesture();
-	        return;
-	      }
-
-	      // Complete pan gesture if main scroll is not shifted, and it's possible to pan current image
-	      if (!_mainScrollShifted && _currZoomLevel > self.currItem.fitRatio) {
-	        _completePanGesture(_releaseAnimData);
-	      }
-	    };
-
-	    var // Returns object with data about gesture
-	    // It's created only once and then reused
-	    _initDragReleaseAnimationData = function _initDragReleaseAnimationData() {
-	      // temp local vars
-	      var lastFlickDuration = void 0;
-
-	      var tempReleasePos = void 0;
-
-	      // s = this
-	      var s = {
-	        lastFlickOffset: {},
-	        lastFlickDist: {},
-	        lastFlickSpeed: {},
-	        slowDownRatio: {},
-	        slowDownRatioReverse: {},
-	        speedDecelerationRatio: {},
-	        speedDecelerationRatioAbs: {},
-	        distanceOffset: {},
-	        backAnimDestination: {},
-	        backAnimStarted: {},
-	        calculateSwipeSpeed: function calculateSwipeSpeed(axis) {
-
-	          if (_posPoints.length > 1) {
-	            lastFlickDuration = _getCurrentTime() - _gestureCheckSpeedTime + 50;
-	            tempReleasePos = _posPoints[_posPoints.length - 2][axis];
-	          } else {
-	            lastFlickDuration = _getCurrentTime() - _gestureStartTime; // total gesture duration
-	            tempReleasePos = _startPoint[axis];
-	          }
-	          s.lastFlickOffset[axis] = _currPoint[axis] - tempReleasePos;
-	          s.lastFlickDist[axis] = Math.abs(s.lastFlickOffset[axis]);
-	          if (s.lastFlickDist[axis] > 20) {
-	            s.lastFlickSpeed[axis] = s.lastFlickOffset[axis] / lastFlickDuration;
-	          } else {
-	            s.lastFlickSpeed[axis] = 0;
-	          }
-	          if (Math.abs(s.lastFlickSpeed[axis]) < 0.1) {
-	            s.lastFlickSpeed[axis] = 0;
-	          }
-
-	          s.slowDownRatio[axis] = 0.95;
-	          s.slowDownRatioReverse[axis] = 1 - s.slowDownRatio[axis];
-	          s.speedDecelerationRatio[axis] = 1;
-	        },
-	        calculateOverBoundsAnimOffset: function calculateOverBoundsAnimOffset(axis, speed) {
-	          if (!s.backAnimStarted[axis]) {
-
-	            if (_panOffset[axis] > _currPanBounds.min[axis]) {
-	              s.backAnimDestination[axis] = _currPanBounds.min[axis];
-	            } else if (_panOffset[axis] < _currPanBounds.max[axis]) {
-	              s.backAnimDestination[axis] = _currPanBounds.max[axis];
-	            }
-
-	            if (s.backAnimDestination[axis] !== undefined) {
-	              s.slowDownRatio[axis] = 0.7;
-	              s.slowDownRatioReverse[axis] = 1 - s.slowDownRatio[axis];
-	              if (s.speedDecelerationRatioAbs[axis] < 0.05) {
-
-	                s.lastFlickSpeed[axis] = 0;
-	                s.backAnimStarted[axis] = true;
-
-	                _animateProp('bounceZoomPan' + axis, _panOffset[axis], s.backAnimDestination[axis], speed || 300, helper.easing.sine.out, function (pos) {
-	                  _panOffset[axis] = pos;
-	                  _applyCurrentZoomPan();
-	                });
-	              }
-	            }
-	          }
-	        },
-
-
-	        // Reduces the speed by slowDownRatio (per 10ms)
-	        calculateAnimOffset: function calculateAnimOffset(axis) {
-	          if (!s.backAnimStarted[axis]) {
-	            s.speedDecelerationRatio[axis] = s.speedDecelerationRatio[axis] * (s.slowDownRatio[axis] + s.slowDownRatioReverse[axis] - s.slowDownRatioReverse[axis] * s.timeDiff / 10);
-
-	            s.speedDecelerationRatioAbs[axis] = Math.abs(s.lastFlickSpeed[axis] * s.speedDecelerationRatio[axis]);
-	            s.distanceOffset[axis] = s.lastFlickSpeed[axis] * s.speedDecelerationRatio[axis] * s.timeDiff;
-	            _panOffset[axis] += s.distanceOffset[axis];
-	          }
-	        },
-	        panAnimLoop: function panAnimLoop() {
-	          if (_animations.zoomPan) {
-	            _animations.zoomPan.raf = _requestAF(s.panAnimLoop);
-
-	            s.now = _getCurrentTime();
-	            s.timeDiff = s.now - s.lastNow;
-	            s.lastNow = s.now;
-
-	            s.calculateAnimOffset('x');
-	            s.calculateAnimOffset('y');
-
-	            _applyCurrentZoomPan();
-
-	            s.calculateOverBoundsAnimOffset('x');
-	            s.calculateOverBoundsAnimOffset('y');
-
-	            if (s.speedDecelerationRatioAbs.x < 0.05 && s.speedDecelerationRatioAbs.y < 0.05) {
-
-	              // round pan position
-	              _panOffset.x = Math.round(_panOffset.x);
-	              _panOffset.y = Math.round(_panOffset.y);
-	              _applyCurrentZoomPan();
-
-	              _stopAnimation('zoomPan');
-	              return;
-	            }
-	          }
-	        }
-	      };
-	      return s;
-	    };
-
-	    var _completePanGesture = function _completePanGesture(animData) {
-	      // calculate swipe speed for Y axis (paanning)
-	      animData.calculateSwipeSpeed('y');
-
-	      _currPanBounds = self.currItem.bounds;
-
-	      animData.backAnimDestination = {};
-	      animData.backAnimStarted = {};
-
-	      // Avoid acceleration animation if speed is too low
-	      if (Math.abs(animData.lastFlickSpeed.x) <= 0.05 && Math.abs(animData.lastFlickSpeed.y) <= 0.05) {
-	        animData.speedDecelerationRatioAbs.x = animData.speedDecelerationRatioAbs.y = 0;
-
-	        // Run pan drag release animation. E.g. if you drag image and release finger without momentum.
-	        animData.calculateOverBoundsAnimOffset('x');
-	        animData.calculateOverBoundsAnimOffset('y');
-	        return true;
-	      }
-
-	      // Animation loop that controls the acceleration after pan gesture ends
-	      _registerStartAnimation('zoomPan');
-	      animData.lastNow = _getCurrentTime();
-	      animData.panAnimLoop();
-	    };
-
-	    var _finishSwipeMainScrollGesture = function _finishSwipeMainScrollGesture(gestureType, _releaseAnimData) {
-	      var itemChanged = void 0;
-	      if (!_mainScrollAnimating) {
-	        _currZoomedItemIndex = _currentItemIndex;
-	      }
-
-	      var itemsDiff = void 0;
-
-	      if (gestureType === 'swipe') {
-	        var totalShiftDist = _currPoint.x - _startPoint.x;
-	        var isFastLastFlick = _releaseAnimData.lastFlickDist.x < 10;
-
-	        // if container is shifted for more than MIN_SWIPE_DISTANCE,
-	        // and last flick gesture was in right direction
-	        if (totalShiftDist > MIN_SWIPE_DISTANCE && (isFastLastFlick || _releaseAnimData.lastFlickOffset.x > 20)) {
-	          // go to prev item
-	          itemsDiff = -1;
-	        } else if (totalShiftDist < -MIN_SWIPE_DISTANCE && (isFastLastFlick || _releaseAnimData.lastFlickOffset.x < -20)) {
-	          // go to next item
-	          itemsDiff = 1;
-	        }
-	      }
-
-	      var nextCircle = void 0;
-
-	      if (itemsDiff) {
-
-	        _currentItemIndex += itemsDiff;
-
-	        if (_currentItemIndex < 0) {
-	          _currentItemIndex = _options.loop ? _getNumItems() - 1 : 0;
-	          nextCircle = true;
-	        } else if (_currentItemIndex >= _getNumItems()) {
-	          _currentItemIndex = _options.loop ? 0 : _getNumItems() - 1;
-	          nextCircle = true;
-	        }
-
-	        if (!nextCircle || _options.loop) {
-	          _indexDiff += itemsDiff;
-	          _currPositionIndex -= itemsDiff;
-	          itemChanged = true;
-	        }
-	      }
-
-	      var animateToX = _slideSize.x * _currPositionIndex;
-	      var animateToDist = Math.abs(animateToX - _mainScrollPos.x);
-	      var finishAnimDuration = void 0;
-
-	      if (!itemChanged && animateToX > _mainScrollPos.x !== _releaseAnimData.lastFlickSpeed.x > 0) {
-	        // "return to current" duration, e.g. when dragging from slide 0 to -1
-	        finishAnimDuration = 333;
-	      } else {
-	        finishAnimDuration = Math.abs(_releaseAnimData.lastFlickSpeed.x) > 0 ? animateToDist / Math.abs(_releaseAnimData.lastFlickSpeed.x) : 333;
-
-	        finishAnimDuration = Math.min(finishAnimDuration, 400);
-	        finishAnimDuration = Math.max(finishAnimDuration, 250);
-	      }
-
-	      if (_currZoomedItemIndex === _currentItemIndex) {
-	        itemChanged = false;
-	      }
-
-	      _mainScrollAnimating = true;
-
-	      _shout('mainScrollAnimStart');
-
-	      _animateProp('mainScroll', _mainScrollPos.x, animateToX, finishAnimDuration, helper.easing.cubic.out, _moveMainScroll, function () {
-	        _stopAllAnimations();
-	        _mainScrollAnimating = false;
-	        _currZoomedItemIndex = -1;
-
-	        if (itemChanged || _currZoomedItemIndex !== _currentItemIndex) {
-	          self.updateCurrItem();
-	        }
-
-	        _shout('mainScrollAnimComplete');
-	      });
-
-	      if (itemChanged) {
-	        self.updateCurrItem(true);
-	      }
-
-	      return itemChanged;
-	    };
-
-	    var _calculateZoomLevel = function _calculateZoomLevel(touchesDistance) {
-	      return 1 / _startPointsDistance * touchesDistance * _startZoomLevel;
-	    };
-
-	    var // Resets zoom if it's out of bounds
-	    _completeZoomGesture = function _completeZoomGesture() {
-	      var destZoomLevel = _currZoomLevel;
-	      var minZoomLevel = _getMinZoomLevel();
-	      var maxZoomLevel = _getMaxZoomLevel();
-
-	      if (_currZoomLevel < minZoomLevel) {
-	        destZoomLevel = minZoomLevel;
-	      } else if (_currZoomLevel > maxZoomLevel) {
-	        destZoomLevel = maxZoomLevel;
-	      }
-
-	      var destOpacity = 1;
-	      var onUpdate = void 0;
-	      var initialOpacity = _bgOpacity;
-
-	      if (_opacityChanged && !_isZoomingIn && !_wasOverInitialZoom && _currZoomLevel < minZoomLevel) {
-	        //_closedByScroll = true;
-	        self.close();
-	        return true;
-	      }
-
-	      if (_opacityChanged) {
-	        onUpdate = function onUpdate(now) {
-	          _applyBgOpacity((destOpacity - initialOpacity) * now + initialOpacity);
+	            _listen('zoomGestureEnded', function () {
+	                pinchControlsHidden = false;
+	                if (pinchControlsHidden && !_controlsVisible) {
+	                    ui.showControls();
+	                }
+	            });
 	        };
-	      }
 
-	      self.zoomTo(destZoomLevel, 0, 200, helper.easing.cubic.out, onUpdate);
-	      return true;
-	    };
-
-	    _registerModule('Gestures', {
-	      publicMethods: {
-	        initGestures: function initGestures() {
-
-	          // helper function that builds touch/pointer/mouse events
-	          var addEventNames = function addEventNames(pref, down, move, up, cancel) {
-	            _dragStartEvent = pref + down;
-	            _dragMoveEvent = pref + move;
-	            _dragEndEvent = pref + up;
-	            if (cancel) {
-	              _dragCancelEvent = pref + cancel;
-	            } else {
-	              _dragCancelEvent = '';
-	            }
-	          };
-
-	          _pointerEventEnabled = _features.pointerEvent;
-	          if (_pointerEventEnabled && _features.touch) {
-	            // we don't need touch events, if browser supports pointer events
-	            _features.touch = false;
-	          }
-
-	          if (_pointerEventEnabled) {
-	            if (navigator.pointerEnabled) {
-	              addEventNames('pointer', 'down', 'move', 'up', 'cancel');
-	            } else {
-	              // IE10 pointer events are case-sensitive
-	              addEventNames('MSPointer', 'Down', 'Move', 'Up', 'Cancel');
-	            }
-	          } else if (_features.touch) {
-	            addEventNames('touch', 'start', 'move', 'end', 'cancel');
-	            _likelyTouchDevice = true;
-	          } else {
-	            addEventNames('mouse', 'down', 'move', 'up');
-	          }
-
-	          _upMoveEvents = _dragMoveEvent + ' ' + _dragEndEvent + ' ' + _dragCancelEvent;
-	          _downEvents = _dragStartEvent;
-
-	          if (_pointerEventEnabled && !_likelyTouchDevice) {
-	            _likelyTouchDevice = navigator.maxTouchPoints > 1 || navigator.msMaxTouchPoints > 1;
-	          }
-	          // make variable public
-	          self.likelyTouchDevice = _likelyTouchDevice;
-
-	          _globalEventHandlers[_dragStartEvent] = _onDragStart;
-	          _globalEventHandlers[_dragMoveEvent] = _onDragMove;
-	          _globalEventHandlers[_dragEndEvent] = _onDragRelease; // the Kraken
-
-	          if (_dragCancelEvent) {
-	            _globalEventHandlers[_dragCancelEvent] = _globalEventHandlers[_dragEndEvent];
-	          }
-
-	          // Bind mouse events on device with detected hardware touch support, in case it supports multiple types of input.
-	          if (_features.touch) {
-	            _downEvents += ' mousedown';
-	            _upMoveEvents += ' mousemove mouseup';
-	            _globalEventHandlers.mousedown = _globalEventHandlers[_dragStartEvent];
-	            _globalEventHandlers.mousemove = _globalEventHandlers[_dragMoveEvent];
-	            _globalEventHandlers.mouseup = _globalEventHandlers[_dragEndEvent];
-	          }
-
-	          if (!_likelyTouchDevice) {
-	            // don't allow pan to next slide from zoomed state on Desktop
-	            _options.allowPanToNext = false;
-	          }
-	        }
-	      }
-	    });
-
-	    /**
-	     * show-hide-transition.js:
-	     *
-	     * Manages initial opening or closing transition.
-	     *
-	     * If you're not planning to use transition for gallery at all,
-	     * you may set options hideAnimationDuration and showAnimationDuration to 0,
-	     * and just delete startAnimation function.
-	     *
-	     */
-
-	    var _showOrHideTimeout = void 0;
-
-	    var _showOrHide = function _showOrHide(item, img, out, completeFn) {
-
-	      if (_showOrHideTimeout) {
-	        clearTimeout(_showOrHideTimeout);
-	      }
-
-	      _initialZoomRunning = true;
-	      _initialContentSet = true;
-
-	      // dimensions of small thumbnail {x:,y:,w:}.
-	      // Height is optional, as calculated based on large image.
-	      var thumbBounds = void 0;
-	      if (item.initialLayout) {
-	        thumbBounds = item.initialLayout;
-	        item.initialLayout = null;
-	      } else {
-	        thumbBounds = _options.getThumbBoundsFn && _options.getThumbBoundsFn(_currentItemIndex);
-	      }
-
-	      var duration = out ? _options.hideAnimationDuration : _options.showAnimationDuration;
-
-	      var onComplete = function onComplete() {
-	        _stopAnimation('initialZoom');
-	        if (!out) {
-	          _applyBgOpacity(1);
-	          if (img) {
-	            img.style.display = 'block';
-	          }
-	          helper.addClass(template, 'zvui-pinch__animated-in');
-	          _shout('initialZoom' + (out ? 'OutEnd' : 'InEnd'));
-	        } else {
-	          self.template.removeAttribute('style');
-	          self.bg.removeAttribute('style');
-	        }
-
-	        if (completeFn) {
-	          completeFn();
-	        }
-	        _initialZoomRunning = false;
-	      };
-
-	      // if bounds aren't provided, just open gallery without animation
-	      if (!duration || !thumbBounds || thumbBounds.x === undefined) {
-
-	        _shout('initialZoom' + (out ? 'Out' : 'In'));
-
-	        _currZoomLevel = item.initialZoomLevel;
-	        _equalizePoints(_panOffset, item.initialPosition);
-	        _applyCurrentZoomPan();
-
-	        template.style.opacity = out ? 0 : 1;
-	        _applyBgOpacity(1);
-
-	        if (duration) {
-	          setTimeout(function () {
-	            onComplete();
-	          }, duration);
-	        } else {
-	          onComplete();
-	        }
-
-	        return;
-	      }
-
-	      var startAnimation = function startAnimation() {
-	        var closeWithRaf = _closedByScroll;
-	        var fadeEverything = !self.currItem.src || self.currItem.loadError || _options.showHideOpacity;
-
-	        // apply hw-acceleration to image
-	        if (item.miniImg) {
-	          item.miniImg.style.webkitBackfaceVisibility = 'hidden';
-	        }
-
-	        if (!out) {
-	          _currZoomLevel = thumbBounds.w / item.w;
-	          _panOffset.x = thumbBounds.x;
-	          _panOffset.y = thumbBounds.y - _initalWindowScrollY;
-
-	          self[fadeEverything ? 'template' : 'bg'].style.opacity = 0.001;
-	          _applyCurrentZoomPan();
-	        }
-
-	        _registerStartAnimation('initialZoom');
-
-	        if (out && !closeWithRaf) {
-	          helper.removeClass(template, 'zvui-pinch__animated-in');
-	        }
-
-	        if (fadeEverything) {
-	          if (out) {
-	            helper[(closeWithRaf ? 'remove' : 'add') + 'Class'](template, 'zvui-pinch__animate_opacity');
-	          } else {
-	            setTimeout(function () {
-	              helper.addClass(template, 'zvui-pinch__animate_opacity');
-	            }, 30);
-	          }
-	        }
-
-	        _showOrHideTimeout = setTimeout(function () {
-
-	          _shout('initialZoom' + (out ? 'Out' : 'In'));
-
-	          if (!out) {
-
-	            // "in" animation always uses CSS transitions (instead of rAF).
-	            // CSS transition work faster here,
-	            // as developer may also want to animate other things,
-	            // like ui on top of sliding area, which can be animated just via CSS
-
-	            _currZoomLevel = item.initialZoomLevel;
-	            _equalizePoints(_panOffset, item.initialPosition);
-	            _applyCurrentZoomPan();
-	            _applyBgOpacity(1);
-
-	            if (fadeEverything) {
-	              template.style.opacity = 1;
-	            } else {
-	              _applyBgOpacity(1);
-	            }
-
-	            _showOrHideTimeout = setTimeout(onComplete, duration + 20);
-	          } else {
-	            (function () {
-	              // "out" animation uses rAF only when PhotoSwipe is closed by browser scroll, to recalculate position
-	              var destZoomLevel = thumbBounds.w / item.w;
-
-	              var initialPanOffset = {
-	                x: _panOffset.x,
-	                y: _panOffset.y
-	              };
-
-	              var initialZoomLevel = _currZoomLevel;
-	              var initalBgOpacity = _bgOpacity;
-
-	              var onUpdate = function onUpdate(now) {
-
-	                if (now === 1) {
-	                  _currZoomLevel = destZoomLevel;
-	                  _panOffset.x = thumbBounds.x;
-	                  _panOffset.y = thumbBounds.y - _currentWindowScrollY;
+	        var _uiElements = [{
+	            name: 'button--zoom',
+	            option: 'zoomEl',
+	            onTap: zvuiPinch.toggleDesktopZoom
+	        }, {
+	            name: 'button--close',
+	            option: 'closeEl',
+	            onTap: zvuiPinch.close
+	        }, {
+	            name: 'button--fs',
+	            option: 'fullscreenEl',
+	            onTap: function onTap() {
+	                if (_fullscrenAPI.isFullscreen()) {
+	                    _fullscrenAPI.exit();
 	                } else {
-	                  _currZoomLevel = (destZoomLevel - initialZoomLevel) * now + initialZoomLevel;
-	                  _panOffset.x = (thumbBounds.x - initialPanOffset.x) * now + initialPanOffset.x;
-	                  _panOffset.y = (thumbBounds.y - _currentWindowScrollY - initialPanOffset.y) * now + initialPanOffset.y;
+	                    _fullscrenAPI.enter();
 	                }
-
-	                _applyCurrentZoomPan();
-	                if (fadeEverything) {
-	                  template.style.opacity = 1 - now;
-	                } else {
-	                  _applyBgOpacity(initalBgOpacity - now * initalBgOpacity);
-	                }
-	              };
-
-	              if (closeWithRaf) {
-	                _animateProp('initialZoom', 0, 1, duration, helper.easing.cubic.out, onUpdate, onComplete);
-	              } else {
-	                onUpdate(1);
-	                _showOrHideTimeout = setTimeout(onComplete, duration + 20);
-	              }
-	            })();
-	          }
-	        }, out ? 25 : 90); // Main purpose of this delay is to give browser time to paint and
-	        // create composite layers of PhotoSwipe UI parts (background, controls, caption, arrows).
-	        // Which avoids lag at the beginning of scale transition.
-	      };
-	      startAnimation();
-	    };
-
-	    /**
-	     *
-	     * Controller manages gallery items, their dimensions, and their content.
-	     *
-	     */
-
-	    var _items = void 0;
-
-	    var _tempPanAreaSize = {};
-	    var _imagesToAppendPool = [];
-	    var _initialContentSet = void 0;
-	    var _initialZoomRunning = void 0;
-
-	    var _controllerDefaultOptions = {
-	      index: 0,
-	      errorMsg: '<div class="zvui-pinch__error-msg"><a href="%url%" target="_blank">The image</a> could not be loaded.</div>',
-	      forceProgressiveLoading: false, // TODO
-	      preload: [1, 1],
-	      getNumItemsFn: function getNumItemsFn() {
-	        return _items.length;
-	      }
-	    };
-
-	    var _getItemAt = void 0;
-	    var _getNumItems = void 0;
-	    var _initialIsLoop = void 0;
-
-	    var _getZeroBounds = function _getZeroBounds() {
-	      return {
-	        center: {
-	          x: 0,
-	          y: 0
-	        },
-
-	        max: {
-	          x: 0,
-	          y: 0
-	        },
-
-	        min: {
-	          x: 0,
-	          y: 0
-	        }
-	      };
-	    };
-
-	    var _calculateSingleItemPanBounds = function _calculateSingleItemPanBounds(item, realPanElementW, realPanElementH) {
-	      var bounds = item.bounds;
-
-	      // position of element when it's centered
-	      bounds.center.x = Math.round((_tempPanAreaSize.x - realPanElementW) / 2);
-	      bounds.center.y = Math.round((_tempPanAreaSize.y - realPanElementH) / 2) + item.vGap.top;
-
-	      // maximum pan position
-	      bounds.max.x = realPanElementW > _tempPanAreaSize.x ? Math.round(_tempPanAreaSize.x - realPanElementW) : bounds.center.x;
-
-	      bounds.max.y = realPanElementH > _tempPanAreaSize.y ? Math.round(_tempPanAreaSize.y - realPanElementH) + item.vGap.top : bounds.center.y;
-
-	      // minimum pan position
-	      bounds.min.x = realPanElementW > _tempPanAreaSize.x ? 0 : bounds.center.x;
-	      bounds.min.y = realPanElementH > _tempPanAreaSize.y ? item.vGap.top : bounds.center.y;
-	    };
-
-	    var _calculateItemSize = function _calculateItemSize(item, viewportSize, zoomLevel) {
-
-	      if (item.src && !item.loadError) {
-	        var isInitial = !zoomLevel;
-
-	        if (isInitial) {
-	          if (!item.vGap) {
-	            item.vGap = {
-	              top: 0,
-	              bottom: 0
-	            };
-	          }
-	          // allows overriding vertical margin for individual items
-	          _shout('parseVerticalMargin', item);
-	        }
-
-	        _tempPanAreaSize.x = viewportSize.x;
-	        _tempPanAreaSize.y = viewportSize.y - item.vGap.top - item.vGap.bottom;
-
-	        if (isInitial) {
-	          var hRatio = _tempPanAreaSize.x / item.w;
-	          var vRatio = _tempPanAreaSize.y / item.h;
-
-	          item.fitRatio = hRatio < vRatio ? hRatio : vRatio;
-	          //item.fillRatio = hRatio > vRatio ? hRatio : vRatio;
-
-	          var scaleMode = _options.scaleMode;
-
-	          if (scaleMode === 'orig') {
-	            zoomLevel = 1;
-	          } else if (scaleMode === 'fit') {
-	            zoomLevel = item.fitRatio;
-	          }
-
-	          if (zoomLevel > 1) {
-	            zoomLevel = 1;
-	          }
-
-	          item.initialZoomLevel = zoomLevel;
-
-	          if (!item.bounds) {
-	            // reuse bounds object
-	            item.bounds = _getZeroBounds();
-	          }
-	        }
-
-	        if (!zoomLevel) {
-	          return;
-	        }
-
-	        _calculateSingleItemPanBounds(item, item.w * zoomLevel, item.h * zoomLevel);
-
-	        if (isInitial && zoomLevel === item.initialZoomLevel) {
-	          item.initialPosition = item.bounds.center;
-	        }
-
-	        return item.bounds;
-	      } else {
-	        item.w = item.h = 0;
-	        item.initialZoomLevel = item.fitRatio = 1;
-	        item.bounds = _getZeroBounds();
-	        item.initialPosition = item.bounds.center;
-
-	        // if it's not image, we return zero bounds (content is not zoomable)
-	        return item.bounds;
-	      }
-	    };
-
-	    var _appendImage = function _appendImage(index, item, baseDiv, img, preventAnimation, keepPlaceholder) {
-
-	      if (item.loadError) {
-	        return;
-	      }
-
-	      if (img) {
-
-	        item.imageAppended = true;
-	        _setImageSize(item, img, item === self.currItem && _renderMaxResolution);
-
-	        baseDiv.appendChild(img);
-
-	        if (keepPlaceholder) {
-	          setTimeout(function () {
-	            if (item && item.loaded && item.placeholder) {
-	              item.placeholder.style.display = 'none';
-	              item.placeholder = null;
 	            }
-	          }, 500);
-	        }
-	      }
-	    };
-
-	    var _preloadImage = function _preloadImage(item) {
-	      item.loading = true;
-	      item.loaded = false;
-	      var img = item.img = helper.createEl('zvui-pinch__img', 'img');
-	      var onComplete = function onComplete() {
-	        item.loading = false;
-	        item.loaded = true;
-
-	        if (item.loadComplete) {
-	          item.loadComplete(item);
-	        } else {
-	          item.img = null; // no need to store image object
-	        }
-	        img.onload = img.onerror = null;
-	        img = null;
-	      };
-	      img.onload = onComplete;
-	      img.onerror = function () {
-	        item.loadError = true;
-	        onComplete();
-	      };
-
-	      img.src = item.src; // + '?a=' + Math.random();
-
-	      return img;
-	    };
-
-	    var _checkForError = function _checkForError(item, cleanUp) {
-	      if (item.src && item.loadError && item.container) {
-
-	        if (cleanUp) {
-	          item.container.innerHTML = '';
-	        }
-
-	        item.container.innerHTML = _options.errorMsg.replace('%url%', item.src);
-	        return true;
-	      }
-	    };
-
-	    var _setImageSize = function _setImageSize(item, img, maxRes) {
-	      if (!item.src) {
-	        return;
-	      }
-
-	      if (!img) {
-	        img = item.container.lastChild;
-	      }
-
-	      var w = maxRes ? item.w : Math.round(item.w * item.fitRatio);
-	      var h = maxRes ? item.h : Math.round(item.h * item.fitRatio);
-
-	      if (item.placeholder && !item.loaded) {
-	        item.placeholder.style.width = w + 'px';
-	        item.placeholder.style.height = h + 'px';
-	      }
-
-	      img.style.width = w + 'px';
-	      img.style.height = h + 'px';
-	    };
-
-	    var _appendImagesPool = function _appendImagesPool() {
-
-	      if (_imagesToAppendPool.length) {
-	        var poolItem = void 0;
-
-	        for (var i = 0; i < _imagesToAppendPool.length; i++) {
-	          poolItem = _imagesToAppendPool[i];
-	          if (poolItem.holder.index === poolItem.index) {
-	            _appendImage(poolItem.index, poolItem.item, poolItem.baseDiv, poolItem.img, false, poolItem.clearPlaceholder);
-	          }
-	        }
-	        _imagesToAppendPool = [];
-	      }
-	    };
-
-	    _registerModule('Controller', {
-
-	      publicMethods: {
-	        lazyLoadItem: function lazyLoadItem(index) {
-	          index = _getLoopedId(index);
-	          var item = _getItemAt(index);
-
-	          if (!item || (item.loaded || item.loading) && !_itemsNeedUpdate) {
-	            return;
-	          }
-
-	          _shout('gettingData', index, item);
-
-	          if (!item.src) {
-	            return;
-	          }
-
-	          _preloadImage(item);
-	        },
-	        initController: function initController() {
-	          helper.extend(_options, _controllerDefaultOptions, true);
-	          self.items = _items = items;
-	          _getItemAt = self.getItemAt;
-	          _getNumItems = _options.getNumItemsFn; //self.getNumItems;
-
-
-	          _initialIsLoop = _options.loop;
-	          if (_getNumItems() < 3) {
-	            _options.loop = false; // disable loop if less then 3 items
-	          }
-
-	          _listen('beforeChange', function (diff) {
-	            var p = _options.preload;
-	            var isNext = diff === null ? true : diff >= 0;
-	            var preloadBefore = Math.min(p[0], _getNumItems());
-	            var preloadAfter = Math.min(p[1], _getNumItems());
-	            var i = void 0;
-
-	            for (i = 1; i <= (isNext ? preloadAfter : preloadBefore); i++) {
-	              self.lazyLoadItem(_currentItemIndex + i);
+	        }, {
+	            name: 'preloader',
+	            option: 'preloaderEl',
+	            onInit: function onInit(el) {
+	                _loadingIndicator = el;
 	            }
-	            for (i = 1; i <= (isNext ? preloadBefore : preloadAfter); i++) {
-	              self.lazyLoadItem(_currentItemIndex - i);
-	            }
-	          });
+	        }];
 
-	          _listen('initialLayout', function () {
-	            self.currItem.initialLayout = _options.getThumbBoundsFn && _options.getThumbBoundsFn(_currentItemIndex);
-	          });
-
-	          _listen('mainScrollAnimComplete', _appendImagesPool);
-	          _listen('initialZoomInEnd', _appendImagesPool);
-
-	          _listen('destroy', function () {
+	        var _setupUIElements = function _setupUIElements() {
 	            var item = void 0;
-	            for (var i = 0; i < _items.length; i++) {
-	              item = _items[i];
-	              // remove reference to DOM elements, for GC
-	              if (item.container) {
-	                item.container = null;
-	              }
-	              if (item.placeholder) {
-	                item.placeholder = null;
-	              }
-	              if (item.img) {
-	                item.img = null;
-	              }
-	              if (item.preloader) {
-	                item.preloader = null;
-	              }
-	              if (item.loadError) {
-	                item.loaded = item.loadError = false;
-	              }
-	            }
-	            _imagesToAppendPool = null;
-	          });
-	        },
-	        getItemAt: function getItemAt(index) {
-	          if (index >= 0) {
-	            return _items[index] !== undefined ? _items[index] : false;
-	          }
-	          return false;
-	        },
-	        allowProgressiveImg: function allowProgressiveImg() {
-	          // 1. Progressive image loading isn't working on webkit/blink
-	          //    when hw-acceleration (e.g. translateZ) is applied to IMG element.
-	          //    That's why in PhotoSwipe parent element gets zoom transform, not image itself.
-	          //
-	          // 2. Progressive image loading sometimes blinks in webkit/blink when applying animation to parent element.
-	          //    That's why it's disabled on touch devices (mainly because of swipe transition)
-	          //
-	          // 3. Progressive image loading sometimes doesn't work in IE (up to 11).
+	            var classAttr = void 0;
+	            var uiElement = void 0;
 
-	          // Don't allow progressive loading on non-large touch devices
-	          return _options.forceProgressiveLoading || !_likelyTouchDevice || _options.mouseUsed || screen.width > 1200;
-	          // 1200 - to eliminate touch devices with large screen (like Chromebook Pixel)
-	        },
-	        setContent: function setContent(holder, index) {
-	          if (_options.loop) {
-	            index = _getLoopedId(index);
-	          }
-
-	          var prevItem = self.getItemAt(holder.index);
-	          if (prevItem) {
-	            prevItem.container = null;
-	          }
-
-	          var item = self.getItemAt(index);
-	          var img = void 0;
-
-	          if (!item) {
-	            holder.el.innerHTML = '';
-	            return;
-	          }
-
-	          // allow to override data
-	          _shout('gettingData', index, item);
-
-	          holder.index = index;
-	          holder.item = item;
-
-	          // base container DIV is created only once for each of 3 holders
-	          var baseDiv = item.container = helper.createEl('zvui-pinch__zoom-wrap');
-
-	          if (!item.src && item.html) {
-	            if (item.html.tagName) {
-	              baseDiv.appendChild(item.html);
-	            } else {
-	              baseDiv.innerHTML = item.html;
-	            }
-	          }
-
-	          _checkForError(item);
-
-	          _calculateItemSize(item, _viewportSize);
-
-	          if (item.src && !item.loadError && !item.loaded) {
-
-	            item.loadComplete = function (item) {
-
-	              // gallery closed before image finished loading
-	              if (!_isOpen) {
-	                return;
-	              }
-
-	              // check if holder hasn't changed while image was loading
-	              if (holder && holder.index === index) {
-	                if (_checkForError(item, true)) {
-	                  item.loadComplete = item.img = null;
-	                  _calculateItemSize(item, _viewportSize);
-	                  _applyZoomPanToItem(item);
-
-	                  if (holder.index === _currentItemIndex) {
-	                    // recalculate dimensions
-	                    self.updateCurrZoomItem();
-	                  }
-	                  return;
+	            var loopThroughChildElements = function loopThroughChildElements(sChildren) {
+	                if (!sChildren) {
+	                    return;
 	                }
-	                if (!item.imageAppended) {
-	                  if (_features.transform && (_mainScrollAnimating || _initialZoomRunning)) {
-	                    _imagesToAppendPool.push({
-	                      item: item,
-	                      baseDiv: baseDiv,
-	                      img: item.img,
-	                      index: index,
-	                      holder: holder,
-	                      clearPlaceholder: true
-	                    });
-	                  } else {
-	                    _appendImage(index, item, baseDiv, item.img, _mainScrollAnimating || _initialZoomRunning, true);
-	                  }
-	                } else {
-	                  // remove preloader & mini-img
-	                  if (!_initialZoomRunning && item.placeholder) {
-	                    item.placeholder.style.display = 'none';
-	                    item.placeholder = null;
-	                  }
+
+	                var l = sChildren.length;
+	                for (var i = 0; i < l; i++) {
+	                    item = sChildren[i];
+	                    classAttr = item.className;
+
+	                    for (var a = 0; a < _uiElements.length; a++) {
+	                        uiElement = _uiElements[a];
+
+	                        if (classAttr.includes('zvui-pinch__' + uiElement.name)) {
+
+	                            if (_options[uiElement.option]) {
+	                                // if element is not disabled from options
+
+	                                helper.removeClass(item, 'zvui-pinch__element--disabled');
+	                                if (uiElement.onInit) {
+	                                    uiElement.onInit(item);
+	                                }
+
+	                                //item.style.display = 'block';
+	                            } else {
+	                                helper.addClass(item, 'zvui-pinch__element--disabled');
+	                                //item.style.display = 'none';
+	                            }
+	                        }
+	                    }
 	                }
-	              }
-
-	              item.loadComplete = null;
-	              item.img = null; // no need to store image element after it's added
-
-	              _shout('imageLoadComplete', index, item);
 	            };
+	            loopThroughChildElements(_controls.children);
 
-	            if (helper.features.transform) {
+	            var topBar = helper.getChildByClass(_controls, 'zvui-pinch__top-bar');
+	            if (topBar) {
+	                loopThroughChildElements(topBar.children);
+	            }
+	        };
 
-	              var placeholderClassName = 'zvui-pinch__img zvui-pinch__img--placeholder';
-	              placeholderClassName += item.msrc ? '' : ' zvui-pinch__img--placeholder--blank';
+	        ui.init = function () {
 
-	              var placeholder = helper.createEl(placeholderClassName, item.msrc ? 'img' : '');
-	              if (item.msrc) {
-	                placeholder.src = item.msrc;
-	              }
+	            // extend options
+	            helper.extend(zvuiPinch.options, _defaultUIOptions, true);
 
-	              _setImageSize(item, placeholder);
+	            // create local link for fast access
+	            _options = zvuiPinch.options;
 
-	              baseDiv.appendChild(placeholder);
-	              item.placeholder = placeholder;
+	            // find zvui-pinch__ui element
+	            _controls = helper.getChildByClass(zvuiPinch.scrollWrap, 'zvui-pinch__ui');
+
+	            // create local link
+	            _listen = zvuiPinch.listen;
+
+	            _setupHidingControlsDuringGestures();
+
+	            // update controls when slides change
+	            _listen('beforeChange', ui.update);
+
+	            // toggle zoom on double-tap
+	            _listen('doubleTap', function (point) {
+	                var initialZoomLevel = zvuiPinch.currItem.initialZoomLevel;
+	                if (zvuiPinch.getZoomLevel() !== initialZoomLevel) {
+	                    zvuiPinch.zoomTo(initialZoomLevel, point, 333);
+	                } else {
+	                    zvuiPinch.zoomTo(_options.getDoubleTapZoom(false, zvuiPinch.currItem), point, 333);
+	                }
+	            });
+
+	            // Allow text selection in caption
+	            _listen('preventDragEvent', function (e, isDown, preventObj) {
+	                var t = e.target || e.srcElement;
+	                if (t && t.getAttribute('class') && e.type.includes('mouse') && (t.getAttribute('class').indexOf('__caption') > 0 || /(SMALL|STRONG|EM)/i.test(t.tagName))) {
+	                    preventObj.prevent = false;
+	                }
+	            });
+
+	            // bind events for UI
+	            _listen('bindEvents', function () {
+	                helper.bind(_controls, 'zvuiPinchTap click', _onControlsTap);
+	                helper.bind(zvuiPinch.scrollWrap, 'zvuiPinchTap', ui.onGlobalTap);
+
+	                if (!zvuiPinch.likelyTouchDevice) {
+	                    helper.bind(zvuiPinch.scrollWrap, 'mouseover', ui.onMouseOver);
+	                }
+	            });
+
+	            // unbind events for UI
+	            _listen('unbindEvents', function () {
+	                if (_idleInterval) {
+	                    clearInterval(_idleInterval);
+	                }
+	                helper.unbind(document, 'mouseout', _onMouseLeaveWindow);
+	                helper.unbind(document, 'mousemove', _onIdleMouseMove);
+	                helper.unbind(_controls, 'zvuiPinchTap click', _onControlsTap);
+	                helper.unbind(zvuiPinch.scrollWrap, 'zvuiPinchTap', ui.onGlobalTap);
+	                helper.unbind(zvuiPinch.scrollWrap, 'mouseover', ui.onMouseOver);
+
+	                if (_fullscrenAPI) {
+	                    helper.unbind(document, _fullscrenAPI.eventK, ui.updateFullscreen);
+	                    if (_fullscrenAPI.isFullscreen()) {
+	                        _options.hideAnimationDuration = 0;
+	                        _fullscrenAPI.exit();
+	                    }
+	                    _fullscrenAPI = null;
+	                }
+	            });
+
+	            // clean up things when gallery is destroyed
+	            _listen('destroy', function () {
+	                if (_options.captionEl) {
+	                    if (_fakeCaptionContainer) {
+	                        _controls.removeChild(_fakeCaptionContainer);
+	                    }
+	                    helper.removeClass(_captionContainer, 'zvui-pinch__caption--empty');
+	                }
+
+	                helper.removeClass(_controls, 'zvui-pinch__ui--over-close');
+	                helper.addClass(_controls, 'zvui-pinch__ui--hidden');
+	                ui.setIdle(false);
+	            });
+
+	            if (!_options.showAnimationDuration) {
+	                helper.removeClass(_controls, 'zvui-pinch__ui--hidden');
+	            }
+	            _listen('initialZoomIn', function () {
+	                if (_options.showAnimationDuration) {
+	                    helper.removeClass(_controls, 'zvui-pinch__ui--hidden');
+	                }
+	            });
+	            _listen('initialZoomOut', function () {
+	                helper.addClass(_controls, 'zvui-pinch__ui--hidden');
+	            });
+
+	            _listen('parseVerticalMargin', _applyNavBarGaps);
+
+	            _setupUIElements();
+
+	            _countNumItems();
+
+	            _setupIdle();
+
+	            _setupFullscreenAPI();
+
+	            _setupLoadingIndicator();
+	        };
+
+	        ui.setIdle = function (isIdle) {
+	            _isIdle = isIdle;
+	            _toggleZvuiPinchClass(_controls, 'ui--idle', isIdle);
+	        };
+
+	        ui.update = function () {
+	            // Don't update UI if it's hidden
+	            if (_controlsVisible && zvuiPinch.currItem) {
+
+	                ui.updateIndexIndicator();
+
+	                if (_options.captionEl) {
+	                    _options.addCaptionHTMLFn(zvuiPinch.currItem, _captionContainer);
+
+	                    _toggleZvuiPinchClass(_captionContainer, 'caption--empty', !zvuiPinch.currItem.title);
+	                }
+
+	                _overlayUIUpdated = true;
+	            } else {
+	                _overlayUIUpdated = false;
 	            }
 
-	            if (!item.loading) {
-	              _preloadImage(item);
+	            _countNumItems();
+	        };
+
+	        ui.updateFullscreen = function (e) {
+
+	            if (e) {
+	                // some browsers change window scroll position during the fullscreen
+	                // so PhotoSwipe updates it just in case
+	                setTimeout(function () {
+	                    zvuiPinch.setScrollOffset(0, helper.getScrollY());
+	                }, 50);
 	            }
 
-	            if (self.allowProgressiveImg()) {
-	              // just append image
-	              if (!_initialContentSet && _features.transform) {
-	                _imagesToAppendPool.push({
-	                  item: item,
-	                  baseDiv: baseDiv,
-	                  img: item.img,
-	                  index: index,
-	                  holder: holder
-	                });
-	              } else {
-	                _appendImage(index, item, baseDiv, item.img, true, true);
-	              }
+	            // toogle zvui-pinch--fs class on root element
+	            helper[(_fullscrenAPI.isFullscreen() ? 'add' : 'remove') + 'Class'](zvuiPinch.template, 'zvui-pinch--fs');
+	        };
+
+	        ui.updateIndexIndicator = function () {
+	            if (_options.counterEl) {
+	                _indexIndicator.innerHTML = zvuiPinch.getCurrentIndex() + 1 + _options.indexIndicatorSep + _options.getNumItemsFn();
 	            }
-	          } else if (item.src && !item.loadError) {
-	            // image object is created every time, due to bugs of image loading & delay when switching images
-	            img = helper.createEl('zvui-pinch__img', 'img');
-	            img.style.opacity = 1;
-	            img.src = item.src;
-	            _setImageSize(item, img);
-	            _appendImage(index, item, baseDiv, img, true);
-	          }
+	        };
 
-	          if (!_initialContentSet && index === _currentItemIndex) {
-	            _currZoomElementStyle = baseDiv.style;
-	            _showOrHide(item, img || item.img);
-	          } else {
-	            _applyZoomPanToItem(item);
-	          }
+	        ui.onGlobalTap = function (e) {
+	            e = e || window.event;
+	            var target = e.target || e.srcElement;
 
-	          holder.el.innerHTML = '';
-	          holder.el.appendChild(baseDiv);
-	        },
-	        cleanSlide: function cleanSlide(item) {
-	          if (item.img) {
-	            item.img.onload = item.img.onerror = null;
-	          }
-	          item.loaded = item.loading = item.img = item.imageAppended = false;
-	        }
-	      }
-	    });
-
-	    /**
-	     * tap.js:
-	     *
-	     * Displatches tap and double-tap events.
-	     *
-	     */
-
-	    var tapTimer = void 0;
-
-	    var tapReleasePoint = {};
-
-	    var _dispatchTapEvent = function _dispatchTapEvent(origEvent, releasePoint, pointerType) {
-	      var e = document.createEvent('CustomEvent');
-
-	      var eDetail = {
-	        origEvent: origEvent,
-	        target: origEvent.target,
-	        releasePoint: releasePoint,
-	        pointerType: pointerType || 'touch'
-	      };
-
-	      e.initCustomEvent('zvuiPinchTap', true, true, eDetail);
-	      origEvent.target.dispatchEvent(e);
-	    };
-
-	    _registerModule('Tap', {
-	      publicMethods: {
-	        initTap: function initTap() {
-	          _listen('firstTouchStart', self.onTapStart);
-	          _listen('touchRelease', self.onTapRelease);
-	          _listen('destroy', function () {
-	            tapReleasePoint = {};
-	            tapTimer = null;
-	          });
-	        },
-	        onTapStart: function onTapStart(touchList) {
-	          if (touchList.length > 1) {
-	            clearTimeout(tapTimer);
-	            tapTimer = null;
-	          }
-	        },
-	        onTapRelease: function onTapRelease(e, releasePoint) {
-	          if (!releasePoint) {
-	            return;
-	          }
-
-	          if (!_moved && !_isMultitouch && !_numAnimations) {
-	            var p0 = releasePoint;
-	            if (tapTimer) {
-	              clearTimeout(tapTimer);
-	              tapTimer = null;
-
-	              // Check if taped on the same place
-	              if (_isNearbyPoints(p0, tapReleasePoint)) {
-	                _shout('doubleTap', p0);
+	            if (_blockControlsTap) {
 	                return;
-	              }
 	            }
 
-	            if (releasePoint.type === 'mouse') {
-	              _dispatchTapEvent(e, releasePoint, 'mouse');
-	              return;
+	            if (e.detail && e.detail.pointerType === 'mouse') {
+
+	                // close gallery if clicked outside of the image
+	                if (_hasCloseClass(target)) {
+	                    zvuiPinch.close();
+	                    return;
+	                }
+
+	                if (helper.hasClass(target, 'zvui-pinch__img')) {
+	                    if (zvuiPinch.getZoomLevel() === 1 && zvuiPinch.getZoomLevel() <= zvuiPinch.currItem.fitRatio) {
+	                        if (_options.clickToCloseNonZoomable) {
+	                            zvuiPinch.close();
+	                        }
+	                    } else {
+	                        zvuiPinch.toggleDesktopZoom(e.detail.releasePoint);
+	                    }
+	                }
+	            } else {
+
+	                // tap anywhere (except buttons) to toggle visibility of controls
+	                if (_options.tapToToggleControls) {
+	                    if (_controlsVisible) {
+	                        ui.hideControls();
+	                    } else {
+	                        ui.showControls();
+	                    }
+	                }
+
+	                // tap to close gallery
+	                if (_options.tapToClose && (helper.hasClass(target, 'zvui-pinch__img') || _hasCloseClass(target))) {
+	                    zvuiPinch.close();
+	                    return;
+	                }
+	            }
+	        };
+	        ui.onMouseOver = function (e) {
+	            e = e || window.event;
+	            var target = e.target || e.srcElement;
+
+	            // add class when mouse is over an element that should close the gallery
+	            _toggleZvuiPinchClass(_controls, 'ui--over-close', _hasCloseClass(target));
+	        };
+
+	        ui.hideControls = function () {
+	            helper.addClass(_controls, 'zvui-pinch__ui--hidden');
+	            _controlsVisible = false;
+	        };
+
+	        ui.showControls = function () {
+	            _controlsVisible = true;
+	            if (!_overlayUIUpdated) {
+	                ui.update();
+	            }
+	            helper.removeClass(_controls, 'zvui-pinch__ui--hidden');
+	        };
+
+	        ui.supportsFullscreen = function () {
+	            var d = document;
+	            return !!(d.exitFullscreen || d.mozCancelFullScreen || d.webkitExitFullscreen || d.msExitFullscreen);
+	        };
+
+	        ui.getFullscreenAPI = function () {
+	            var dE = document.documentElement;
+	            var api = void 0;
+	            var tF = 'fullscreenchange';
+
+	            if (dE.requestFullscreen) {
+	                api = {
+	                    enterK: 'requestFullscreen',
+	                    exitK: 'exitFullscreen',
+	                    elementK: 'fullscreenElement',
+	                    eventK: tF
+	                };
+	            } else if (dE.mozRequestFullScreen) {
+	                api = {
+	                    enterK: 'mozRequestFullScreen',
+	                    exitK: 'mozCancelFullScreen',
+	                    elementK: 'mozFullScreenElement',
+	                    eventK: 'moz' + tF
+	                };
+	            } else if (dE.webkitRequestFullscreen) {
+	                api = {
+	                    enterK: 'webkitRequestFullscreen',
+	                    exitK: 'webkitExitFullscreen',
+	                    elementK: 'webkitFullscreenElement',
+	                    eventK: 'webkit' + tF
+	                };
+	            } else if (dE.msRequestFullscreen) {
+	                api = {
+	                    enterK: 'msRequestFullscreen',
+	                    exitK: 'msExitFullscreen',
+	                    elementK: 'msFullscreenElement',
+	                    eventK: 'MSFullscreenChange'
+	                };
 	            }
 
-	            var clickedTagName = e.target.tagName.toUpperCase();
-	            // avoid double tap delay on buttons and elements that have class zvui-pinch__single-tap
-	            if (clickedTagName === 'BUTTON' || helper.hasClass(e.target, 'zvui-pinch__single-tap')) {
-	              _dispatchTapEvent(e, releasePoint);
-	              return;
+	            if (api) {
+	                api.enter = function () {
+	                    // disable close-on-scroll in fullscreen
+	                    _initalCloseOnScrollValue = _options.closeOnScroll;
+	                    _options.closeOnScroll = false;
+
+	                    if (this.enterK === 'webkitRequestFullscreen') {
+	                        zvuiPinch.template[this.enterK](Element.ALLOW_KEYBOARD_INPUT);
+	                    } else {
+	                        return zvuiPinch.template[this.enterK]();
+	                    }
+	                };
+	                api.exit = function () {
+	                    _options.closeOnScroll = _initalCloseOnScrollValue;
+
+	                    return document[this.exitK]();
+	                };
+	                api.isFullscreen = function () {
+	                    return document[this.elementK];
+	                };
 	            }
 
-	            _equalizePoints(tapReleasePoint, p0);
-
-	            tapTimer = setTimeout(function () {
-	              _dispatchTapEvent(e, releasePoint);
-	              tapTimer = null;
-	            }, 300);
-	          }
-	        }
-	      }
-	    });
-	    helper.extend(self, publicMethods);
-	  };
+	            return api;
+	        };
+	    };
 	});
 
 /***/ },
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	(function (root, factory) {
-	  if (true) {
-	    !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	  } else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') {
-	    module.exports = factory(require, exports, module);
-	  } else {
-	    root.ZVUIPinch_Default = factory();
-	  }
-	})(undefined, function (require, exports, module) {
-
-	  return function (zvuiPinch, helper) {
-	    /**
-	    *
-	    * UI on top of main sliding area (caption, arrows, close button, etc.).
-	    * Built just using public methods/properties of PhotoSwipe.
-	    *
-	    */
-	    var ui = this;
-	    var _overlayUIUpdated = false;
-	    var _controlsVisible = true;
-	    var _fullscrenAPI = void 0;
-	    var _controls = void 0;
-	    var _captionContainer = void 0;
-	    var _fakeCaptionContainer = void 0;
-	    var _indexIndicator = void 0;
-	    var _shareButton = void 0;
-	    var _shareModal = void 0;
-	    var _shareModalHidden = false;
-	    var _initalCloseOnScrollValue = void 0;
-	    var _isIdle = void 0;
-	    var _listen = void 0;
-	    var _loadingIndicator = void 0;
-	    var _loadingIndicatorHidden = void 0;
-	    var _loadingIndicatorTimeout = void 0;
-	    var _galleryHasOneSlide = void 0;
-	    var _options = void 0;
-
-	    var _defaultUIOptions = {
-	      barsSize: {
-	        top: 44,
-	        bottom: 'auto'
-	      },
-	      closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui', 'top-bar'],
-	      timeToIdle: 4000,
-	      timeToIdleOutside: 1000,
-	      loadingIndicatorDelay: 1000, // 2s
-
-	      addCaptionHTMLFn: function addCaptionHTMLFn(item, captionEl /*, isFake */) {
-	        if (!item.title) {
-	          captionEl.children[0].innerHTML = '';
-	          return false;
-	        }
-	        captionEl.children[0].innerHTML = item.title;
-	        return true;
-	      },
-
-
-	      closeEl: true,
-	      captionEl: false,
-	      fullscreenEl: false,
-	      zoomEl: true,
-	      shareEl: false,
-	      counterEl: false,
-	      arrowEl: false,
-	      preloaderEl: true,
-
-	      tapToClose: true,
-	      tapToToggleControls: true,
-
-	      clickToCloseNonZoomable: true,
-
-	      shareButtons: [{
-	        id: 'facebook',
-	        label: 'Share on Facebook',
-	        url: 'https://www.facebook.com/sharer/sharer.php?u={{url}}'
-	      }, {
-	        id: 'twitter',
-	        label: 'Tweet',
-	        url: 'https://twitter.com/intent/tweet?text={{text}}&url={{url}}'
-	      }, {
-	        id: 'pinterest',
-	        label: 'Pin it',
-	        url: 'http://www.pinterest.com/pin/create/button/' + '?url={{url}}&media={{image_url}}&description={{text}}'
-	      }, {
-	        id: 'download',
-	        label: 'Download image',
-	        url: '{{raw_image_url}}',
-	        download: true
-	      }],
-	      getImageURLForShare: function getImageURLForShare() /* shareButtonData */{
-	        return zvuiPinch.currItem.src || '';
-	      },
-	      getPageURLForShare: function getPageURLForShare() /* shareButtonData */{
-	        return window.location.href;
-	      },
-	      getTextForShare: function getTextForShare() /* shareButtonData */{
-	        return zvuiPinch.currItem.title || '';
-	      },
-
-
-	      indexIndicatorSep: ' / ',
-	      fitControlsWidth: 1200
-
-	    };
-
-	    var _blockControlsTap = void 0;
-	    var _blockControlsTapTimeout = void 0;
-
-	    var _onControlsTap = function _onControlsTap(e) {
-	      if (_blockControlsTap) {
-	        return true;
-	      }
-
-	      e = e || window.event;
-
-	      if (_options.timeToIdle && _options.mouseUsed && !_isIdle) {
-	        // reset idle timer
-	        _onIdleMouseMove();
-	      }
-
-	      var target = e.target || e.srcElement;
-	      var uiElement = void 0;
-	      var clickedClass = target.getAttribute('class') || '';
-	      var found = void 0;
-
-	      for (var i = 0; i < _uiElements.length; i++) {
-	        uiElement = _uiElements[i];
-	        if (uiElement.onTap && clickedClass.includes('zvui-pinch__' + uiElement.name)) {
-	          uiElement.onTap();
-	          found = true;
-	        }
-	      }
-
-	      if (found) {
-	        if (e.stopPropagation) {
-	          e.stopPropagation();
-	        }
-	        _blockControlsTap = true;
-
-	        // Some versions of Android don't prevent ghost click event
-	        // when preventDefault() was called on touchstart and/or touchend.
-	        //
-	        // This happens on v4.3, 4.2, 4.1,
-	        // older versions strangely work correctly,
-	        // but just in case we add delay on all of them)
-	        var tapDelay = helper.features.isOldAndroid ? 600 : 30;
-	        _blockControlsTapTimeout = setTimeout(function () {
-	          _blockControlsTap = false;
-	        }, tapDelay);
-	      }
-	    };
-
-	    var _fitControlsInViewport = function _fitControlsInViewport() {
-	      return !zvuiPinch.likelyTouchDevice || _options.mouseUsed || screen.width > _options.fitControlsWidth;
-	    };
-
-	    var _toggleZvuiPinchClass = function _toggleZvuiPinchClass(el, cName, add) {
-	      helper[(add ? 'add' : 'remove') + 'Class'](el, 'zvui-pinch__' + cName);
-	    };
-
-	    var // add class when there is just one item in the gallery
-	    // (by default it hides left/right arrows and 1ofX counter)
-	    _countNumItems = function _countNumItems() {
-	      var hasOneSlide = _options.getNumItemsFn() === 1;
-
-	      if (hasOneSlide !== _galleryHasOneSlide) {
-	        _toggleZvuiPinchClass(_controls, 'ui--one-slide', hasOneSlide);
-	        _galleryHasOneSlide = hasOneSlide;
-	      }
-	    };
-
-	    var _toggleShareModalClass = function _toggleShareModalClass() {
-	      _toggleZvuiPinchClass(_shareModal, 'share-modal--hidden', _shareModalHidden);
-	    };
-
-	    var _toggleShareModal = function _toggleShareModal() {
-	      // Hack to not enable share modal
-	      return false;
-
-	      _shareModalHidden = !_shareModalHidden;
-
-	      if (!_shareModalHidden) {
-	        _toggleShareModalClass();
-	        setTimeout(function () {
-	          if (!_shareModalHidden) {
-	            helper.addClass(_shareModal, 'zvui-pinch__share-modal--fade-in');
-	          }
-	        }, 30);
-	      } else {
-	        helper.removeClass(_shareModal, 'zvui-pinch__share-modal--fade-in');
-	        setTimeout(function () {
-	          if (_shareModalHidden) {
-	            _toggleShareModalClass();
-	          }
-	        }, 300);
-	      }
-
-	      if (!_shareModalHidden) {
-	        _updateShareURLs();
-	      }
-	      return false;
-	    };
-
-	    var _openWindowPopup = function _openWindowPopup(e) {
-	      e = e || window.event;
-	      var target = e.target || e.srcElement;
-
-	      zvuiPinch.shout('shareLinkClick', e, target);
-
-	      if (!target.href) {
-	        return false;
-	      }
-
-	      if (target.hasAttribute('download')) {
-	        return true;
-	      }
-
-	      window.open(target.href, 'zvui-pinchshare', 'scrollbars=yes,resizable=yes,toolbar=no,location=yes,width=550,height=420,top=100,left=' + (window.screen ? Math.round(screen.width / 2 - 275) : 100));
-
-	      if (!_shareModalHidden) {
-	        _toggleShareModal();
-	      }
-
-	      return false;
-	    };
-
-	    var _updateShareURLs = function _updateShareURLs() {
-	      var shareButtonOut = '';
-	      var shareButtonData = void 0;
-	      var shareURL = void 0;
-	      var image_url = void 0;
-	      var page_url = void 0;
-	      var share_text = void 0;
-
-	      for (var i = 0; i < _options.shareButtons.length; i++) {
-	        shareButtonData = _options.shareButtons[i];
-
-	        image_url = _options.getImageURLForShare(shareButtonData);
-	        page_url = _options.getPageURLForShare(shareButtonData);
-	        share_text = _options.getTextForShare(shareButtonData);
-
-	        shareURL = shareButtonData.url.replace('{{url}}', encodeURIComponent(page_url)).replace('{{image_url}}', encodeURIComponent(image_url)).replace('{{raw_image_url}}', image_url).replace('{{text}}', encodeURIComponent(share_text));
-
-	        shareButtonOut += '<a href="' + shareURL + '" target="_blank" class="zvui-pinch__share--' + shareButtonData.id + '"' + (shareButtonData.download ? 'download' : '') + '>' + shareButtonData.label + '</a>';
-
-	        if (_options.parseShareButtonOut) {
-	          shareButtonOut = _options.parseShareButtonOut(shareButtonData, shareButtonOut);
-	        }
-	      }
-	      _shareModal.children[0].innerHTML = shareButtonOut;
-	      _shareModal.children[0].onclick = _openWindowPopup;
-	    };
-
-	    var _hasCloseClass = function _hasCloseClass(target) {
-	      for (var i = 0; i < _options.closeElClasses.length; i++) {
-	        if (helper.hasClass(target, 'zvui-pinch__' + _options.closeElClasses[i])) {
-	          return true;
-	        }
-	      }
-	    };
-
-	    var _idleInterval = void 0;
-	    var _idleTimer = void 0;
-	    var _idleIncrement = 0;
-
-	    var _onIdleMouseMove = function _onIdleMouseMove() {
-	      clearTimeout(_idleTimer);
-	      _idleIncrement = 0;
-	      if (_isIdle) {
-	        ui.setIdle(false);
-	      }
-	    };
-
-	    var _onMouseLeaveWindow = function _onMouseLeaveWindow(e) {
-	      e = e ? e : window.event;
-	      var from = e.relatedTarget || e.toElement;
-	      if (!from || from.nodeName === 'HTML') {
-	        clearTimeout(_idleTimer);
-	        _idleTimer = setTimeout(function () {
-	          ui.setIdle(true);
-	        }, _options.timeToIdleOutside);
-	      }
-	    };
-
-	    var _setupFullscreenAPI = function _setupFullscreenAPI() {
-	      if (_options.fullscreenEl && !helper.features.isOldAndroid) {
-	        if (!_fullscrenAPI) {
-	          _fullscrenAPI = ui.getFullscreenAPI();
-	        }
-	        if (_fullscrenAPI) {
-	          helper.bind(document, _fullscrenAPI.eventK, ui.updateFullscreen);
-	          ui.updateFullscreen();
-	          helper.addClass(zvuiPinch.template, 'zvui-pinch--supports-fs');
-	        } else {
-	          helper.removeClass(zvuiPinch.template, 'zvui-pinch--supports-fs');
-	        }
-	      }
-	    };
-
-	    var _setupLoadingIndicator = function _setupLoadingIndicator() {
-	      // Setup loading indicator
-	      if (_options.preloaderEl) {
-
-	        _toggleLoadingIndicator(true);
-
-	        _listen('beforeChange', function () {
-
-	          clearTimeout(_loadingIndicatorTimeout);
-
-	          // display loading indicator with delay
-	          _loadingIndicatorTimeout = setTimeout(function () {
-
-	            if (zvuiPinch.currItem && zvuiPinch.currItem.loading) {
-
-	              if (!zvuiPinch.allowProgressiveImg() || zvuiPinch.currItem.img && !zvuiPinch.currItem.img.naturalWidth) {
-	                // show preloader if progressive loading is not enabled,
-	                // or image width is not defined yet (because of slow connection)
-	                _toggleLoadingIndicator(false);
-	                // items-controller.js function allowProgressiveImg
-	              }
-	            } else {
-	              _toggleLoadingIndicator(true); // hide preloader
-	            }
-	          }, _options.loadingIndicatorDelay);
-	        });
-	        _listen('imageLoadComplete', function (index, item) {
-	          if (zvuiPinch.currItem === item) {
-	            _toggleLoadingIndicator(true);
-	          }
-	        });
-	      }
-	    };
-
-	    var _toggleLoadingIndicator = function _toggleLoadingIndicator(hide) {
-	      if (_loadingIndicatorHidden !== hide) {
-	        _toggleZvuiPinchClass(_loadingIndicator, 'spinner', !hide);
-	        _loadingIndicatorHidden = hide;
-	      }
-	    };
-
-	    var _applyNavBarGaps = function _applyNavBarGaps(item) {
-	      var gap = item.vGap;
-
-	      if (_fitControlsInViewport()) {
-
-	        var bars = _options.barsSize;
-	        if (_options.captionEl && bars.bottom === 'auto') {
-	          if (!_fakeCaptionContainer) {
-	            _fakeCaptionContainer = helper.createEl('zvui-pinch__caption zvui-pinch__caption--fake');
-	            _fakeCaptionContainer.appendChild(helper.createEl('zvui-pinch__caption__center'));
-	            _controls.insertBefore(_fakeCaptionContainer, _captionContainer);
-	            helper.addClass(_controls, 'zvui-pinch__ui--fit');
-	          }
-	          if (_options.addCaptionHTMLFn(item, _fakeCaptionContainer, true)) {
-
-	            var captionSize = _fakeCaptionContainer.clientHeight;
-	            gap.bottom = parseInt(captionSize, 10) || 44;
-	          } else {
-	            gap.bottom = bars.top; // if no caption, set size of bottom gap to size of top
-	          }
-	        } else {
-	          gap.bottom = bars.bottom === 'auto' ? 0 : bars.bottom;
-	        }
-
-	        // height of top bar is static, no need to calculate it
-	        gap.top = bars.top;
-	      } else {
-	        gap.top = gap.bottom = 0;
-	      }
-	    };
-
-	    var _setupIdle = function _setupIdle() {
-	      // Hide controls when mouse is used
-	      if (_options.timeToIdle) {
-	        _listen('mouseUsed', function () {
-
-	          helper.bind(document, 'mousemove', _onIdleMouseMove);
-	          helper.bind(document, 'mouseout', _onMouseLeaveWindow);
-
-	          _idleInterval = setInterval(function () {
-	            _idleIncrement++;
-	            if (_idleIncrement === 2) {
-	              ui.setIdle(true);
-	            }
-	          }, _options.timeToIdle / 2);
-	        });
-	      }
-	    };
-
-	    var _setupHidingControlsDuringGestures = function _setupHidingControlsDuringGestures() {
-
-	      // Hide controls on vertical drag
-	      _listen('onVerticalDrag', function (now) {
-	        if (_controlsVisible && now < 0.95) {
-	          ui.hideControls();
-	        } else if (!_controlsVisible && now >= 0.95) {
-	          ui.showControls();
-	        }
-	      });
-
-	      // Hide controls when pinching to close
-	      var pinchControlsHidden = void 0;
-	      _listen('onPinchClose', function (now) {
-	        if (_controlsVisible && now < 0.9) {
-	          ui.hideControls();
-	          pinchControlsHidden = true;
-	        } else if (pinchControlsHidden && !_controlsVisible && now > 0.9) {
-	          ui.showControls();
-	        }
-	      });
-
-	      _listen('zoomGestureEnded', function () {
-	        pinchControlsHidden = false;
-	        if (pinchControlsHidden && !_controlsVisible) {
-	          ui.showControls();
-	        }
-	      });
-	    };
-
-	    var _uiElements = [{
-	      name: 'button--zoom',
-	      option: 'zoomEl',
-	      onTap: zvuiPinch.toggleDesktopZoom
-	    }, {
-	      name: 'button--close',
-	      option: 'closeEl',
-	      onTap: zvuiPinch.close
-	    }, {
-	      name: 'button--fs',
-	      option: 'fullscreenEl',
-	      onTap: function onTap() {
-	        if (_fullscrenAPI.isFullscreen()) {
-	          _fullscrenAPI.exit();
-	        } else {
-	          _fullscrenAPI.enter();
-	        }
-	      }
-	    }, {
-	      name: 'preloader',
-	      option: 'preloaderEl',
-	      onInit: function onInit(el) {
-	        _loadingIndicator = el;
-	      }
-	    }];
-
-	    var _setupUIElements = function _setupUIElements() {
-	      var item = void 0;
-	      var classAttr = void 0;
-	      var uiElement = void 0;
-
-	      var loopThroughChildElements = function loopThroughChildElements(sChildren) {
-	        if (!sChildren) {
-	          return;
-	        }
-
-	        var l = sChildren.length;
-	        for (var i = 0; i < l; i++) {
-	          item = sChildren[i];
-	          classAttr = item.className;
-
-	          for (var a = 0; a < _uiElements.length; a++) {
-	            uiElement = _uiElements[a];
-
-	            if (classAttr.includes('zvui-pinch__' + uiElement.name)) {
-
-	              if (_options[uiElement.option]) {
-	                // if element is not disabled from options
-
-	                helper.removeClass(item, 'zvui-pinch__element--disabled');
-	                if (uiElement.onInit) {
-	                  uiElement.onInit(item);
-	                }
-
-	                //item.style.display = 'block';
-	              } else {
-	                helper.addClass(item, 'zvui-pinch__element--disabled');
-	                //item.style.display = 'none';
-	              }
-	            }
-	          }
-	        }
-	      };
-	      loopThroughChildElements(_controls.children);
-
-	      var topBar = helper.getChildByClass(_controls, 'zvui-pinch__top-bar');
-	      if (topBar) {
-	        loopThroughChildElements(topBar.children);
-	      }
-	    };
-
-	    ui.init = function () {
-
-	      // extend options
-	      helper.extend(zvuiPinch.options, _defaultUIOptions, true);
-
-	      // create local link for fast access
-	      _options = zvuiPinch.options;
-
-	      // find zvui-pinch__ui element
-	      _controls = helper.getChildByClass(zvuiPinch.scrollWrap, 'zvui-pinch__ui');
-
-	      // create local link
-	      _listen = zvuiPinch.listen;
-
-	      _setupHidingControlsDuringGestures();
-
-	      // update controls when slides change
-	      _listen('beforeChange', ui.update);
-
-	      // toggle zoom on double-tap
-	      _listen('doubleTap', function (point) {
-	        var initialZoomLevel = zvuiPinch.currItem.initialZoomLevel;
-	        if (zvuiPinch.getZoomLevel() !== initialZoomLevel) {
-	          zvuiPinch.zoomTo(initialZoomLevel, point, 333);
-	        } else {
-	          zvuiPinch.zoomTo(_options.getDoubleTapZoom(false, zvuiPinch.currItem), point, 333);
-	        }
-	      });
-
-	      // Allow text selection in caption
-	      _listen('preventDragEvent', function (e, isDown, preventObj) {
-	        var t = e.target || e.srcElement;
-	        if (t && t.getAttribute('class') && e.type.includes('mouse') && (t.getAttribute('class').indexOf('__caption') > 0 || /(SMALL|STRONG|EM)/i.test(t.tagName))) {
-	          preventObj.prevent = false;
-	        }
-	      });
-
-	      // bind events for UI
-	      _listen('bindEvents', function () {
-	        helper.bind(_controls, 'zvuiPinchTap click', _onControlsTap);
-	        helper.bind(zvuiPinch.scrollWrap, 'zvuiPinchTap', ui.onGlobalTap);
-
-	        if (!zvuiPinch.likelyTouchDevice) {
-	          helper.bind(zvuiPinch.scrollWrap, 'mouseover', ui.onMouseOver);
-	        }
-	      });
-
-	      // unbind events for UI
-	      _listen('unbindEvents', function () {
-	        if (!_shareModalHidden) {
-	          _toggleShareModal();
-	        }
-
-	        if (_idleInterval) {
-	          clearInterval(_idleInterval);
-	        }
-	        helper.unbind(document, 'mouseout', _onMouseLeaveWindow);
-	        helper.unbind(document, 'mousemove', _onIdleMouseMove);
-	        helper.unbind(_controls, 'zvuiPinchTap click', _onControlsTap);
-	        helper.unbind(zvuiPinch.scrollWrap, 'zvuiPinchTap', ui.onGlobalTap);
-	        helper.unbind(zvuiPinch.scrollWrap, 'mouseover', ui.onMouseOver);
-
-	        if (_fullscrenAPI) {
-	          helper.unbind(document, _fullscrenAPI.eventK, ui.updateFullscreen);
-	          if (_fullscrenAPI.isFullscreen()) {
-	            _options.hideAnimationDuration = 0;
-	            _fullscrenAPI.exit();
-	          }
-	          _fullscrenAPI = null;
-	        }
-	      });
-
-	      // clean up things when gallery is destroyed
-	      _listen('destroy', function () {
-	        if (_options.captionEl) {
-	          if (_fakeCaptionContainer) {
-	            _controls.removeChild(_fakeCaptionContainer);
-	          }
-	          helper.removeClass(_captionContainer, 'zvui-pinch__caption--empty');
-	        }
-
-	        if (_shareModal) {
-	          _shareModal.children[0].onclick = null;
-	        }
-	        helper.removeClass(_controls, 'zvui-pinch__ui--over-close');
-	        helper.addClass(_controls, 'zvui-pinch__ui--hidden');
-	        ui.setIdle(false);
-	      });
-
-	      if (!_options.showAnimationDuration) {
-	        helper.removeClass(_controls, 'zvui-pinch__ui--hidden');
-	      }
-	      _listen('initialZoomIn', function () {
-	        if (_options.showAnimationDuration) {
-	          helper.removeClass(_controls, 'zvui-pinch__ui--hidden');
-	        }
-	      });
-	      _listen('initialZoomOut', function () {
-	        helper.addClass(_controls, 'zvui-pinch__ui--hidden');
-	      });
-
-	      _listen('parseVerticalMargin', _applyNavBarGaps);
-
-	      _setupUIElements();
-
-	      if (_options.shareEl && _shareButton && _shareModal) {
-	        _shareModalHidden = true;
-	      }
-
-	      _countNumItems();
-
-	      _setupIdle();
-
-	      _setupFullscreenAPI();
-
-	      _setupLoadingIndicator();
-	    };
-
-	    ui.setIdle = function (isIdle) {
-	      _isIdle = isIdle;
-	      _toggleZvuiPinchClass(_controls, 'ui--idle', isIdle);
-	    };
-
-	    ui.update = function () {
-	      // Don't update UI if it's hidden
-	      if (_controlsVisible && zvuiPinch.currItem) {
-
-	        ui.updateIndexIndicator();
-
-	        if (_options.captionEl) {
-	          _options.addCaptionHTMLFn(zvuiPinch.currItem, _captionContainer);
-
-	          _toggleZvuiPinchClass(_captionContainer, 'caption--empty', !zvuiPinch.currItem.title);
-	        }
-
-	        _overlayUIUpdated = true;
-	      } else {
-	        _overlayUIUpdated = false;
-	      }
-
-	      if (!_shareModalHidden) {
-	        _toggleShareModal();
-	      }
-
-	      _countNumItems();
-	    };
-
-	    ui.updateFullscreen = function (e) {
-
-	      if (e) {
-	        // some browsers change window scroll position during the fullscreen
-	        // so PhotoSwipe updates it just in case
-	        setTimeout(function () {
-	          zvuiPinch.setScrollOffset(0, helper.getScrollY());
-	        }, 50);
-	      }
-
-	      // toogle zvui-pinch--fs class on root element
-	      helper[(_fullscrenAPI.isFullscreen() ? 'add' : 'remove') + 'Class'](zvuiPinch.template, 'zvui-pinch--fs');
-	    };
-
-	    ui.updateIndexIndicator = function () {
-	      if (_options.counterEl) {
-	        _indexIndicator.innerHTML = zvuiPinch.getCurrentIndex() + 1 + _options.indexIndicatorSep + _options.getNumItemsFn();
-	      }
-	    };
-
-	    ui.onGlobalTap = function (e) {
-	      e = e || window.event;
-	      var target = e.target || e.srcElement;
-
-	      if (_blockControlsTap) {
-	        return;
-	      }
-
-	      if (e.detail && e.detail.pointerType === 'mouse') {
-
-	        // close gallery if clicked outside of the image
-	        if (_hasCloseClass(target)) {
-	          zvuiPinch.close();
-	          return;
-	        }
-
-	        if (helper.hasClass(target, 'zvui-pinch__img')) {
-	          if (zvuiPinch.getZoomLevel() === 1 && zvuiPinch.getZoomLevel() <= zvuiPinch.currItem.fitRatio) {
-	            if (_options.clickToCloseNonZoomable) {
-	              zvuiPinch.close();
-	            }
-	          } else {
-	            zvuiPinch.toggleDesktopZoom(e.detail.releasePoint);
-	          }
-	        }
-	      } else {
-
-	        // tap anywhere (except buttons) to toggle visibility of controls
-	        if (_options.tapToToggleControls) {
-	          if (_controlsVisible) {
-	            ui.hideControls();
-	          } else {
-	            ui.showControls();
-	          }
-	        }
-
-	        // tap to close gallery
-	        if (_options.tapToClose && (helper.hasClass(target, 'zvui-pinch__img') || _hasCloseClass(target))) {
-	          zvuiPinch.close();
-	          return;
-	        }
-	      }
-	    };
-	    ui.onMouseOver = function (e) {
-	      e = e || window.event;
-	      var target = e.target || e.srcElement;
-
-	      // add class when mouse is over an element that should close the gallery
-	      _toggleZvuiPinchClass(_controls, 'ui--over-close', _hasCloseClass(target));
-	    };
-
-	    ui.hideControls = function () {
-	      helper.addClass(_controls, 'zvui-pinch__ui--hidden');
-	      _controlsVisible = false;
-	    };
-
-	    ui.showControls = function () {
-	      _controlsVisible = true;
-	      if (!_overlayUIUpdated) {
-	        ui.update();
-	      }
-	      helper.removeClass(_controls, 'zvui-pinch__ui--hidden');
-	    };
-
-	    ui.supportsFullscreen = function () {
-	      var d = document;
-	      return !!(d.exitFullscreen || d.mozCancelFullScreen || d.webkitExitFullscreen || d.msExitFullscreen);
-	    };
-
-	    ui.getFullscreenAPI = function () {
-	      var dE = document.documentElement;
-	      var api = void 0;
-	      var tF = 'fullscreenchange';
-
-	      if (dE.requestFullscreen) {
-	        api = {
-	          enterK: 'requestFullscreen',
-	          exitK: 'exitFullscreen',
-	          elementK: 'fullscreenElement',
-	          eventK: tF
-	        };
-	      } else if (dE.mozRequestFullScreen) {
-	        api = {
-	          enterK: 'mozRequestFullScreen',
-	          exitK: 'mozCancelFullScreen',
-	          elementK: 'mozFullScreenElement',
-	          eventK: 'moz' + tF
-	        };
-	      } else if (dE.webkitRequestFullscreen) {
-	        api = {
-	          enterK: 'webkitRequestFullscreen',
-	          exitK: 'webkitExitFullscreen',
-	          elementK: 'webkitFullscreenElement',
-	          eventK: 'webkit' + tF
-	        };
-	      } else if (dE.msRequestFullscreen) {
-	        api = {
-	          enterK: 'msRequestFullscreen',
-	          exitK: 'msExitFullscreen',
-	          elementK: 'msFullscreenElement',
-	          eventK: 'MSFullscreenChange'
-	        };
-	      }
-
-	      if (api) {
-	        api.enter = function () {
-	          // disable close-on-scroll in fullscreen
-	          _initalCloseOnScrollValue = _options.closeOnScroll;
-	          _options.closeOnScroll = false;
-
-	          if (this.enterK === 'webkitRequestFullscreen') {
-	            zvuiPinch.template[this.enterK](Element.ALLOW_KEYBOARD_INPUT);
-	          } else {
-	            return zvuiPinch.template[this.enterK]();
-	          }
-	        };
-	        api.exit = function () {
-	          _options.closeOnScroll = _initalCloseOnScrollValue;
-
-	          return document[this.exitK]();
-	        };
-	        api.isFullscreen = function () {
-	          return document[this.elementK];
-	        };
-	      }
-
-	      return api;
-	    };
-	  };
-	});
-
-/***/ },
-/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -4349,7 +4169,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4360,10 +4180,66 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = ['beforeChange', 'afterChange', 'imageLoadComplete', 'resize', 'initialZoomIn', 'initialZoomInEnd', 'initialZoomOut', 'initialZoomOutEnd', 'close', 'unbindEvents', 'destroy', 'updateScrollOffset', 'preventDragEvent'];
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports) {
 
-	// removed by extract-text-webpack-plugin
+	'use strict';
+
+	function preserveCamelCase(str) {
+		var isLastCharLower = false;
+
+		for (var i = 0; i < str.length; i++) {
+			var c = str.charAt(i);
+
+			if (isLastCharLower && (/[a-zA-Z]/).test(c) && c.toUpperCase() === c) {
+				str = str.substr(0, i) + '-' + str.substr(i);
+				isLastCharLower = false;
+				i++;
+			} else {
+				isLastCharLower = (c.toLowerCase() === c);
+			}
+		}
+
+		return str;
+	}
+
+	module.exports = function () {
+		var str = [].map.call(arguments, function (str) {
+			return str.trim();
+		}).filter(function (str) {
+			return str.length;
+		}).join('-');
+
+		if (!str.length) {
+			return '';
+		}
+
+		if (str.length === 1) {
+			return str.toLowerCase();
+		}
+
+		if (!(/[_.\- ]+/).test(str)) {
+			if (str === str.toUpperCase()) {
+				return str.toLowerCase();
+			}
+
+			if (str[0] !== str[0].toLowerCase()) {
+				return str[0].toLowerCase() + str.slice(1);
+			}
+
+			return str;
+		}
+
+		str = preserveCamelCase(str);
+
+		return str
+		.replace(/^[_.\- ]+/, '')
+		.toLowerCase()
+		.replace(/[_.\- ]+(\w|$)/g, function (m, p1) {
+			return p1.toUpperCase();
+		});
+	};
+
 
 /***/ }
 /******/ ])
